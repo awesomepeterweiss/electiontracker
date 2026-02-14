@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Election Tracker 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:        #0d0f12;
+      --surface:   #13161b;
+      --surface2:  #1c2028;
+      --border:    #252a34;
+      --text:      #e8eaf0;
+      --muted:     #6b7280;
+      --dem:       #3b82f6;
+      --dem-soft:  rgba(59,130,246,0.12);
+      --rep:       #ef4444;
+      --rep-soft:  rgba(239,68,68,0.12);
+      --ind:       #a78bfa;
+      --ind-soft:  rgba(167,139,250,0.12);
+      --accent:    #f0b429;
+      --accent-soft: rgba(240,180,41,0.10);
+      --green:     #22c55e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 48px 0;
+    }
+    .header-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 20px;
+    }
+    .header-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .header-left .sub {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      font-family: 'DM Mono', monospace;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── TABS ── */
+    .tab-bar { display: flex; }
+    .tab-btn {
+      padding: 10px 24px 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-cell {
+      flex: 1;
+      background: var(--surface);
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-value.dem    { color: var(--dem); }
+    .stat-value.rep    { color: var(--rep); }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.green  { color: var(--green); }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+    .filter-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── MAIN ── */
+    main { max-width: 1400px; margin: 0 auto; padding: 32px 48px 64px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      margin-top: 40px;
+    }
+    .section-header:first-child { margin-top: 0; }
+    .section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .section-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--border); }
+
+    /* ── RACE CARDS ── */
+    .race-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 12px;
+    }
+    .race-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s, transform 0.15s;
+      animation: fadeUp 0.3s ease both;
+    }
+    .race-card:hover { border-color: #3a3f4e; transform: translateY(-1px); }
+    .race-card.result { opacity: 0.72; }
+    .race-card.result:hover { opacity: 1; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .race-card:nth-child(2){animation-delay:.04s}
+    .race-card:nth-child(3){animation-delay:.08s}
+    .race-card:nth-child(4){animation-delay:.12s}
+    .race-card:nth-child(5){animation-delay:.16s}
+    .race-card:nth-child(6){animation-delay:.20s}
+
+    .card-top {
+      padding: 16px 18px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .race-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .race-meta { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+    .race-state { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; }
+    .race-dot   { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .race-date  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+
+    .status-badge {
+      padding: 3px 8px; border-radius: 3px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .status-upcoming { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(240,180,41,.25); }
+    .status-result   { background: rgba(34,197,94,.10);  color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+    .status-primary  { background: rgba(167,139,250,.10); color: var(--ind); border: 1px solid rgba(167,139,250,.25); }
+
+    .type-tag {
+      display: inline-block; padding: 2px 7px; border-radius: 3px;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      background: var(--surface2); color: var(--muted);
+      border: 1px solid var(--border); margin-top: 5px;
+    }
+    .type-special { background: rgba(240,180,41,.08); color: #d4a017; border-color: rgba(240,180,41,.2); }
+    .type-primary { background: rgba(167,139,250,.08); color: #9d6fe8; border-color: rgba(167,139,250,.2); }
+
+    .candidates { padding: 14px 18px; }
+    .candidate-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+    }
+    .candidate-row:last-child { border-bottom: none; }
+    .party-pip { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .pip-D { background: var(--dem); }
+    .pip-R { background: var(--rep); }
+    .pip-I { background: var(--ind); }
+    .pip-G { background: #16a34a; }
+    .cand-name  { flex: 1; font-size: 13px; font-weight: 500; color: var(--text); }
+    .cand-party { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); width: 20px; }
+    .cand-poll  { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); width: 42px; text-align: right; }
+    .poll-bar-wrap { width: 80px; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+    .poll-bar   { height: 100%; border-radius: 2px; }
+    .bar-D { background: var(--dem); }
+    .bar-R { background: var(--rep); }
+    .bar-I { background: var(--ind); }
+    .bar-G { background: #16a34a; }
+    .winner-icon { font-size: 11px; margin-left: 2px; }
+    .poll-note { padding: 8px 18px 12px; font-size: 11px; color: var(--muted); font-style: italic; border-top: 1px solid var(--border); }
+    .result-banner {
+      background: rgba(34,197,94,.06); border-top: 1px solid rgba(34,197,94,.15);
+      padding: 8px 18px; font-size: 12px; color: var(--green);
+      font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 6px;
+    }
+    .result-banner::before { content: '✓'; font-size: 11px; }
+
+    /* ═══════════════════════════════════════
+       SHIFT TRACKER
+    ═══════════════════════════════════════ */
+    .shift-stats-bar {
+      display: flex; gap: 1px;
+      background: var(--border);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .shift-stat-cell {
+      flex: 1; background: var(--surface);
+      padding: 16px 24px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
+    .chart-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+    .chart-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .chart-wrap { position: relative; height: 290px; }
+
+    .cat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .shift-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .shift-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px 18px;
+      animation: fadeUp 0.3s ease both;
+      transition: border-color 0.15s;
+    }
+    .shift-card:hover { border-color: #3a3f4e; }
+    .shift-card:nth-child(2){animation-delay:.04s}
+    .shift-card:nth-child(3){animation-delay:.08s}
+
+    .shift-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+    .shift-race-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .shift-race-sub  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+    .shift-badge {
+      padding: 4px 10px; border-radius: 4px;
+      font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-dem { background: var(--dem-soft); color: var(--dem); border: 1px solid rgba(59,130,246,.3); }
+    .badge-rep { background: var(--rep-soft); color: var(--rep); border: 1px solid rgba(239,68,68,.3); }
+    .badge-neu { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+
+    .sc-compare { display: flex; flex-direction: column; gap: 8px; }
+    .sc-row { display: flex; align-items: center; gap: 10px; }
+    .sc-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); width: 58px; flex-shrink: 0; }
+    .sc-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+    .sc-fill  { height: 100%; border-radius: 3px; }
+    .sc-val   { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text); width: 44px; text-align: right; }
+
+    .shift-footer {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .shift-arrow-dem { color: var(--dem); }
+    .shift-arrow-rep { color: var(--rep); }
+
+    /* ═══════════════════════════════════════
+       PRIMARY WING TRACKER
+    ═══════════════════════════════════════ */
+    .wing-stats-bar {
+      display: flex; gap: 1px;
+      background: var(--border);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .wing-stat {
+      flex: 1; background: var(--surface);
+      padding: 16px 24px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
+    /* Scoreboard */
+    .wing-scoreboard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 28px 24px;
+      margin-bottom: 28px;
+    }
+    .wsb-title {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    .wsb-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .wsb-row:last-child { margin-bottom: 0; }
+    .wsb-label {
+      width: 130px; flex-shrink: 0;
+      font-size: 12px; font-weight: 600; color: var(--text);
+    }
+    .wsb-track {
+      flex: 1; height: 10px; background: var(--surface2);
+      border-radius: 5px; overflow: hidden; position: relative;
+    }
+    .wsb-fill { height: 100%; border-radius: 5px; transition: width .8s ease; }
+    .fill-prog  { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .fill-mod   { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+    .fill-estab { background: linear-gradient(90deg, #0f766e, #2dd4bf); }
+    .wsb-count {
+      font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+      width: 50px; text-align: right;
+    }
+    .wsb-count.prog  { color: #a78bfa; }
+    .wsb-count.mod   { color: #38bdf8; }
+    .wsb-count.estab { color: #2dd4bf; }
+
+    /* Primary cards */
+    .primary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 14px;
+    }
+    .primary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      animation: fadeUp 0.3s ease both;
+      transition: border-color .15s, transform .15s;
+    }
+    .primary-card:hover { border-color: #3a3f4e; transform: translateY(-1px); }
+    .primary-card:nth-child(2){animation-delay:.04s}
+    .primary-card:nth-child(3){animation-delay:.08s}
+    .primary-card:nth-child(4){animation-delay:.12s}
+
+    /* Card header stripe — colored by leading wing */
+    .pc-stripe { height: 3px; width: 100%; }
+    .stripe-prog  { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .stripe-mod   { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+    .stripe-estab { background: linear-gradient(90deg, #0f766e, #2dd4bf); }
+    .stripe-mixed { background: linear-gradient(90deg, #7c3aed, #0ea5e9, #2dd4bf); }
+    .stripe-tbd   { background: var(--border); }
+
+    .pc-header {
+      padding: 14px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+    }
+    .pc-race-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .pc-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+    .pc-state  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; }
+    .pc-date   { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+    .pc-dot    { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+    /* Lean badge */
+    .lean-badge {
+      padding: 3px 9px; border-radius: 3px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      text-transform: uppercase; letter-spacing: .05em;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .lean-safe-d   { background: rgba(59,130,246,.15); color: #60a5fa; border: 1px solid rgba(59,130,246,.3); }
+    .lean-likely-d { background: rgba(59,130,246,.08); color: #93c5fd; border: 1px solid rgba(59,130,246,.2); }
+    .lean-tossup   { background: rgba(240,180,41,.10); color: var(--accent); border: 1px solid rgba(240,180,41,.25); }
+
+    /* Status pill */
+    .pc-status {
+      display: inline-block; padding: 2px 7px; border-radius: 3px; margin-top: 4px;
+      font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: .06em;
+    }
+    .pcs-upcoming { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(240,180,41,.25); }
+    .pcs-result   { background: rgba(34,197,94,.10); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+
+    /* Candidates */
+    .pc-candidates { padding: 14px 18px 4px; }
+    .pc-cand-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+    }
+    .pc-cand-row:last-child { border-bottom: none; }
+
+    /* Wing pill */
+    .wing-pill {
+      padding: 2px 7px; border-radius: 3px; flex-shrink: 0;
+      font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .05em; margin-top: 2px;
+    }
+    .wp-progressive   { background: rgba(124,58,237,.18); color: #c4b5fd; border: 1px solid rgba(124,58,237,.3); }
+    .wp-moderate      { background: rgba(14,165,233,.15); color: #7dd3fc; border: 1px solid rgba(14,165,233,.3); }
+    .wp-establishment { background: rgba(15,118,110,.15); color: #5eead4; border: 1px solid rgba(15,118,110,.3); }
+
+    .pc-cand-info { flex: 1; min-width: 0; }
+    .pc-cand-name {
+      font-size: 13px; font-weight: 500; color: var(--text);
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .winner-star { font-size: 11px; color: var(--green); }
+
+    /* Poll bar */
+    .pc-poll-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+    .pc-bar-wrap { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+    .pc-bar-fill { height: 100%; border-radius: 2px; }
+    .pcb-prog  { background: #a78bfa; }
+    .pcb-mod   { background: #38bdf8; }
+    .pcb-estab { background: #2dd4bf; }
+    .pc-pct    { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text); width: 36px; text-align: right; }
+    .pc-tbd    { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+
+    /* Endorsements */
+    .pc-endorsements {
+      padding: 10px 18px 12px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    }
+    .endorse-label {
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-right: 2px;
+    }
+    .endorse-tag {
+      padding: 2px 8px; border-radius: 3px;
+      font-size: 11px; font-weight: 500;
+      border: 1px solid;
+    }
+    .et-prog  { background: rgba(124,58,237,.12); color: #c4b5fd; border-color: rgba(124,58,237,.3); }
+    .et-mod   { background: rgba(14,165,233,.10); color: #7dd3fc; border-color: rgba(14,165,233,.3); }
+    .et-estab { background: rgba(15,118,110,.12); color: #5eead4; border-color: rgba(15,118,110,.3); }
+    .et-neu   { background: var(--surface2); color: var(--muted); border-color: var(--border); }
+
+    /* Result winner banner */
+    .pc-winner-banner {
+      background: rgba(34,197,94,.06); border-top: 1px solid rgba(34,197,94,.15);
+      padding: 8px 18px; font-size: 12px; color: var(--green);
+      font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 6px;
+    }
+    .pc-winner-banner::before { content: '✓'; font-size: 11px; }
+
+    /* Context note */
+    .pc-note {
+      padding: 6px 18px 12px; font-size: 11px; color: var(--muted);
+      font-style: italic; border-top: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      header, main, .filter-bar, footer { padding-left: 20px; padding-right: 20px; }
+      .race-grid, .shift-grid { grid-template-columns: 1fr; }
+      .stats-bar, .shift-stats-bar { flex-wrap: wrap; }
+      .stat-cell, .shift-stat-cell { min-width: 45%; }
+      .chart-wrap { height: 200px; }
+    }
+    /* ── REDISTRICTING TAB ── */
+    .redist-section-header { display:flex; align-items:center; gap:12px; margin:32px 0 16px; }
+    .redist-section-title { font-family:'DM Mono',monospace; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; white-space:nowrap; }
+    .redist-section-line { flex:1; height:1px; background:var(--border); }
+    .redist-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
+    .redist-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .redist-card-stripe { height:4px; }
+    .stripe-r { background:#ef4444; }
+    .stripe-d { background:#3b82f6; }
+    .stripe-court { background:#a78bfa; }
+    .stripe-dead { background:#4b5563; }
+    .redist-card-body { padding:16px; }
+    .redist-state { font-size:15px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .redist-state a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); transition:border-color .15s; }
+    .redist-state a:hover { border-color:var(--dem); }
+    .redist-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); margin-bottom:12px; }
+    .redist-pills { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+    .redist-pill { font-family:'DM Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.04em; padding:3px 8px; border-radius:4px; }
+    .pill-r { background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.25); }
+    .pill-d { background:rgba(59,130,246,.15); color:#60a5fa; border:1px solid rgba(59,130,246,.25); }
+    .pill-court { background:rgba(167,139,250,.15); color:#a78bfa; border:1px solid rgba(167,139,250,.25); }
+    .pill-neutral { background:rgba(107,114,128,.15); color:#9ca3af; border:1px solid rgba(107,114,128,.25); }
+    .pill-dead { background:rgba(75,85,99,.15); color:#6b7280; border:1px solid rgba(75,85,99,.25); }
+    .redist-seats { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; margin-bottom:8px; }
+    .seats-r { color:#f87171; }
+    .seats-d { color:#60a5fa; }
+    .seats-even { color:#9ca3af; }
+    .redist-desc { font-size:12px; line-height:1.65; color:#9ca3af; }
+    .redist-legal { margin-top:10px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; font-family:'DM Mono',monospace; color:#a78bfa; }
+    .redist-legal::before { content:'⚖ '; }
+    .redist-stats-bar { display:flex; gap:0; margin-bottom:24px; background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .redist-stat { flex:1; padding:14px 16px; border-right:1px solid var(--border); text-align:center; }
+    .redist-stat:last-child { border-right:none; }
+
+    @media (max-width:700px) { .redist-grid { grid-template-columns:1fr; } .redist-stats-bar { flex-wrap:wrap; } .redist-stat { min-width:45%; } }
+
+    /* ── FUNDRAISING ── */
+    .fundraising-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 900px;
+    }
+    .fundraising-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 50px 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 8px 16px;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .fundraising-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .fundraising-rank {
+      grid-row: 1 / 3;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0.8;
+    }
+    .fundraising-info {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .fundraising-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+    }
+    .fundraising-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .fundraising-amount {
+      grid-column: 3;
+      grid-row: 1;
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: right;
+    }
+    .fundraising-bar-wrap {
+      grid-column: 2 / 4;
+      grid-row: 2;
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .fundraising-bar {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    @media (max-width: 700px) {
+      .fundraising-card {
+        grid-template-columns: 40px 1fr;
+        gap: 12px;
+      }
+      .fundraising-rank {
+        font-size: 24px;
+      }
+      .fundraising-amount {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: left;
+        font-size: 16px;
+      }
+      .fundraising-bar-wrap {
+        grid-column: 1 / 3;
+        grid-row: 3;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="header-left">
+      <h1>Election Tracker</h1>
+      <p class="sub">Special Elections &amp; High-Profile Primaries — Road to 2026</p>
+    </div>
+    <div class="header-right">
+      <div class="live-dot"></div>
+      <span>Updated Feb 13, 2026</span>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="races">Race Tracker</button>
+    <button class="tab-btn" data-tab="shifts">Shift Tracker</button>
+    <button class="tab-btn" data-tab="primary">Progressive Challengers</button>
+    <button class="tab-btn" data-tab="redist">Mid-Decade Redistricting</button>
+    <button class="tab-btn" data-tab="fundraising">Fundraising</button>
+  </div>
+</header>
+
+<!-- Race stats + filters (hidden when on Shift tab) -->
+<div id="raceControls">
+  <div class="stats-bar">
+    <div class="stat-cell"><span class="stat-label">Special Elections</span><span class="stat-value" id="totalRaces">—</span></div>
+    <div class="stat-cell"><span class="stat-label">Upcoming</span><span class="stat-value accent" id="upcomingCount">—</span></div>
+    <div class="stat-cell"><span class="stat-label">Results In</span><span class="stat-value" id="resultCount">—</span></div>
+    <div class="stat-cell"><span class="stat-label">Dem Wins</span><span class="stat-value dem" id="demWins">—</span></div>
+    <div class="stat-cell"><span class="stat-label">Rep Wins</span><span class="stat-value rep" id="repWins">—</span></div>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+    <button class="filter-btn" data-filter="result">Results In</button>
+  </div>
+</div>
+
+<main>
+  <div class="tab-panel active" id="tab-races">
+    <div id="racesContent"></div>
+  </div>
+
+  <div class="tab-panel" id="tab-shifts">
+    <!-- Explanatory blurb -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Special elections have favored Democrats in recent years. The party has become more attractive to college-educated, suburban voters, who tend to be more civically engaged and more likely to turn out in special elections. That said, we're seeing an even larger shift toward Democrats this cycle, bigger than anything we saw in 2022–23. Right now, Democrats are overperforming by almost 7 points compared to their results in that period.</p>
+    </div>
+
+    <!-- Summary stats -->
+    <div class="shift-stats-bar">
+      <div class="shift-stat-cell"><span class="stat-label">2025–26 Races</span><span class="stat-value" id="shiftTotal">—</span></div>
+      <div class="shift-stat-cell"><span class="stat-label">2025–26 Avg D Shift</span><span class="stat-value dem" id="avgShift">—</span></div>
+      <div class="shift-stat-cell"><span class="stat-label">2022–23 Races</span><span class="stat-value" id="shiftTotal2223">—</span></div>
+      <div class="shift-stat-cell"><span class="stat-label">2022–23 Avg D Shift</span><span class="stat-value" id="avgShift2223" style="color:#f59e0b">—</span></div>
+      <div class="shift-stat-cell"><span class="stat-label">Largest Swing</span><span class="stat-value green" id="largestSwing">—</span></div>
+    </div>
+
+    <!-- Bar charts -->
+    <div class="chart-section">
+      <div class="chart-title">2025–26 Special Elections — Partisan Margin (D+/R+ scale)</div>
+      <div class="chart-wrap"><canvas id="shiftChart"></canvas></div>
+    </div>
+    <div class="chart-section" style="margin-top:24px;">
+      <div class="chart-title" style="color:#f59e0b;">2022–23 Special Elections — Partisan Margin (D+/R+ scale)</div>
+      <div class="chart-wrap"><canvas id="shiftChart2223"></canvas></div>
+    </div>
+
+    <!-- Cards grouped by category -->
+    <div id="shiftCards"></div>
+  </div>
+
+  <!-- TAB 3: PRIMARY WING TRACKER -->
+  <div class="tab-panel" id="tab-primary">
+
+    <!-- Explanatory blurb -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Disapproval of the Democratic Party among Democratic voters is at a historic high. Many feel their representatives have been too timid and too slow to fight back against the Trump administration. That frustration is now showing up at the ballot box, with progressive and insurgent candidates winning primaries and forcing retirements. The congressional primaries this cycle are worth watching closely.</p>
+    </div>
+
+    <!-- Wing scoreboard stats -->
+    <div class="wing-stats-bar">
+      <div class="wing-stat"><span class="stat-label">Primaries Tracked</span><span class="stat-value" id="wingTotal">—</span></div>
+      <div class="wing-stat"><span class="stat-label">Progressive Wins</span><span class="stat-value" style="color:#a78bfa" id="progWins">—</span></div>
+      <div class="wing-stat"><span class="stat-label">Moderate Wins</span><span class="stat-value" style="color:#38bdf8" id="modWins">—</span></div>
+      <div class="wing-stat"><span class="stat-label">Estab. Wins</span><span class="stat-value" style="color:#2dd4bf" id="estabWins">—</span></div>
+      <div class="wing-stat"><span class="stat-label">Pending</span><span class="stat-value accent" id="pendingCount">—</span></div>
+    </div>
+
+    <!-- Running scoreboard bar -->
+    <div class="wing-scoreboard">
+      <div class="wsb-title">Wing Wins — Decided Primaries</div>
+      <div class="wsb-row">
+        <div class="wsb-label" style="color:#a78bfa">Progressive</div>
+        <div class="wsb-track"><div class="wsb-fill fill-prog" id="wsbProgBar" style="width:0%"></div></div>
+        <div class="wsb-count prog" id="wsbProgCount">0</div>
+      </div>
+      <div class="wsb-row">
+        <div class="wsb-label" style="color:#38bdf8">Moderate</div>
+        <div class="wsb-track"><div class="wsb-fill fill-mod" id="wsbModBar" style="width:0%"></div></div>
+        <div class="wsb-count mod" id="wsbModCount">0</div>
+      </div>
+      <div class="wsb-row">
+        <div class="wsb-label" style="color:#2dd4bf">Establishment</div>
+        <div class="wsb-track"><div class="wsb-fill fill-estab" id="wsbEstabBar" style="width:0%"></div></div>
+        <div class="wsb-count estab" id="wsbEstabCount">0</div>
+      </div>
+    </div>
+
+    <div id="primaryCards"></div>
+  </div>
+
+  <!-- TAB 4: MID-DECADE REDISTRICTING -->
+  <div class="tab-panel" id="tab-redist">
+
+    <!-- Blurb -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:20px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Ahead of the 2026 midterms, at the direction of President Trump, Republican-controlled states initiated mid-decade redistricting efforts to gerrymander out Democrats in states like Texas and Missouri. Democrats have responded with their own redistricting campaigns in California and Virginia. Additionally, Utah's congressional map was found to violate federal law and will likely be redrawn to create one additional Democratic seat, despite Utah being a safely Republican state.</p>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;font-family:'DM Mono',monospace;font-size:11px;">
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#ef4444;"></div><span style="color:#9ca3af;">R Gerrymander — Enacted</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#3b82f6;"></div><span style="color:#9ca3af;">D Gerrymander — Enacted</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#a78bfa;"></div><span style="color:#9ca3af;">Court-Ordered</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div><span style="color:#9ca3af;">Exploring / In Progress</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#4b5563;"></div><span style="color:#9ca3af;">Failed</span></div>
+    </div>
+
+    <!-- Map -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;overflow:hidden;">
+      <svg id="redistMap" style="width:100%;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- Detail panel -->
+    <div id="redistDetail" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:20px;max-width:860px;">
+      <div id="redistDetailInner"></div>
+    </div>
+
+    <!-- Cards below map -->
+    <div id="redistCards"></div>
+  </div>
+
+  <!-- TAB 5: FUNDRAISING TRACKER -->
+  <div class="tab-panel" id="tab-fundraising">
+    
+    <!-- Explanatory blurb -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Money in politics matters. Fundraising totals give us an early signal of candidate viability, enthusiasm, and competitive dynamics. This tracker shows the top 10 fundraisers across Senate and House races. Senate numbers reflect the full 2021-26 election cycle, while House numbers reflect the 2025-26 cycle only. All data based on verified FEC filings.</p>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="stats-bar" style="margin-bottom:24px;">
+      <div class="stat-cell"><span class="stat-label">Top 10 Total</span><span class="stat-value accent" id="fundTotal">—</span></div>
+      <div class="stat-cell"><span class="stat-label">Highest Individual</span><span class="stat-value green" id="fundHighest">—</span></div>
+      <div class="stat-cell"><span class="stat-label">Avg per Candidate</span><span class="stat-value" id="fundAvg">—</span></div>
+    </div>
+
+    <!-- Sub-tabs for filtering by chamber -->
+    <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;">
+      <button class="filter-btn fund-filter active" data-fund-filter="all">All Races</button>
+      <button class="filter-btn fund-filter" data-fund-filter="Senate">Senate</button>
+      <button class="filter-btn fund-filter" data-fund-filter="House">House</button>
+    </div>
+
+    <div id="fundraisingContent"></div>
+  </div>
+
+</main>
+
+<footer>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════
+   RACE DATA
+═══════════════════════════════════════════════ */
+const races = [
+  { id:5, name:"Florida 1st — House Special", state:"FL", chamber:"House", date:"2025-04-01", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_1st_congressional_district_special_election",
+    candidates:[{name:"Jimmy Patronis",party:"R",poll:57,winner:true},{name:"Gay Valimont",party:"D",poll:43}],
+    winner:"Jimmy Patronis (R)", pollNote:"Actual results: Patronis 57%, Valimont 43%." },
+  { id:6, name:"Florida 6th — House Special", state:"FL", chamber:"House", date:"2025-04-01", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_6th_congressional_district_special_election",
+    candidates:[{name:"Randy Fine",party:"R",poll:57,winner:true},{name:"Josh Weil",party:"D",poll:43}],
+    winner:"Randy Fine (R)", pollNote:"Actual results: Fine 57%, Weil 43%." },
+  { id:7, name:"Virginia 11th — House Special", state:"VA", chamber:"House", date:"2025-09-09", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025_Virginia%27s_11th_congressional_district_special_election",
+    candidates:[{name:"James Walkinshaw",party:"D",poll:75,winner:true},{name:"Stewart Whitson",party:"R",poll:25}],
+    winner:"James Walkinshaw (D)", pollNote:"Actual results: Walkinshaw 75%, Whitson 25%." },
+  { id:8, name:"Arizona 7th — House Special", state:"AZ", chamber:"House", date:"2025-09-23", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025_Arizona%27s_7th_congressional_district_special_election",
+    candidates:[{name:"Adelita Grijalva",party:"D",poll:70,winner:true},{name:"Daniel Butierez",party:"R",poll:30}],
+    winner:"Adelita Grijalva (D)", pollNote:"Actual results: Grijalva 70%, Butierez 30%." },
+  { id:9, name:"Tennessee 7th — House Special", state:"TN", chamber:"House", date:"2025-12-02", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025_Tennessee%27s_7th_congressional_district_special_election",
+    candidates:[{name:"Matt Van Epps",party:"R",poll:54,winner:true},{name:"Aftyn Behn",party:"D",poll:46}],
+    winner:"Matt Van Epps (R)", pollNote:"Actual results: Van Epps 54%, Behn 46%." },
+  { id:1, name:"Texas 18th — House Special Runoff", state:"TX", chamber:"House", date:"2026-01-31", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%9326_Texas%27s_18th_congressional_district_special_election",
+    candidates:[{name:"Christian Menefee",party:"D",poll:68,winner:true},{name:"Amanda Edwards",party:"D",poll:32}],
+    winner:"Christian Menefee (D)", pollNote:"Actual runoff results: Menefee 68.4%, Edwards 31.6%" },
+  { id:2, name:"New Jersey 11th — House Special", state:"NJ", chamber:"House", date:"2026-04-16", type:"special", status:"upcoming",
+    wiki:"https://en.wikipedia.org/wiki/2026_New_Jersey%27s_11th_congressional_district_special_election",
+    candidates:[{name:"Analilia Mejia",party:"D",poll:null},{name:"Joe Hathaway",party:"R",poll:null}],
+    pollNote:"D+9 district. General election April 16, 2026." },
+  { id:3, name:"Georgia 14th — House Special", state:"GA", chamber:"House", date:"2026-TBD", type:"special", status:"upcoming",
+    candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
+    pollNote:"R+19 district — heavily favors Republicans." },
+  { id:4, name:"California 1st — House Special", state:"CA", chamber:"House", date:"2026-TBD", type:"special", status:"upcoming",
+    candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
+    pollNote:"R+12 district. Date TBD." },
+];
+
+/* ═══════════════════════════════════════════════
+   SHIFT DATA  (from your spreadsheet)
+   shiftVal: positive = D shift, negative = R shift
+   prev / result: positive = D margin, negative = R margin
+═══════════════════════════════════════════════ */
+const shifts = [
+  { cat:"Special Elections — House of Representatives", name:"Florida 1",    prev:-32, result:-14, shift:+18, wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_1st_congressional_district_special_election" },
+  { cat:"Special Elections — House of Representatives", name:"Florida 6",    prev:-33, result:-14, shift:+19, wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_6th_congressional_district_special_election" },
+  { cat:"Special Elections — House of Representatives", name:"Virginia 11",  prev:+34, result:+51, shift:+17, wiki:"https://en.wikipedia.org/wiki/2025_Virginia%27s_11th_congressional_district_special_election" },
+  { cat:"Special Elections — House of Representatives", name:"Arizona 7",    prev:+27, result:+39, shift:+12, wiki:"https://en.wikipedia.org/wiki/2025_Arizona%27s_7th_congressional_district_special_election" },
+  { cat:"Special Elections — House of Representatives", name:"Tennessee 7",  prev:-21, result:-8,  shift:+13, wiki:"https://en.wikipedia.org/wiki/2025_Tennessee%27s_7th_congressional_district_special_election" },
+  { cat:"General Elections — Governor",    name:"Virginia",               sub:"Governor",                    prev:-2,  result:+15, shift:+17, wiki:"https://en.wikipedia.org/wiki/2025_Virginia_gubernatorial_election" },
+  { cat:"General Elections — Governor",    name:"New Jersey",             sub:"Governor",                    prev:+3,  result:+14, shift:+11, wiki:"https://en.wikipedia.org/wiki/2025_New_Jersey_gubernatorial_election" },
+  { cat:"State Supreme Court",             name:"Wisconsin",              sub:"State Supreme Court",         prev:+11, result:+11, shift:0,   wiki:"https://en.wikipedia.org/wiki/2025_Wisconsin_Supreme_Court_election" },
+  { cat:"Georgia Public Service Commission", name:"Georgia PSC District 2", sub:"Statewide Election",        prev:-4,  result:+25, shift:+29, wiki:"https://en.wikipedia.org/wiki/2024_Georgia_Public_Service_Commission_elections" },
+  { cat:"Georgia Public Service Commission", name:"Georgia PSC District 3", sub:"Statewide Election",        prev:-1,  result:+25, shift:+26, wiki:"https://en.wikipedia.org/wiki/2024_Georgia_Public_Service_Commission_elections" },
+  { cat:"State Legislative Elections",     name:"Virginia HOD",           sub:"State Legislative",           prev:+2,  result:+16, shift:+14, wiki:"https://en.wikipedia.org/wiki/2025_Virginia_House_of_Delegates_elections" },
+  { cat:"State Legislative Elections",     name:"New Jersey GA",          sub:"State Legislative",           prev:+7,  result:+15, shift:+8,  wiki:"https://en.wikipedia.org/wiki/2025_New_Jersey_General_Assembly_election" },
+];
+
+/* ═══════════════════════════════════════════════
+   SHIFT DATA 2022–23 (comparison era)
+═══════════════════════════════════════════════ */
+const shifts2223 = [
+  { cat:"Special Elections 2022–23 — House", name:"Virginia 4th",     prev:+30, result:+49, shift:+19, wiki:"https://en.wikipedia.org/wiki/2023_Virginia%27s_4th_congressional_district_special_election" },
+  { cat:"Special Elections 2022–23 — House", name:"Rhode Island 1st", prev:+29, result:+29, shift:0,   wiki:"https://en.wikipedia.org/wiki/2022_Rhode_Island%27s_1st_congressional_district_special_election" },
+  { cat:"Special Elections 2022–23 — House", name:"Utah 2nd",         prev:-25, result:-24, shift:+1,  wiki:"https://en.wikipedia.org/wiki/2023_Utah%27s_2nd_congressional_district_special_election" },
+];
+
+function fmtDate(d) {
+  if (!d || d.includes("TBD")) return d.replace(/^20\d\d-/,"") + " — TBD";
+  const parts = d.split("-");
+  if (parts.length < 3) return d;
+  return new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+}
+function sortKey(d) { return (!d||d.includes("TBD")) ? "2026-12-31" : d; }
+
+function buildRaceCard(r) {
+  const sBadge = {
+    upcoming: { cls:"status-upcoming", lbl:"Upcoming" },
+    result:   { cls:"status-result",   lbl:"Results In" },
+    primary:  { cls:"status-primary",  lbl:"Primary" },
+  }[r.status] || { cls:"status-upcoming", lbl:"Upcoming" };
+  const tMap = { special:"Special Election", primary:"Primary" };
+  const tCls = { special:"type-special",     primary:"type-primary" };
+
+  const cRows = r.candidates.map(c => {
+    const pct = c.poll !== null ? Math.round(c.poll) : null;
+    const w   = c.winner ? ' <span class="winner-icon">★</span>' : '';
+    return `<div class="candidate-row">
+      <div class="party-pip pip-${c.party}"></div>
+      <div class="cand-name">${c.name}${w}</div>
+      <div class="cand-party">${c.party}</div>
+      ${pct!==null
+        ? `<div class="poll-bar-wrap"><div class="poll-bar bar-${c.party}" style="width:${pct}%"></div></div>
+           <div class="cand-poll">${pct}%</div>`
+        : `<div class="cand-poll" style="color:var(--muted);font-size:10px">TBD</div>`}
+    </div>`;
+  }).join('');
+
+  return `<div class="race-card ${r.status==='result'?'result':''}"
+       data-type="${r.type}" data-status="${r.status}" data-date="${sortKey(r.date)}">
+    <div class="card-top">
+      <div class="race-info">
+        <div class="race-name">${r.wiki ? `<a href="${r.wiki}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .15s;" onmouseover="this.style.borderColor='var(--dem)'" onmouseout="this.style.borderColor='var(--border)'">${r.name}</a>` : r.name}</div>
+        <div class="race-meta">
+          <span class="race-state">${r.state} · ${r.chamber}</span>
+          <div class="race-dot"></div>
+          <span class="race-date">${fmtDate(r.date)}</span>
+        </div>
+        <span class="type-tag ${tCls[r.type]}">${tMap[r.type]}</span>
+      </div>
+      <span class="status-badge ${sBadge.cls}">${sBadge.lbl}</span>
+    </div>
+    <div class="candidates">${cRows}</div>
+    ${r.pollNote ? `<div class="poll-note">${r.pollNote}</div>` : ''}
+    ${r.status==='result'&&r.winner ? `<div class="result-banner">Winner: ${r.winner}</div>` : ''}
+  </div>`;
+}
+
+function renderRaces(filter='all') {
+  const sorted = [...races].sort((a,b)=>sortKey(a.date).localeCompare(sortKey(b.date)));
+  let f = sorted;
+  if (filter==='special')  f = sorted.filter(r=>r.type==='special');
+  if (filter==='primary')  f = sorted.filter(r=>r.type==='primary');
+  if (filter==='upcoming') f = sorted.filter(r=>r.status!=='result');
+  if (filter==='result')   f = sorted.filter(r=>r.status==='result');
+
+  const upcoming = f.filter(r=>r.status!=='result');
+  const results  = f.filter(r=>r.status==='result');
+  let html = '';
+  if (upcoming.length) html += `
+    <div class="section-header"><span class="section-title">Upcoming Races</span>
+      <div class="section-line"></div><span class="section-count">${upcoming.length}</span></div>
+    <div class="race-grid">${upcoming.map(buildRaceCard).join('')}</div>`;
+  if (results.length) html += `
+    <div class="section-header"><span class="section-title">Results In</span>
+      <div class="section-line"></div><span class="section-count">${results.length}</span></div>
+    <div class="race-grid">${results.map(buildRaceCard).join('')}</div>`;
+  document.getElementById('racesContent').innerHTML = html;
+}
+
+function updateRaceStats() {
+  document.getElementById('totalRaces').textContent    = races.length;
+  document.getElementById('upcomingCount').textContent = races.filter(r=>r.status!=='result').length;
+  document.getElementById('resultCount').textContent   = races.filter(r=>r.status==='result').length;
+  document.getElementById('demWins').textContent = races.filter(r=>r.winner&&r.winner.includes('(D)')).length;
+  document.getElementById('repWins').textContent = races.filter(r=>r.winner&&r.winner.includes('(R)')).length;
+}
+
+/* ═══════════════════════════════════════════════
+   SHIFT TRACKER HELPERS
+═══════════════════════════════════════════════ */
+function shiftLbl(v) {
+  if (v===0) return 'No Change';
+  return v>0 ? `D+${v}` : `R+${Math.abs(v)}`;
+}
+function marginLbl(v) {
+  if (v===0) return 'EVEN';
+  return v>0 ? `D+${Math.abs(v)}` : `R+${Math.abs(v)}`;
+}
+function marginColor(v) {
+  return v>0 ? 'var(--dem)' : v<0 ? 'var(--rep)' : 'var(--muted)';
+}
+
+function buildShiftCard(s) {
+  const isD = s.shift > 0, isR = s.shift < 0, isN = s.shift === 0;
+  const badgeCls = isD ? 'badge-dem' : isR ? 'badge-rep' : 'badge-neu';
+
+  const maxAbs = Math.max(Math.abs(s.prev), Math.abs(s.result), 1);
+  const scale  = 95 / (maxAbs * 1.1);
+  const prevW  = Math.round(Math.abs(s.prev) * scale);
+  const resW   = Math.round(Math.abs(s.result) * scale);
+
+  const arrow = isN ? '' : `
+    <div class="shift-footer">
+      Shift:&nbsp;<strong class="${isD?'shift-arrow-dem':'shift-arrow-rep'}">${shiftLbl(s.shift)}</strong>
+      <span style="flex:1"></span>
+      <span class="${isD?'shift-arrow-dem':'shift-arrow-rep'}">${isD?'← Toward Democrats':'← Toward Republicans'}</span>
+    </div>`;
+
+  const sub = s.sub || s.cat.split('—')[0].trim();
+
+  const nameHtml = s.wiki
+    ? `<a href="${s.wiki}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .15s;" onmouseover="this.style.borderColor='var(--dem)'" onmouseout="this.style.borderColor='var(--border)'">${s.name}</a>`
+    : s.name;
+
+  return `<div class="shift-card">
+    <div class="shift-card-top">
+      <div>
+        <div class="shift-race-name">${nameHtml}</div>
+        <div class="shift-race-sub">${sub}</div>
+      </div>
+      <span class="shift-badge ${badgeCls}">${shiftLbl(s.shift)}</span>
+    </div>
+    <div class="sc-compare">
+      <div class="sc-row">
+        <div class="sc-label">Previous</div>
+        <div class="sc-track"><div class="sc-fill" style="width:${prevW}%;background:${marginColor(s.prev)}"></div></div>
+        <div class="sc-val">${marginLbl(s.prev)}</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Result</div>
+        <div class="sc-track"><div class="sc-fill" style="width:${resW}%;background:${marginColor(s.result)}"></div></div>
+        <div class="sc-val">${marginLbl(s.result)}</div>
+      </div>
+    </div>
+    ${arrow}
+  </div>`;
+}
+
+function renderShiftCards() {
+  const specials = shifts.filter(s => s.cat.includes('Special Elections — House'));
+  const misc     = shifts.filter(s => !s.cat.includes('Special Elections — House'));
+
+  let html = '';
+
+  // 2025–26 congressional specials
+  html += `<div class="cat-label">Special Elections — House of Representatives</div>
+           <div class="shift-grid">${specials.map(buildShiftCard).join('')}</div>`;
+
+  // 2022–23 comparison
+  html += `<div class="section-header" style="margin-top:36px">
+    <span class="section-title" style="color:#f59e0b">2022–23 Special Elections — Comparison Era</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="shift-grid">${shifts2223.map(buildShiftCard).join('')}</div>`;
+
+  // Misc other elections
+  if (misc.length) {
+    html += `<div class="section-header" style="margin-top:36px">
+      <span class="section-title">Other Elections — Miscellaneous</span>
+      <div class="section-line"></div>
+    </div>`;
+    const miscCats = [...new Set(misc.map(s=>s.cat))];
+    miscCats.forEach(cat => {
+      const group = misc.filter(s=>s.cat===cat);
+      html += `<div class="cat-label" style="margin-top:20px">${cat}</div>
+               <div class="shift-grid">${group.map(buildShiftCard).join('')}</div>`;
+    });
+  }
+
+  document.getElementById('shiftCards').innerHTML = html;
+}
+
+function renderShiftStats() {
+  const valid = shifts.filter(s=>s.shift!==0);
+  const avg   = valid.length ? (valid.reduce((a,s)=>a+s.shift,0)/valid.length).toFixed(1) : 0;
+  const allShifts = [...shifts, ...shifts2223];
+  const max   = allShifts.reduce((a,s)=>Math.abs(s.shift)>Math.abs(a.shift)?s:a, allShifts[0]);
+
+  const valid2223 = shifts2223.filter(s=>s.shift!==0);
+  const avg2223   = valid2223.length ? (valid2223.reduce((a,s)=>a+s.shift,0)/valid2223.length).toFixed(1) : 0;
+
+  document.getElementById('shiftTotal').textContent      = shifts.length;
+  document.getElementById('avgShift').textContent        = avg>0?`D+${avg}`:avg<0?`R+${Math.abs(avg)}`:'—';
+  document.getElementById('shiftTotal2223').textContent  = shifts2223.length;
+  document.getElementById('avgShift2223').textContent    = avg2223>0?`D+${avg2223}`:avg2223<0?`R+${Math.abs(avg2223)}`:'—';
+  document.getElementById('largestSwing').textContent    = shiftLbl(max.shift);
+}
+
+function makeChart(canvasId, data, titleColor) {
+  const labels  = data.map(s=>s.name);
+  const prevs   = data.map(s=>s.prev);
+  const results = data.map(s=>s.result);
+
+  new Chart(document.getElementById(canvasId).getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label:'Previous Result',
+          data: prevs,
+          backgroundColor: prevs.map(v=>v>=0?'rgba(59,130,246,0.3)':'rgba(239,68,68,0.3)'),
+          borderColor:      prevs.map(v=>v>=0?'rgba(59,130,246,0.65)':'rgba(239,68,68,0.65)'),
+          borderWidth:1, borderRadius:3 },
+        { label:'Current Result',
+          data: results,
+          backgroundColor: results.map(v=>v>=0?'rgba(59,130,246,0.75)':'rgba(239,68,68,0.75)'),
+          borderColor:      results.map(v=>v>=0?'rgba(59,130,246,1)':'rgba(239,68,68,1)'),
+          borderWidth:1, borderRadius:3 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{ labels:{ color:'#6b7280', font:{family:'DM Mono',size:11}, boxWidth:12 } },
+        tooltip:{
+          backgroundColor:'#1c2028', borderColor:'#252a34', borderWidth:1,
+          titleColor:'#e8eaf0', bodyColor:'#9ca3af',
+          titleFont:{family:'DM Sans',size:13}, bodyFont:{family:'DM Mono',size:11},
+          padding:10,
+          callbacks:{
+            afterBody(items) {
+              const sv = data[items[0].dataIndex].shift;
+              return [`Shift: ${shiftLbl(sv)}`];
+            }
+          }
+        }
+      },
+      scales:{
+        x:{ ticks:{color:'#6b7280',font:{family:'DM Mono',size:10},maxRotation:30},
+            grid:{color:'rgba(255,255,255,0.04)'} },
+        y:{ ticks:{color:'#6b7280',font:{family:'DM Mono',size:10},
+              callback:v=>v>0?`D+${v}`:v<0?`R+${Math.abs(v)}`:'EVEN'},
+            grid:{color:'rgba(255,255,255,0.06)'},
+            border:{color:'rgba(255,255,255,0.06)'} }
+      }
+    }
+  });
+}
+
+function renderShiftChart() {
+  const specials = shifts.filter(s => s.cat.includes('Special Elections — House'));
+  makeChart('shiftChart', specials);
+  makeChart('shiftChart2223', shifts2223);
+}
+
+/* ═══════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════ */
+let chartBuilt = false;
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    document.getElementById('raceControls').style.display = tab==='races' ? '' : 'none';
+    if (tab==='shifts' && !chartBuilt) { renderShiftChart(); chartBuilt=true; }  });
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderRaces(btn.dataset.filter);
+  });
+});
+
+/* ═══════════════════════════════════════════════
+   PRIMARY WING TRACKER DATA
+   wings: "progressive" | "moderate" | "establishment"
+   lean: "safe-d" | "likely-d" | "tossup"
+   status: "upcoming" | "result"
+   winner: wing string of the winner, or null
+═══════════════════════════════════════════════ */
+const primaries = [
+
+  // ── DECIDED ────────────────────────────────
+
+  {
+    id: "p-tx18-special",
+    name: "Texas 18th — Special Runoff",
+    state: "TX", chamber: "House", date: "2026-01-31",
+    lean: "safe-d",
+    status: "result", winner: "progressive",
+    candidates: [
+      { name: "Christian Menefee", wing: "progressive",   poll: 68, winner: true,
+        endorsements: ["Congressional Progressive Caucus PAC", "Greg Casar", "Maxwell Frost", "Erica Lee Carter"] },
+      { name: "Amanda Edwards",    wing: "moderate",      poll: 32,
+        endorsements: ["Jolanda Jones"] },
+    ]
+  },
+
+  {
+    id: "p0",
+    name: "New Jersey 11th — Special Dem Primary",
+    state: "NJ", chamber: "House", date: "2026-02-05",
+    lean: "likely-d",
+    status: "result", winner: "progressive",
+
+    candidates: [
+      { name: "Analilia Mejia",   wing: "progressive",   poll: null, winner: true,
+        endorsements: ["Bernie Sanders", "Justice Democrats", "MoveOn"] },
+      { name: "Tom Malinowski",   wing: "moderate",      poll: null,
+        endorsements: ["Andy Kim"] },
+      { name: "Brendan Gill",     wing: "establishment", poll: null,
+        endorsements: ["Phil Murphy"] },
+      { name: "Tahesha Way",      wing: "establishment", poll: null,
+        endorsements: [] },
+    ]
+  },
+
+  {
+    id: "p2",
+    name: "Michigan Senate — Dem Primary",
+    state: "MI", chamber: "Senate", date: "2026-08-04",
+    lean: "tossup", // Michigan is a battleground
+    status: "upcoming", winner: null,
+    pollSource: "Emerson/Nexstar · Jan 24–25, 2026",
+    candidates: [
+      { name: "Abdul El-Sayed",   wing: "progressive",   poll: 16,
+        endorsements: ["Bernie Sanders", "Justice Democrats", "Rashida Tlaib"] },
+      { name: "Mallory McMorrow", wing: "moderate",       poll: 22,
+        endorsements: [] },
+      { name: "Haley Stevens",    wing: "establishment",  poll: 17,
+        endorsements: ["New Democrat Coalition", "DSCC"] },
+    ]
+  },
+
+  {
+    id: "p3",
+    name: "Minnesota Senate — Dem Primary",
+    state: "MN", chamber: "Senate", date: "2026-08-11",
+    lean: "likely-d",
+    status: "upcoming", winner: null,
+    pollSource: "Public Policy Polling · Jan 16–17, 2026",
+    candidates: [
+      { name: "Peggy Flanagan",  wing: "progressive",   poll: 40,
+        endorsements: ["Bernie Sanders", "Tina Smith", "Keith Ellison", "Al Franken", "Elizabeth Warren"] },
+      { name: "Angie Craig",     wing: "moderate",      poll: 28,
+        endorsements: ["Pete Buttigieg", "Hakeem Jeffries", "Dean Phillips", "New Democrat Coalition"] },
+    ]
+  },
+
+  {
+    id: "p4",
+    name: "Maine Senate — Dem Primary",
+    state: "ME", chamber: "Senate", date: "2026-06-09",
+    lean: "tossup",
+    status: "upcoming", winner: null,
+    pollSource: "Pan Atlantic Research · Nov 29–Dec 7, 2025",
+    candidates: [
+      { name: "Janet Mills",     wing: "establishment", poll: 47,
+        endorsements: ["Chuck Schumer", "DSCC", "Emily's List", "Kirsten Gillibrand"] },
+      { name: "Graham Platner",  wing: "progressive",   poll: 37,
+        endorsements: ["Bernie Sanders", "Progressive Change Campaign Committee"] },
+    ]
+  },
+
+  // ── HOUSE ──────────────────────────────────
+
+  {
+    id: "p5",
+    name: "Illinois 9th — Dem Primary",
+    state: "IL", chamber: "House", date: "2026-03-17",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    pollSource: "Data for Progress · Oct 29–Nov 3, 2025",
+    candidates: [
+      { name: "Kat Abughazaleh", wing: "progressive",   poll: 18,
+        endorsements: ["Justice Democrats", "PAL PAC", "Ro Khanna"] },
+      { name: "Daniel Biss",     wing: "moderate",      poll: 18,
+        endorsements: ["Jan Schakowsky", "SEIU Local 73"] },
+      { name: "Laura Fine",      wing: "establishment", poll: 10,
+        endorsements: ["AIPAC"] },
+    ]
+  },
+
+  {
+    id: "p6",
+    name: "California 21st — Dem Primary",
+    state: "CA", chamber: "House", date: "2026-03-17",
+    lean: "tossup", // vs. Valadao
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Randy Villegas",  wing: "progressive",   poll: null,
+        endorsements: ["Bernie Sanders", "Working Families Party"] },
+      { name: "Jasmeet Bains",   wing: "establishment", poll: null,
+        endorsements: ["DCCC", "Emily's List"] },
+    ]
+  },
+
+  {
+    id: "p7il",
+    name: "Illinois Senate — Dem Primary",
+    state: "IL", chamber: "Senate", date: "2026-03-17",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    pollSource: "Emerson/WGN · Jan 3–5, 2026",
+    candidates: [
+      { name: "Raja Krishnamoorthi", wing: "moderate",      poll: 31,
+        endorsements: ["Teamsters", "AFGE"] },
+      { name: "Juliana Stratton",    wing: "progressive",   poll: 10,
+        endorsements: ["JB Pritzker", "Tammy Duckworth", "Emily's List", "Chris Welch"] },
+      { name: "Robin Kelly",         wing: "progressive",   poll: 8,
+        endorsements: ["Congressional Black Caucus PAC", "Chris Murphy", "BradyPAC"] },
+    ]
+  },
+
+  {
+    id: "p7co",
+    name: "Colorado 8th — Dem Primary",
+    state: "CO", chamber: "House", date: "2026-06-23",
+    lean: "tossup",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Manny Rutinel",   wing: "progressive",   poll: null,
+        endorsements: ["Congressional Hispanic Caucus PAC"] },
+      { name: "Shannon Bird",    wing: "moderate",      poll: null,
+        endorsements: ["Emily's List", "DCCC"] },
+    ]
+  },
+
+  {
+    id: "p8",
+    name: "Tennessee 9th — Dem Primary",
+    state: "TN", chamber: "House", date: "2026-05-TBD",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Justin Pearson",  wing: "progressive",   poll: null,
+        endorsements: ["Justice Democrats", "Alexandria Ocasio-Cortez", "Rashida Tlaib"] },
+      { name: "Steve Cohen",     wing: "establishment", poll: null,
+        endorsements: [] },
+    ]
+  },
+
+  {
+    id: "p9",
+    name: "New York 10th — Dem Primary",
+    state: "NY", chamber: "House", date: "2026-06-23",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Brad Lander",          wing: "progressive",   poll: null,
+        endorsements: ["Bernie Sanders", "Zohran Mamdani", "Elizabeth Warren", "Jumaane Williams"] },
+      { name: "Dan Goldman (inc.)",   wing: "establishment", poll: null,
+        endorsements: ["DCCC"] },
+    ]
+  },
+
+];
+
+/* ═══════════════════════════════════════════════
+   PRIMARY WING RENDERING
+═══════════════════════════════════════════════ */
+const wingMeta = {
+  progressive:   { label: "Progressive",   pillCls: "wp-progressive",   barCls: "pcb-prog",  color: "#a78bfa" },
+  moderate:      { label: "Moderate",      pillCls: "wp-moderate",      barCls: "pcb-mod",   color: "#38bdf8" },
+  establishment: { label: "Establishment", pillCls: "wp-establishment", barCls: "pcb-estab", color: "#2dd4bf" },
+};
+
+const leanMeta = {
+  "safe-d":   { cls: "lean-safe-d",   label: "Safe D" },
+  "likely-d": { cls: "lean-likely-d", label: "Likely D" },
+  "tossup":   { cls: "lean-tossup",   label: "Tossup" },
+};
+
+function stripeClass(p) {
+  if (p.status === 'result' && p.winner) return `stripe-${p.winner}`;
+  // Check if all same wing
+  const wings = [...new Set(p.candidates.map(c=>c.wing))];
+  if (wings.length === 1) return `stripe-${wings[0]}`;
+  return 'stripe-mixed';
+}
+
+function buildPrimaryCard(p) {
+  const lean = leanMeta[p.lean] || leanMeta["tossup"];
+  const statusCls = p.status === 'result' ? 'pcs-result' : 'pcs-upcoming';
+  const statusLbl = p.status === 'result' ? 'Results In' : 'Upcoming';
+  const stripe    = stripeClass(p);
+
+  const fmtPDate = (d) => {
+    if (!d || d.includes("TBD")) return d.replace(/^20\d\d-/,"") + " — TBD";
+    const parts = d.split("-");
+    if (parts.length < 3) return d;
+    return new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  };
+
+  const maxPoll = Math.max(...p.candidates.map(c=>c.poll||0), 1);
+
+  const candRows = p.candidates.map(c => {
+    const wm = wingMeta[c.wing] || wingMeta.moderate;
+    const isWinner = p.winner === c.wing && p.status === 'result';
+    const winStar  = isWinner ? ' <span class="winner-star">★</span>' : '';
+
+    const pollSection = c.poll !== null
+      ? `<div class="pc-poll-row">
+           <div class="pc-bar-wrap"><div class="pc-bar-fill ${wm.barCls}" style="width:${Math.round(c.poll)}%"></div></div>
+           <div class="pc-pct">${c.poll}%</div>
+         </div>`
+      : `<div class="pc-tbd">No polling yet</div>`;
+
+    const endorseHtml = c.endorsements && c.endorsements.length
+      ? c.endorsements.map(e => `<span class="endorse-tag et-${c.wing}">${e}</span>`).join('')
+      : '';
+
+    return `<div class="pc-cand-row">
+      <span class="wing-pill ${wm.pillCls}">${wm.label}</span>
+      <div class="pc-cand-info">
+        <div class="pc-cand-name">${c.name}${winStar}</div>
+        ${pollSection}
+        ${endorseHtml ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">${endorseHtml}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  const winnerBanner = p.status === 'result' && p.winner
+    ? `<div class="pc-winner-banner">${(wingMeta[p.winner]||{}).label || p.winner} wing won</div>` : '';
+
+  const hasPolling = p.candidates.some(c => c.poll !== null);
+  const pollSourceHtml = hasPolling && p.pollSource
+    ? `<div class="poll-note" style="border-top:1px solid var(--border);padding:7px 18px 10px;">Latest poll: ${p.pollSource}</div>`
+    : '';
+
+  return `<div class="primary-card">
+    <div class="pc-stripe ${stripe}"></div>
+    <div class="pc-header">
+      <div>
+        <div class="pc-race-name">${p.name}</div>
+        <div class="pc-meta">
+          <span class="pc-state">${p.state} · ${p.chamber}</span>
+          <div class="pc-dot"></div>
+          <span class="pc-date">${fmtPDate(p.date)}</span>
+        </div>
+        <span class="pc-status ${statusCls}">${statusLbl}</span>
+      </div>
+      <span class="lean-badge ${lean.cls}">${lean.label}</span>
+    </div>
+    <div class="pc-candidates">${candRows}</div>
+    ${pollSourceHtml}
+    ${winnerBanner}
+  </div>`;
+}
+
+function renderPrimaryCards() {
+  const sorted = [...primaries].sort((a,b)=>{
+    const da = (!a.date||a.date.includes("TBD"))?"2026-12-31":a.date;
+    const db = (!b.date||b.date.includes("TBD"))?"2026-12-31":b.date;
+    return da.localeCompare(db);
+  });
+
+  // Group upcoming vs results
+  const upcoming = sorted.filter(p=>p.status!=='result');
+  const results  = sorted.filter(p=>p.status==='result');
+
+  let html = '';
+  if (upcoming.length) html += `
+    <div class="section-header">
+      <span class="section-title">Upcoming Primaries</span>
+      <div class="section-line"></div>
+      <span class="section-count">${upcoming.length}</span>
+    </div>
+    <div class="primary-grid">${upcoming.map(buildPrimaryCard).join('')}</div>`;
+  if (results.length) html += `
+    <div class="section-header" style="margin-top:36px">
+      <span class="section-title">Decided Primaries</span>
+      <div class="section-line"></div>
+      <span class="section-count">${results.length}</span>
+    </div>
+    <div class="primary-grid">${results.map(buildPrimaryCard).join('')}</div>`;
+
+  document.getElementById('primaryCards').innerHTML = html;
+}
+
+function updateWingStats() {
+  const total    = primaries.length;
+  const decided  = primaries.filter(p=>p.status==='result'&&p.winner);
+  const progW    = decided.filter(p=>p.winner==='progressive').length;
+  const modW     = decided.filter(p=>p.winner==='moderate').length;
+  const estabW   = decided.filter(p=>p.winner==='establishment').length;
+  const pending  = primaries.filter(p=>p.status!=='result').length;
+  const maxWins  = Math.max(progW, modW, estabW, 1);
+
+  document.getElementById('wingTotal').textContent   = total;
+  document.getElementById('progWins').textContent    = progW;
+  document.getElementById('modWins').textContent     = modW;
+  document.getElementById('estabWins').textContent   = estabW;
+  document.getElementById('pendingCount').textContent = pending;
+
+  document.getElementById('wsbProgCount').textContent  = progW;
+  document.getElementById('wsbModCount').textContent   = modW;
+  document.getElementById('wsbEstabCount').textContent = estabW;
+  document.getElementById('wsbProgBar').style.width    = `${Math.round(progW/maxWins*100)}%`;
+  document.getElementById('wsbModBar').style.width     = `${Math.round(modW/maxWins*100)}%`;
+  document.getElementById('wsbEstabBar').style.width   = `${Math.round(estabW/maxWins*100)}%`;
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+updateRaceStats();
+renderRaces('all');
+renderShiftStats();
+renderShiftCards();
+updateWingStats();
+renderPrimaryCards();
+
+/* ═══════════════════════════════════════════════
+   REDISTRICTING DATA
+═══════════════════════════════════════════════ */
+const redistStates = [
+
+  // ── BENEFITS REPUBLICANS ──────────────────────
+  { abbr:"TX", state:"Texas", party:"R", seatsChanged:"+5 R", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/2025_Texas_redistricting",
+    trigger:"Voluntary — Trump-backed gerrymander",
+    desc:"The Republican-controlled Texas legislature passed a law to redraw their maps to add five Republican districts in time for the 2026 midterms. The legality of the redistricting was challenged all the way to the Supreme Court, which allowed it to go into effect with a 6-3 decision. All six conservative justices voted to allow it to go into effect, while all three liberal justices dissented." },
+
+  { abbr:"MO", state:"Missouri", party:"R", seatsChanged:"+1 R", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/2025_Missouri_redistricting",
+    trigger:"Voluntary — Trump-backed gerrymander",
+    desc:"Missouri Republicans split Kansas City into multiple districts, eliminating the safe Democratic seat in Kansas City. This move is likely to net them one additional Republican seat." },
+
+  { abbr:"NC", state:"North Carolina", party:"R", seatsChanged:"+1 R", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/2025_North_Carolina_redistricting",
+    trigger:"Voluntary — Trump-backed gerrymander",
+    desc:"North Carolina passed a new map to add one additional Republican seat. North Carolina has a Democratic governor, but the governor cannot play a role in redistricting under state law." },
+
+  { abbr:"OH", state:"Ohio", party:"R", seatsChanged:"+2 to +3 R", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/Ohio_congressional_redistricting,_2025",
+    trigger:"Required by state law — previous map expired after 2024",
+    desc:"Ohio was required to create a new map by their state constitution, since the previous map did not have bipartisan support. Their new map will once again pass without bipartisan support, and Ohio Republicans have added two new Republican districts in the process." },
+
+  // ── BENEFITS DEMOCRATS ──────────────────────
+  { abbr:"CA", state:"California", party:"D", seatsChanged:"+5 D", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/2025_California_Proposition_50",
+    trigger:"Voluntary — Prop 50 voter referendum, Nov 4, 2025 (64.4% Yes)",
+    desc:"In response to Texas, California voters passed a referendum in November that gave the California legislature the power to add five new Democratic districts." },
+
+  { abbr:"UT", state:"Utah", party:"court", seatsChanged:"+1 D", status:"enacted",
+    wiki:"https://en.wikipedia.org/wiki/Utah_redistricting,_2025",
+    trigger:"Court-ordered — Utah Supreme Court struck down 2021 gerrymander",
+    desc:"The League of Women Voters of Utah successfully sued the state of Utah. Utah constitutional law bans partisan gerrymandering, and the LOWV successfully argued that the map was partisan. A court-ordered redraw will likely add one safe Democratic seat in ruby red Utah." },
+
+  // ── FAILED / STALLED ──────────────────────
+  { abbr:"IN", state:"Indiana", party:"dead", seatsChanged:"0 (failed)", status:"dead",
+    wiki:"https://en.wikipedia.org/wiki/2025_Indiana_redistricting",
+    trigger:"Voluntary — Trump-backed gerrymander (failed)",
+    desc:"Indiana failed to redistrict to add more Republican seats, as the state senate rejected the proposal. One Republican, Michael Bohacek, who has a child with Down syndrome, voted against redistricting after Trump called Tim Walz 'seriously retarded.'" },
+
+  { abbr:"VA", state:"Virginia", party:"exploring", seatsChanged:"Pending (+4 D)", status:"exploring",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"Voluntary — Dem response to Republican redistricting wave",
+    desc:"Virginia voters will vote in April 2026 on whether to allow the legislature to add four Democratic seats for the remainder of the decade." },
+
+  { abbr:"FL", state:"Florida", party:"exploring", seatsChanged:"Pending (+3 to +5 R)", status:"exploring",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"Voluntary — Trump-backed gerrymander (under consideration)",
+    desc:"The Florida legislature will convene in April to consider redrawing maps to add more Republican seats." },
+
+  { abbr:"MD", state:"Maryland", party:"exploring", seatsChanged:"Pending (+1 D)", status:"exploring",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"Voluntary — Dem response to Republican redistricting wave",
+    desc:"The Maryland legislature is considering redistricting to eliminate the only safe Republican seat." },
+
+  { abbr:"NY", state:"New York", party:"exploring", seatsChanged:"Pending (+1 to +4 D)", status:"exploring",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"Voluntary — Dem response to Republican redistricting wave",
+    desc:"In New York, Governor Kathy Hochul has pledged to get involved with redistricting. In addition, a judge has ruled that a Republican district in New York dilutes the voting power of minorities, which is illegal under the Voting Rights Act of 1965. Democrats will pick up at least one seat, and potentially gerrymander for much more." },
+];
+
+/* ═══════════════════════════════════════════════
+   REDISTRICTING MAP — D3 + TopoJSON
+═══════════════════════════════════════════════ */
+// FIPS codes for redistricting states
+const redistFIPS = {
+  TX:'48', MO:'29', NC:'37', OH:'39',   // R-enacted
+  CA:'06',                               // D-enacted
+  UT:'49',                               // court-ordered
+  IN:'18',                               // dead
+  VA:'51', FL:'12', MD:'24', NY:'36'    // exploring
+};
+const fipsToAbbr = Object.fromEntries(Object.entries(redistFIPS).map(([a,f])=>[f,a]));
+
+const redistColors = {
+  'R-enacted':  '#ef4444',
+  'D-enacted':  '#3b82f6',
+  'court':      '#a78bfa',
+  'exploring':  '#f59e0b',
+  'dead':       '#4b5563',
+  'none':       '#1e2330'
+};
+const stateColorMap = {
+  TX:'R-enacted', MO:'R-enacted', NC:'R-enacted', OH:'R-enacted',
+  CA:'D-enacted',
+  UT:'court',
+  IN:'dead',
+  VA:'exploring', FL:'exploring', MD:'exploring', NY:'exploring'
+};
+function getStateColor(abbr){return redistColors[stateColorMap[abbr]||'none'];}
+
+// FIPS-keyed label positions (approx center of each state, Albers 975×610)
+const stateCentroids = {
+  '01':[800,480],'02':[110,490],'04':[220,390],'05':[560,360],'06':[160,310],
+  '08':[295,320],'09':[805,200],'10':[755,240],'11':[730,270],'12':[680,480],
+  '13':[660,410],'15':[190,530],'16':[195,210],'17':[560,280],'18':[630,270],
+  '19':[510,220],'20':[425,330],'21':[635,315],'22':[530,440],'23':[840,145],
+  '24':[730,262],'25':[782,178],'26':[600,190],'27':[490,165],'28':[565,405],
+  '29':[535,305],'30':[250,175],'31':[422,260],'32':[175,295],'33':[790,155],
+  '34':[740,220],'35':[270,370],'36':[700,190],'37':[730,330],'38':[415,165],
+  '39':[655,265],'40':[450,365],'41':[155,215],'42':[690,225],'44':[798,198],
+  '45':[670,355],'46':[415,210],'47':[610,345],'48':[420,435],'49':[250,310],
+  '50':[762,162],'51':[730,290],'53':[150,150],'54':[675,275],'55':[543,185],
+  '56':[295,248]
+};
+
+let d3MapLoaded = false;
+
+function renderRedistMap() {
+  const container = document.getElementById('redistMap');
+  if (!container) return;
+
+  // Load D3 and TopoJSON from CDN if not already loaded
+  function loadScript(src, cb) {
+    if (document.querySelector(`script[src="${src}"]`)) { cb(); return; }
+    const s = document.createElement('script');
+    s.src = src; s.onload = cb;
+    document.head.appendChild(s);
+  }
+
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js', () => {
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js', () => {
+      fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json')
+        .then(r => r.json())
+        .then(us => drawRedistMap(container, us));
+    });
+  });
+}
+
+function drawRedistMap(container, us) {
+  const W = 975, H = 610;
+  const svg = d3.select(container)
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .style('width','100%').style('height','auto');
+
+  svg.selectAll('*').remove();
+
+  // Define stripe patterns for exploring states
+  const defs = svg.append('defs');
+  
+  // Blue stripes pattern for Democrat-leaning exploring states
+  const bluePattern = defs.append('pattern')
+    .attr('id', 'blueStripes')
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr('width', 12)
+    .attr('height', 12)
+    .attr('patternTransform', 'rotate(45)');
+  bluePattern.append('rect')
+    .attr('width', 12)
+    .attr('height', 12)
+    .attr('fill', '#f59e0b'); // orange background
+  bluePattern.append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', 4)
+    .attr('height', 12)
+    .attr('fill', '#2563eb')
+    .attr('opacity', 0.7);
+
+  // Red stripes pattern for Republican-leaning exploring states
+  const redPattern = defs.append('pattern')
+    .attr('id', 'redStripes')
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr('width', 12)
+    .attr('height', 12)
+    .attr('patternTransform', 'rotate(45)');
+  redPattern.append('rect')
+    .attr('width', 12)
+    .attr('height', 12)
+    .attr('fill', '#f59e0b'); // orange background
+  redPattern.append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', 4)
+    .attr('height', 12)
+    .attr('fill', '#dc2626')
+    .attr('opacity', 0.7);
+
+  const path = d3.geoPath();
+  const states = topojson.feature(us, us.objects.states);
+
+  // Helper function to determine fill
+  function getStateFill(abbr) {
+    if (!abbr) return redistColors['none'];
+    // States with stripes (exploring states only)
+    if (abbr === 'FL') return 'url(#redStripes)';
+    if (abbr === 'NY' || abbr === 'MD' || abbr === 'VA') return 'url(#blueStripes)';
+    // All other states use solid colors (including UT which is enacted court-ordered)
+    return getStateColor(abbr);
+  }
+
+  // Create tooltip div
+  const tooltip = d3.select('body').append('div')
+    .attr('class', 'redist-tooltip')
+    .style('position', 'absolute')
+    .style('visibility', 'hidden')
+    .style('background', 'rgba(13, 15, 18, 0.95)')
+    .style('color', '#e8eaf0')
+    .style('padding', '12px 16px')
+    .style('border-radius', '6px')
+    .style('border', '1px solid #252a34')
+    .style('font-family', 'DM Sans, sans-serif')
+    .style('font-size', '13px')
+    .style('pointer-events', 'none')
+    .style('z-index', '1000')
+    .style('box-shadow', '0 4px 12px rgba(0,0,0,0.5)')
+    .style('max-width', '280px')
+    .style('line-height', '1.5');
+
+  // Draw all states
+  svg.selectAll('path.state')
+    .data(states.features)
+    .join('path')
+      .attr('class','state')
+      .attr('d', path)
+      .attr('fill', d => getStateFill(fipsToAbbr[d.id] || ''))
+      .attr('stroke', '#0d1117')
+      .attr('stroke-width', d => stateColorMap[fipsToAbbr[d.id]] ? 1.5 : 0.6)
+      .attr('opacity', d => stateColorMap[fipsToAbbr[d.id]] ? 1 : 0.65)
+      .style('cursor', d => stateColorMap[fipsToAbbr[d.id]] ? 'pointer' : 'default')
+      .on('mouseover', function(e, d) {
+        const abbr = fipsToAbbr[d.id];
+        if (stateColorMap[abbr]) {
+          d3.select(this).attr('opacity', 0.8).attr('stroke-width', 2.5);
+          
+          // Find state data and show tooltip
+          const stateData = redistStates.find(s => s.abbr === abbr);
+          if (stateData) {
+            const statusLabels = { enacted: '✓ Enacted', exploring: '⏳ In Progress', dead: '✗ Failed' };
+            
+            // Determine color based on whether it benefits D or R
+            let seatsColor = '#f0b429'; // default yellow
+            const seatsText = stateData.seatsChanged;
+            // Check for D or R anywhere in the text
+            if (seatsText.includes(' D') || seatsText.toUpperCase().includes('D)')) {
+              seatsColor = '#60a5fa'; // blue for Democrats
+            } else if (seatsText.includes(' R') || seatsText.toUpperCase().includes('R)')) {
+              seatsColor = '#f87171'; // red for Republicans
+            }
+            
+            tooltip.html(`
+              <div style="font-weight:600;margin-bottom:6px;font-size:14px;">${stateData.state}</div>
+              <div style="color:#9ca3af;font-size:11px;font-family:'DM Mono',monospace;margin-bottom:8px;">${statusLabels[stateData.status] || stateData.status}</div>
+              <div style="font-weight:600;color:${seatsColor};">${stateData.seatsChanged}</div>
+            `)
+            .style('visibility', 'visible');
+          }
+        }
+      })
+      .on('mousemove', function(e) {
+        tooltip
+          .style('top', (e.pageY - 10) + 'px')
+          .style('left', (e.pageX + 10) + 'px');
+      })
+      .on('mouseout', function(e, d) {
+        if (stateColorMap[fipsToAbbr[d.id]]) {
+          d3.select(this).attr('opacity', 1).attr('stroke-width', 1.5);
+          tooltip.style('visibility', 'hidden');
+        }
+      })
+      .on('click', function(e, d) {
+        const abbr = fipsToAbbr[d.id];
+        if (!abbr) return;
+        const s = redistStates.find(r => r.abbr === abbr);
+        if (s) showRedistDetail(s);
+        svg.selectAll('path.state').attr('stroke-width', dd => stateColorMap[fipsToAbbr[dd.id]] ? 1.5 : 0.6);
+        d3.select(this).attr('stroke-width', 3).attr('stroke', '#fff');
+      });
+
+  // State abbreviation labels — only on redistricting states (bigger, bold)
+  // REMOVED - labels disabled
+  /*
+  Object.entries(redistFIPS).forEach(([abbr, fips]) => {
+    const [x, y] = stateCentroids[fips] || [0,0];
+    if (!x) return;
+    svg.append('text')
+      .attr('x', x).attr('y', y)
+      .attr('text-anchor','middle').attr('dominant-baseline','middle')
+      .attr('font-family','DM Mono,monospace').attr('font-size',11).attr('font-weight',700)
+      .attr('fill','white').attr('pointer-events','none')
+      .style('text-shadow','0 1px 3px rgba(0,0,0,.9)')
+      .text(abbr);
+  });
+
+  // Subtle labels on non-redistricting states
+  states.features.forEach(d => {
+    const abbr = fipsToAbbr[d.id];
+    if (abbr) return; // already labeled above
+    const [x, y] = stateCentroids[d.id] || [0,0];
+    if (!x) return;
+    const stateAbbr = Object.entries(redistFIPS).find(([a,f])=>f===d.id)?.[0] ||
+      ({
+        '01':'AL','02':'AK','04':'AZ','05':'AR','06':'CA','08':'CO','09':'CT','10':'DE',
+        '11':'DC','12':'FL','13':'GA','15':'HI','16':'ID','17':'IL','18':'IN','19':'IA',
+        '20':'KS','21':'KY','22':'LA','23':'ME','24':'MD','25':'MA','26':'MI','27':'MN',
+        '28':'MS','29':'MO','30':'MT','31':'NE','32':'NV','33':'NH','34':'NJ','35':'NM',
+        '36':'NY','37':'NC','38':'ND','39':'OH','40':'OK','41':'OR','42':'PA','44':'RI',
+        '45':'SC','46':'SD','47':'TN','48':'TX','49':'UT','50':'VT','51':'VA','53':'WA',
+        '54':'WV','55':'WI','56':'WY'
+      })[d.id] || '';
+    if (!stateAbbr) return;
+    svg.append('text')
+      .attr('x', x).attr('y', y)
+      .attr('text-anchor','middle').attr('dominant-baseline','middle')
+      .attr('font-family','DM Mono,monospace').attr('font-size',7)
+      .attr('fill','#4b5563').attr('pointer-events','none')
+      .text(stateAbbr);
+  });
+  */
+}
+
+function showRedistDetail(s) {
+  const isR = s.party==='R', isD = s.party==='D';
+  const color = isR ? '#f87171' : isD ? '#60a5fa' : s.party==='court' ? '#a78bfa' : s.party==='exploring' ? '#f59e0b' : '#9ca3af';
+  const statusText = {enacted:'✓ Map Enacted', exploring:'⏳ In Progress', dead:'✗ Failed'}[s.status] || s.status;
+
+  document.getElementById('redistDetailInner').innerHTML = `
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px;">
+      <div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;">
+          ${s.wiki ? `<a href="${s.wiki}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);">${s.state}</a>` : s.state}
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">${s.trigger}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid ${color};color:${color};">${statusText}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid ${color};color:${color};">Seats: ${s.seatsChanged}</span>
+      </div>
+    </div>
+    <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0 0 10px;">${s.desc}</p>
+    ${s.legal ? `<div style="font-size:12px;font-family:'DM Mono',monospace;color:#a78bfa;padding-top:10px;border-top:1px solid var(--border);">⚖ ${s.legal}</div>` : ''}
+  `;
+  document.getElementById('redistDetail').style.display = 'block';
+}
+
+function buildRedistCard(s) {
+  const isR = s.party==='R', isD = s.party==='D' || s.party==='court';
+  const isDead = s.party==='dead', isExp = s.status==='exploring';
+  const stripeColor = s.party==='R'?'#ef4444': s.party==='D'?'#3b82f6': s.party==='court'?'#a78bfa': s.party==='exploring'?'#f59e0b':'#4b5563';
+  const seatsColor = isDead||isExp ? '#9ca3af' : isR ? '#f87171' : '#60a5fa';
+  const statusLabels = { enacted:'✓ Map Enacted', exploring:'⏳ In Progress', dead:'✗ Failed' };
+  const pillBg = isR?'rgba(239,68,68,.15)':isD?'rgba(59,130,246,.15)':s.party==='court'?'rgba(167,139,250,.15)':'rgba(107,114,128,.15)';
+  const pillColor = isR?'#f87171':isD?'#60a5fa':s.party==='court'?'#a78bfa':'#9ca3af';
+  const pillBorder = isR?'rgba(239,68,68,.25)':isD?'rgba(59,130,246,.25)':s.party==='court'?'rgba(167,139,250,.25)':'rgba(107,114,128,.25)';
+  const stateHtml = s.wiki ? `<a href="${s.wiki}" target="_blank" rel="noopener">${s.state}</a>` : s.state;
+  return `<div class="redist-card">
+    <div class="redist-card-stripe" style="height:4px;background:${stripeColor};"></div>
+    <div class="redist-card-body">
+      <div class="redist-state">${stateHtml}</div>
+      <div class="redist-meta">${s.trigger}</div>
+      <div class="redist-pills">
+        <span class="redist-pill" style="background:${pillBg};color:${pillColor};border:1px solid ${pillBorder};">${statusLabels[s.status]||s.status}</span>
+      </div>
+      <div class="redist-seats" style="font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:${seatsColor};margin-bottom:8px;">Seat Impact: ${s.seatsChanged}</div>
+      <div class="redist-desc">${s.desc}</div>
+    </div>
+  </div>`;
+}
+
+function renderRedistCards() {
+  renderRedistMap();
+
+  // Still render the card list below for completeness, grouped by party
+  const enacted_r = redistStates.filter(s=>s.status==='enacted' && s.party==='R');
+  const enacted_d = redistStates.filter(s=>s.status==='enacted' && s.party==='D');
+  const court     = redistStates.filter(s=>s.party==='court');
+  const other     = redistStates.filter(s=>s.status!=='enacted' && s.party!=='court');
+
+  let html = '';
+
+  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#f87171">R Gerrymander — Enacted</span><div class="redist-section-line"></div></div>
+           <div class="redist-grid">${enacted_r.map(buildRedistCard).join('')}</div>`;
+
+  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#60a5fa">D Gerrymander — Enacted</span><div class="redist-section-line"></div></div>
+           <div class="redist-grid">${enacted_d.map(buildRedistCard).join('')}</div>`;
+
+  if (court.length) {
+    html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#a78bfa">Court-Ordered</span><div class="redist-section-line"></div></div>
+             <div class="redist-grid">${court.map(buildRedistCard).join('')}</div>`;
+  }
+
+  html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#9ca3af">Failed &amp; In Progress</span><div class="redist-section-line"></div></div>
+           <div class="redist-grid">${other.map(buildRedistCard).join('')}</div>`;
+
+  document.getElementById('redistCards').innerHTML = html;
+}
+
+
+renderRedistCards();
+
+/* ═══════════════════════════════════════════════
+   FUNDRAISING DATA
+═══════════════════════════════════════════════ */
+const fundraisers = [
+  // ═══ HOUSE - 2025-26 cycle receipts (verified FEC data) ═══
+  { name: "Alexandria Ocasio-Cortez", state: "NY", chamber: "House", party: "D", raised: 23658044, incumbent: true, verified: true },
+  { name: "Mike Johnson", state: "LA", chamber: "House", party: "R", raised: 14500289, incumbent: true, verified: true },
+  { name: "Hakeem Jeffries", state: "NY", chamber: "House", party: "D", raised: 10327240, incumbent: true, verified: true },
+  { name: "Ro Khanna", state: "CA", chamber: "House", party: "D", raised: 9579627, incumbent: true, verified: true },
+  { name: "Steve Scalise", state: "LA", chamber: "House", party: "R", raised: 7843280, incumbent: true, verified: true },
+  { name: "Anthony Constantino", state: "PA", chamber: "House", party: "R", raised: 7605073, incumbent: false, verified: true },
+  { name: "Eugene Vindman", state: "VA", chamber: "House", party: "D", raised: 7044268, incumbent: true, verified: true },
+  { name: "Tom Emmer", state: "MN", chamber: "House", party: "R", raised: 6763926, incumbent: true, verified: true },
+  { name: "Eileen Laubacher", state: "PA", chamber: "House", party: "D", raised: 6448749, incumbent: false, verified: true },
+  { name: "Young Kim", state: "CA", chamber: "House", party: "R", raised: 6339770, incumbent: true, verified: true },
+  
+  // ═══ SENATE - 2021-26 cycle receipts (verified FEC data) ═══
+  { name: "Jon Ossoff", state: "GA", chamber: "Senate", party: "D", raised: 63937894, incumbent: true, verified: true },
+  { name: "Cory Booker", state: "NJ", chamber: "Senate", party: "D", raised: 30106071, incumbent: true, verified: true },
+  { name: "Raja Krishnamoorthi", state: "IL", chamber: "Senate", party: "D", raised: 28480747, incumbent: false, verified: true },
+  { name: "Lindsey Graham", state: "SC", chamber: "Senate", party: "R", raised: 19638469, incumbent: true, verified: true },
+  { name: "Mark Warner", state: "VA", chamber: "Senate", party: "D", raised: 19412858, incumbent: true, verified: true },
+  { name: "Roy Cooper", state: "NC", chamber: "Senate", party: "D", raised: 17979856, incumbent: false, verified: true },
+  { name: "Sherrod Brown", state: "OH", chamber: "Senate", party: "D", raised: 14356450, incumbent: true, verified: true },
+  { name: "Bill Hagerty", state: "TN", chamber: "Senate", party: "R", raised: 13807466, incumbent: true, verified: true },
+  { name: "James Talarico", state: "TX", chamber: "Senate", party: "D", raised: 13152582, incumbent: false, verified: true },
+  { name: "Bill Cassidy", state: "LA", chamber: "Senate", party: "R", raised: 11729417, incumbent: true, verified: true },
+];
+
+function formatMoney(amt) {
+  if (amt >= 1000000) return `$${(amt / 1000000).toFixed(1)}M`;
+  if (amt >= 1000) return `$${(amt / 1000).toFixed(0)}K`;
+  return `$${amt}`;
+}
+
+function buildFundraisingCard(f, rank) {
+  const partyColor = f.party === 'D' ? 'var(--dem)' : 'var(--rep)';
+  const partyBg = f.party === 'D' ? 'var(--dem-soft)' : 'var(--rep-soft)';
+  const incBadge = f.incumbent ? '<span style="font-family:\'DM Mono\',monospace;font-size:9px;padding:2px 6px;border-radius:3px;background:var(--surface2);color:var(--muted);margin-left:8px;">INC</span>' : '';
+  
+  return `
+    <div class="fundraising-card">
+      <div class="fundraising-rank" style="color:${partyColor};">#${rank}</div>
+      <div class="fundraising-info">
+        <div class="fundraising-name">${f.name}${incBadge}</div>
+        <div class="fundraising-meta">
+          <span style="color:${partyColor};font-weight:600;">${f.party}</span>
+          <span style="color:var(--muted);"> · </span>
+          <span>${f.state} ${f.chamber}</span>
+        </div>
+      </div>
+      <div class="fundraising-amount" style="color:${partyColor};">${formatMoney(f.raised)}</div>
+      <div class="fundraising-bar-wrap">
+        <div class="fundraising-bar" style="background:${partyColor};width:${(f.raised / fundraisers[0].raised * 100).toFixed(1)}%"></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderFundraising(filter = 'all') {
+  let filtered = [...fundraisers];
+  
+  if (filter !== 'all') {
+    filtered = filtered.filter(f => f.chamber === filter);
+  }
+  
+  const sorted = filtered.sort((a, b) => b.raised - a.raised);
+  const top10 = sorted.slice(0, 10);
+  
+  const totalRaised = top10.reduce((sum, f) => sum + f.raised, 0);
+  const highestRaised = top10[0].raised;
+  const avgRaised = totalRaised / top10.length;
+  
+  document.getElementById('fundTotal').textContent = formatMoney(totalRaised);
+  document.getElementById('fundHighest').textContent = formatMoney(highestRaised);
+  document.getElementById('fundAvg').textContent = formatMoney(avgRaised);
+  
+  const titleMap = {
+    'all': 'Top 10 Fundraisers — All Races',
+    'Senate': 'Top 10 Senate Fundraisers (2021-26 Cycle)',
+    'House': 'Top 10 House Fundraisers (2025-26 Cycle)'
+  };
+  
+  const html = `
+    <div class="section-header">
+      <span class="section-title">${titleMap[filter]}</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="fundraising-grid">
+      ${top10.map((f, i) => buildFundraisingCard(f, i + 1)).join('')}
+    </div>
+  `;
+  
+  document.getElementById('fundraisingContent').innerHTML = html;
+}
+
+// Event listeners for fundraising sub-tabs
+document.querySelectorAll('.fund-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fund-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderFundraising(btn.dataset.fundFilter);
+  });
+});
+
+renderFundraising();
+</script>
+</body>
+</html>
