@@ -701,6 +701,90 @@
       }
     }
 
+    /* ── BLOG POSTS ── */
+    .blog-post {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .blog-post:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+    }
+    .blog-post.expanded {
+      cursor: default;
+    }
+    .blog-post.expanded:hover {
+      border-color: var(--border);
+      background: var(--surface);
+    }
+    .blog-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .blog-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .blog-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .blog-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .blog-snippet {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .blog-content {
+      display: none;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #c9cdd6;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .blog-content p {
+      margin-bottom: 16px;
+    }
+    .blog-content p:last-child {
+      margin-bottom: 0;
+    }
+    .blog-post.expanded .blog-content {
+      display: block;
+    }
+    .blog-post.expanded .blog-snippet {
+      display: none;
+    }
+    .blog-expand-hint {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .blog-post.expanded .blog-expand-hint {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
@@ -713,7 +797,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>Updated Feb 14, 2026</span>
+      <span>Updated Feb 15, 2026</span>
     </div>
   </div>
   <div class="tab-bar">
@@ -722,6 +806,7 @@
     <button class="tab-btn" data-tab="primary">Progressive Challengers</button>
     <button class="tab-btn" data-tab="redist">Mid-Decade Redistricting</button>
     <button class="tab-btn" data-tab="fundraising">Fundraising</button>
+    <button class="tab-btn" data-tab="blog">Analysis & Commentary</button>
   </div>
 </header>
 
@@ -880,6 +965,75 @@
     </div>
 
     <div id="fundraisingContent"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOG / ANALYSIS & COMMENTARY TAB
+  ═══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-blog">
+    
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Section</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Featuring takes and analysis from students of the Schar School of Policy and Government at George Mason University.</p>
+    </div>
+
+    <div class="blog-post" onclick="this.classList.toggle('expanded')">
+      <div class="blog-header">
+        <div class="blog-title">Why the Texas Gerrymander Will Backfire</div>
+        <div class="blog-date">Feb 12, 2026</div>
+      </div>
+      <div class="blog-author">By Peter</div>
+      <div class="blog-snippet">
+        Republicans think they've locked in five new seats with their aggressive Texas redistricting. But demographic shifts and backlash mobilization might make this gamble blow up in their faces...
+      </div>
+      <div class="blog-content">
+        <p>Republicans think they've locked in five new seats with their aggressive Texas redistricting. But demographic shifts and backlash mobilization might make this gamble blow up in their faces.</p>
+        <p>The new maps crack Democratic strongholds in Dallas, Houston, and San Antonio into multiple districts, diluting urban Democratic votes across suburban and rural areas. On paper, this should net Republicans 5+ seats. The Supreme Court's 6-3 decision to allow the maps sealed the deal—or so they thought.</p>
+        <p>Here's the problem: Texas is changing faster than maps can keep up. The suburbs that Republicans are now relying on to outvote urban Democrats have been trending blue for three cycles straight. Collin County went for Biden. Tarrant County is purple. Even traditionally red Williamson County is competitive.</p>
+        <p>Republicans are essentially betting that 2026 will look like 2020. But every month, thousands of young, diverse voters turn 18 in Texas. Meanwhile, the heavy-handed nature of this gerrymander has energized Democratic organizing in ways that subtle gerrymandering never could.</p>
+        <p>Watch for these newly drawn districts to be shockingly competitive in 2026—and potentially flip Democratic by 2028. Sometimes, getting too greedy with the map means you end up with nothing at all.</p>
+      </div>
+      <div class="blog-expand-hint">Click to read more →</div>
+    </div>
+
+    <div class="blog-post" onclick="this.classList.toggle('expanded')">
+      <div class="blog-header">
+        <div class="blog-title">The Ossoff Fundraising Machine</div>
+        <div class="blog-date">Feb 10, 2026</div>
+      </div>
+      <div class="blog-author">By Sarah Chen</div>
+      <div class="blog-snippet">
+        Jon Ossoff has raised nearly $64 million for his 2026 reelection—more than double any other Senate candidate. How did he build the most powerful small-dollar fundraising operation in Democratic politics?
+      </div>
+      <div class="blog-content">
+        <p>Jon Ossoff has raised nearly $64 million for his 2026 reelection—more than double any other Senate candidate. How did he build the most powerful small-dollar fundraising operation in Democratic politics?</p>
+        <p>The answer lies in his 2020 runoff campaign, when Ossoff pioneered a new model of digital organizing that treats donors as activists rather than ATMs. His team built sophisticated infrastructure for recurring donations, peer-to-peer texting, and small-dollar bundling that continues to generate millions every quarter.</p>
+        <p>But the secret weapon is Ossoff himself. Unlike many senators who disappear between elections, Ossoff has maintained constant communication with his small-dollar donor base through weekly emails, quarterly video updates, and even personal thank-you calls to recurring donors. This isn't just about money—it's about building a movement.</p>
+        <p>The results speak for themselves. Ossoff's average donation is $47, and 68% of his donors are recurring monthly contributors. Compare that to other top Senate fundraisers who rely heavily on maxed-out donors and PAC money.</p>
+        <p>Other Democrats are taking notes. Expect to see Ossoff's model replicated across competitive races in 2026 and beyond. The era of big-money Senate campaigns might finally be ending.</p>
+      </div>
+      <div class="blog-expand-hint">Click to read more →</div>
+    </div>
+
+    <div class="blog-post" onclick="this.classList.toggle('expanded')">
+      <div class="blog-header">
+        <div class="blog-title">Progressive Primary Scorecard: What We've Learned So Far</div>
+        <div class="blog-date">Feb 8, 2026</div>
+      </div>
+      <div class="blog-author">By Marcus Williams</div>
+      <div class="blog-snippet">
+        Five progressive challengers have already won their primaries, and three more are leading in the polls. What's driving this insurgent wave, and can it actually translate to general election wins?
+      </div>
+      <div class="blog-content">
+        <p>Five progressive challengers have already won their primaries, and three more are leading in the polls. What's driving this insurgent wave, and can it actually translate to general election wins?</p>
+        <p>The pattern is consistent: in deep-blue districts where the general election is a foregone conclusion, Democratic voters are choosing younger, more confrontational candidates who promise to fight harder against Trump and the Republican agenda. Incumbents who voted for bipartisan deals or took corporate PAC money are getting punished.</p>
+        <p>This isn't 2018 or 2020 redux. The candidates winning now are more strategic, better funded, and running more sophisticated campaigns than the Justice Democrats wave of six years ago. They're also picking their battles carefully—challenging 70-year-old incumbents in D+30 districts rather than trying to primary popular progressives or flip red seats.</p>
+        <p>The real test will be November. Can these progressive nominees hold traditionally Democratic seats, or will Republicans exploit their positions to flip districts that should be safe? Early signs are encouraging—most of these districts are so blue that even a progressive nominee is favored by 20+ points.</p>
+        <p>But watch closely. If progressives can win primaries AND general elections convincingly, it will reshape Democratic strategy for a generation. If they lose seats that should be safe, the party establishment will use it to shut down insurgent challenges for years.</p>
+      </div>
+      <div class="blog-expand-hint">Click to read more →</div>
+    </div>
+
   </div>
 
 </main>
