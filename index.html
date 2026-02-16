@@ -923,7 +923,8 @@
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#ef4444;"></div><span style="color:#9ca3af;">R Gerrymander — Enacted</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#3b82f6;"></div><span style="color:#9ca3af;">D Gerrymander — Enacted</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#a78bfa;"></div><span style="color:#9ca3af;">Court-Ordered</span></div>
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div><span style="color:#9ca3af;">Exploring / In Progress</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div><span style="color:#9ca3af;">In Progress (2026)</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#06b6d4;"></div><span style="color:#9ca3af;">Potential (2028)</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#4b5563;"></div><span style="color:#9ca3af;">Failed</span></div>
     </div>
 
@@ -1780,12 +1781,28 @@ const redistStates = [
   { abbr:"MD", state:"Maryland", party:"exploring", seatsChanged:"Pending (+1 D)", status:"exploring",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
     trigger:"Voluntary — Dem response to Republican redistricting wave",
-    desc:"The Maryland legislature is considering redistricting to eliminate the only safe Republican seat." },
+    desc:"The Maryland legislature is considering redistricting to eliminate the only safe Republican seat. However, State Senate President Bill Ferguson is blocking the effort, citing concerns it could backfire in state courts. Hakeem Jeffries has personally warned Ferguson that his resistance could cost Democrats the House majority." },
 
   { abbr:"NY", state:"New York", party:"exploring", seatsChanged:"Pending (+1 to +4 D)", status:"exploring",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
     trigger:"Voluntary — Dem response to Republican redistricting wave",
     desc:"In New York, Governor Kathy Hochul has pledged to get involved with redistricting. In addition, a judge has ruled that a Republican district in New York dilutes the voting power of minorities, which is illegal under the Voting Rights Act of 1965. Democrats will pick up at least one seat, and potentially gerrymander for much more." },
+
+  // ── 2028 POTENTIAL ──────────────────────
+  { abbr:"PA", state:"Pennsylvania", party:"potential", seatsChanged:"TBD", status:"potential",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"2028 — Jeffries targeting for next cycle",
+    desc:"In response to Trump's aggressive GOP gerrymandering push, Hakeem Jeffries has identified Pennsylvania as a target state for potential 2028 redistricting. This is part of a broader Democratic strategy to ensure long-term House competitiveness. No formal proposals have been introduced." },
+
+  { abbr:"CO", state:"Colorado", party:"potential", seatsChanged:"TBD", status:"potential",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"2028 — Jeffries targeting for next cycle",
+    desc:"In response to Trump's aggressive GOP gerrymandering push, Hakeem Jeffries has identified Colorado as a target state for potential 2028 redistricting. This is part of a broader Democratic strategy to ensure long-term House competitiveness. No formal proposals have been introduced." },
+
+  { abbr:"WA", state:"Washington", party:"potential", seatsChanged:"TBD", status:"potential",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"2028 — Jeffries targeting for next cycle",
+    desc:"In response to Trump's aggressive GOP gerrymandering push, Hakeem Jeffries has identified Washington as a target state for potential 2028 redistricting. This is part of a broader Democratic strategy to ensure long-term House competitiveness. No formal proposals have been introduced." },
 ];
 
 /* ═══════════════════════════════════════════════
@@ -1797,7 +1814,8 @@ const redistFIPS = {
   CA:'06',                               // D-enacted
   UT:'49',                               // court-ordered
   IN:'18',                               // dead
-  VA:'51', FL:'12', MD:'24', NY:'36'    // exploring
+  VA:'51', FL:'12', MD:'24', NY:'36',   // exploring (2026)
+  PA:'42', CO:'08', WA:'53'             // potential (2028)
 };
 const fipsToAbbr = Object.fromEntries(Object.entries(redistFIPS).map(([a,f])=>[f,a]));
 
@@ -1806,6 +1824,7 @@ const redistColors = {
   'D-enacted':  '#3b82f6',
   'court':      '#a78bfa',
   'exploring':  '#f59e0b',
+  'potential':  '#06b6d4',  // cyan for 2028
   'dead':       '#4b5563',
   'none':       '#1e2330'
 };
@@ -1814,7 +1833,8 @@ const stateColorMap = {
   CA:'D-enacted',
   UT:'court',
   IN:'dead',
-  VA:'exploring', FL:'exploring', MD:'exploring', NY:'exploring'
+  VA:'exploring', FL:'exploring', MD:'exploring', NY:'exploring',
+  PA:'potential', CO:'potential', WA:'potential'
 };
 function getStateColor(abbr){return redistColors[stateColorMap[abbr]||'none'];}
 
@@ -2040,8 +2060,8 @@ function drawRedistMap(container, us) {
 
 function showRedistDetail(s) {
   const isR = s.party==='R', isD = s.party==='D';
-  const color = isR ? '#f87171' : isD ? '#60a5fa' : s.party==='court' ? '#a78bfa' : s.party==='exploring' ? '#f59e0b' : '#9ca3af';
-  const statusText = {enacted:'✓ Map Enacted', exploring:'⏳ In Progress', dead:'✗ Failed'}[s.status] || s.status;
+  const color = isR ? '#f87171' : isD ? '#60a5fa' : s.party==='court' ? '#a78bfa' : s.party==='exploring' ? '#f59e0b' : s.party==='potential' ? '#06b6d4' : '#9ca3af';
+  const statusText = {enacted:'✓ Map Enacted', exploring:'⏳ In Progress', potential:'🔮 2028 Target', dead:'✗ Failed'}[s.status] || s.status;
 
   document.getElementById('redistDetailInner').innerHTML = `
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px;">
@@ -2064,13 +2084,13 @@ function showRedistDetail(s) {
 
 function buildRedistCard(s) {
   const isR = s.party==='R', isD = s.party==='D' || s.party==='court';
-  const isDead = s.party==='dead', isExp = s.status==='exploring';
-  const stripeColor = s.party==='R'?'#ef4444': s.party==='D'?'#3b82f6': s.party==='court'?'#a78bfa': s.party==='exploring'?'#f59e0b':'#4b5563';
-  const seatsColor = isDead||isExp ? '#9ca3af' : isR ? '#f87171' : '#60a5fa';
-  const statusLabels = { enacted:'✓ Map Enacted', exploring:'⏳ In Progress', dead:'✗ Failed' };
-  const pillBg = isR?'rgba(239,68,68,.15)':isD?'rgba(59,130,246,.15)':s.party==='court'?'rgba(167,139,250,.15)':'rgba(107,114,128,.15)';
-  const pillColor = isR?'#f87171':isD?'#60a5fa':s.party==='court'?'#a78bfa':'#9ca3af';
-  const pillBorder = isR?'rgba(239,68,68,.25)':isD?'rgba(59,130,246,.25)':s.party==='court'?'rgba(167,139,250,.25)':'rgba(107,114,128,.25)';
+  const isDead = s.party==='dead', isExp = s.status==='exploring', isPot = s.status==='potential';
+  const stripeColor = s.party==='R'?'#ef4444': s.party==='D'?'#3b82f6': s.party==='court'?'#a78bfa': s.party==='exploring'?'#f59e0b': s.party==='potential'?'#06b6d4':'#4b5563';
+  const seatsColor = isDead||isExp||isPot ? '#9ca3af' : isR ? '#f87171' : '#60a5fa';
+  const statusLabels = { enacted:'✓ Map Enacted', exploring:'⏳ In Progress', potential:'🔮 2028 Target', dead:'✗ Failed' };
+  const pillBg = isR?'rgba(239,68,68,.15)':isD?'rgba(59,130,246,.15)':s.party==='court'?'rgba(167,139,250,.15)':isPot?'rgba(6,182,212,.15)':'rgba(107,114,128,.15)';
+  const pillColor = isR?'#f87171':isD?'#60a5fa':s.party==='court'?'#a78bfa':isPot?'#06b6d4':'#9ca3af';
+  const pillBorder = isR?'rgba(239,68,68,.25)':isD?'rgba(59,130,246,.25)':s.party==='court'?'rgba(167,139,250,.25)':isPot?'rgba(6,182,212,.25)':'rgba(107,114,128,.25)';
   const stateHtml = s.wiki ? `<a href="${s.wiki}" target="_blank" rel="noopener">${s.state}</a>` : s.state;
   return `<div class="redist-card">
     <div class="redist-card-stripe" style="height:4px;background:${stripeColor};"></div>
@@ -2089,11 +2109,13 @@ function buildRedistCard(s) {
 function renderRedistCards() {
   renderRedistMap();
 
-  // Still render the card list below for completeness, grouped by party
+  // Group states by status
   const enacted_r = redistStates.filter(s=>s.status==='enacted' && s.party==='R');
   const enacted_d = redistStates.filter(s=>s.status==='enacted' && s.party==='D');
   const court     = redistStates.filter(s=>s.party==='court');
-  const other     = redistStates.filter(s=>s.status!=='enacted' && s.party!=='court');
+  const exploring = redistStates.filter(s=>s.status==='exploring');
+  const potential = redistStates.filter(s=>s.status==='potential');
+  const dead      = redistStates.filter(s=>s.status==='dead');
 
   let html = '';
 
@@ -2108,8 +2130,18 @@ function renderRedistCards() {
              <div class="redist-grid">${court.map(buildRedistCard).join('')}</div>`;
   }
 
-  html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#9ca3af">Failed &amp; In Progress</span><div class="redist-section-line"></div></div>
-           <div class="redist-grid">${other.map(buildRedistCard).join('')}</div>`;
+  html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#f59e0b">In Progress — 2026</span><div class="redist-section-line"></div></div>
+           <div class="redist-grid">${exploring.map(buildRedistCard).join('')}</div>`;
+
+  if (potential.length) {
+    html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#06b6d4">Potential — 2028 Targets</span><div class="redist-section-line"></div></div>
+             <div class="redist-grid">${potential.map(buildRedistCard).join('')}</div>`;
+  }
+
+  if (dead.length) {
+    html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#9ca3af">Failed</span><div class="redist-section-line"></div></div>
+             <div class="redist-grid">${dead.map(buildRedistCard).join('')}</div>`;
+  }
 
   document.getElementById('redistCards').innerHTML = html;
 }
