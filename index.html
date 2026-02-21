@@ -1229,6 +1229,36 @@
 </head>
 <body>
 
+<!-- ── WHATS NEW POPUP ── -->
+<div id="whats-new-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:32px 36px;max-width:480px;width:90%;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.5);">
+    <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;">What's New · Feb 20, 2026</div>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:20px;line-height:1.3;">Site Update</div>
+    <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px;">
+      <li style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added many more races to the Progressive Challengers tab, including IL-8, MI-13, MO-1, NC-4, TX-30, NY-13, CA-7, and CO-1.</span>
+      </li>
+    </ul>
+    <button onclick="closeWhatsNew()" style="background:var(--accent);color:#0a0c10;border:none;border-radius:4px;padding:10px 24px;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;font-weight:600;">Got it</button>
+  </div>
+</div>
+
+<script>
+  const LATEST_UPDATE = 'Feb 20, 2026';
+  const storageKey = 'lastSeenUpdate';
+  function closeWhatsNew() {
+    document.getElementById('whats-new-overlay').style.display = 'none';
+    localStorage.setItem(storageKey, LATEST_UPDATE);
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem(storageKey) !== LATEST_UPDATE) {
+      const overlay = document.getElementById('whats-new-overlay');
+      overlay.style.display = 'flex';
+    }
+  });
+</script>
+
 <header>
   <div class="header-top">
     <div class="header-left">
@@ -1237,7 +1267,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>Updated Feb 19, 2026</span>
+      <span>Updated Feb 20, 2026</span>
     </div>
   </div>
   <div class="tab-bar">
@@ -2147,7 +2177,7 @@ const primaries = [
   {
     id: "p6",
     name: "California 21st — Dem Primary",
-    state: "CA", chamber: "House", date: "2026-03-17",
+    state: "CA", chamber: "House", date: "2026-06-02",
     lean: "tossup", // vs. Valadao
     status: "upcoming", winner: null,
     candidates: [
@@ -2170,6 +2200,121 @@ const primaries = [
         endorsements: ["Teamsters", "AFGE"] },
       { name: "Juliana Stratton",    wing: "progressive",   poll: 10,
         endorsements: ["JB Pritzker", "Tammy Duckworth", "Emily's List", "Elizabeth Warren"] },
+    ]
+  },
+
+  {
+    id: "p-ny13",
+    name: "New York 13th — Dem Primary",
+    state: "NY", chamber: "House", date: "2026-06-23",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Darializa Avila Chevalier",   wing: "progressive",   poll: null,
+        endorsements: ["NYC DSA", "Justice Democrats", "Jamaal Bowman"] },
+      { name: "Adriano Espaillat (inc.)",    wing: "moderate",      poll: null,
+        endorsements: ["Congressional Black Caucus PAC", "League of Conservation Voters Action Fund"] },
+    ]
+  },
+
+  {
+    id: "p-tx30",
+    name: "Texas 30th — Dem Primary",
+    state: "TX", chamber: "House", date: "2026-03-03",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Frederick Haynes III",        wing: "progressive", poll: null,
+        endorsements: ["Justice Democrats", "Jasmine Crockett"] },
+      { name: "Barbara Mallory Caraway",     wing: "moderate",    poll: null,
+        endorsements: [] },
+    ]
+  },
+
+  {
+    id: "p-nc4",
+    name: "North Carolina 4th — Dem Primary",
+    state: "NC", chamber: "House", date: "2026-03-03",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Nida Allam",               wing: "progressive",   poll: null,
+        endorsements: ["Bernie Sanders", "Justice Democrats", "Working Families Party"] },
+      { name: "Valerie Foushee (inc.)",   wing: "establishment", poll: null,
+        endorsements: ["Roy Cooper", "Josh Stein", "Maxwell Frost"] },
+    ]
+  },
+
+  {
+    id: "p-mo1",
+    name: "Missouri 1st — Dem Primary",
+    state: "MO", chamber: "House", date: "2026-08-04",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Cori Bush",              wing: "progressive",   poll: null,
+        endorsements: ["St. Louis DSA", "Justice Democrats"] },
+      { name: "Wesley Bell (inc.)",     wing: "moderate",      poll: null,
+        endorsements: ["AIPAC", "Democratic Majority for Israel"] },
+    ]
+  },
+
+  {
+    id: "p-mi13",
+    name: "Michigan 13th — Dem Primary",
+    state: "MI", chamber: "House", date: "2026-08-04",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Donavan McKinney",   wing: "progressive",   poll: null,
+        endorsements: ["Bernie Sanders", "Rashida Tlaib", "Justice Democrats"] },
+      { name: "Shri Thanedar (inc.)", wing: "establishment", poll: null,
+        endorsements: ["AIPAC", "Democratic Majority for Israel"] },
+    ]
+  },
+
+  {
+    id: "p-il8",
+    name: "Illinois 8th — Dem Primary",
+    state: "IL", chamber: "House", date: "2026-03-17",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    pollSource: "Normington Petts (D) · Aug 18–21, 2025 (400 RV, ±4.9%) — Note: 68% undecided",
+    candidates: [
+      { name: "Junaid Ahmed",    wing: "progressive",   poll: 8,
+        endorsements: ["Justice Democrats", "Elizabeth Warren", "West Suburban Illinois DSA"] },
+      { name: "Melissa Bean",    wing: "moderate",      poll: 10,
+        endorsements: ["Tammy Duckworth", "Nancy Pelosi"] },
+      { name: "Kevin Morrison",  wing: "moderate",      poll: 5,
+        endorsements: ["Ritchie Torres", "Joe Walsh", "Becca Balint"] },
+    ]
+  },
+
+  {
+    id: "p-co1",
+    name: "Colorado 1st — Dem Primary",
+    state: "CO", chamber: "House", date: "2026-06-30",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Melat Kiros",            wing: "progressive",   poll: null,
+        endorsements: ["Denver DSA", "Justice Democrats"] },
+      { name: "Diana DeGette (inc.)",   wing: "moderate",      poll: null,
+        endorsements: ["J Street"] },
+    ]
+  },
+
+  {
+    id: "p-ca7",
+    name: "California 7th — Dem Primary",
+    state: "CA", chamber: "House", date: "2026-06-02",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    candidates: [
+      { name: "Mai Vang",              wing: "progressive",   poll: null,
+        endorsements: ["Justice Democrats", "Working Families Party", "Our Revolution"] },
+      { name: "Doris Matsui (inc.)",   wing: "establishment", poll: null,
+        endorsements: ["Sacramento Democratic Party"] },
     ]
   },
 
@@ -2242,7 +2387,9 @@ function buildPrimaryCard(p) {
 
   const maxPoll = Math.max(...p.candidates.map(c=>c.poll||0), 1);
 
-  const candRows = p.candidates.map(c => {
+  const sortedCandidates = [...p.candidates].sort((a, b) => (b.poll || 0) - (a.poll || 0));
+
+  const candRows = sortedCandidates.map(c => {
     const wm = wingMeta[c.wing] || wingMeta.moderate;
     const isWinner = p.winner === c.wing && p.status === 'result';
     const winStar  = isWinner ? ' <span class="winner-star">★</span>' : '';
