@@ -1338,16 +1338,16 @@
         <div class="chamber-status status-active">View Tracker</div>
       </div>
       <div class="chamber-btn" onclick="gatedChamber('house')">
-        <div class="chamber-icon">&#127959;</div>
+        <div class="chamber-icon" id="house-icon">&#127959;</div>
         <div class="chamber-title">House</div>
         <div class="chamber-subtitle">Coming soon...</div>
-        <div class="chamber-status status-construction">&#127959; Under Construction</div>
+        <div class="chamber-status status-construction" id="house-status">&#127959; Under Construction</div>
       </div>
       <div class="chamber-btn" onclick="gatedChamber('senatemap')">
-        <div class="chamber-icon">&#127959;</div>
+        <div class="chamber-icon" id="senate-icon">&#127959;</div>
         <div class="chamber-title">Senate Map</div>
         <div class="chamber-subtitle">All 34 Senate races in 2026</div>
-        <div class="chamber-status status-construction">&#127959; Under Construction</div>
+        <div class="chamber-status status-construction" id="senate-status">&#127959; Under Construction</div>
       </div>
     </div>
 
@@ -1482,6 +1482,26 @@
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (John Cornyn)</div>
         <div class="bg-race-desc">The Democratic and Republican parties are both holding primary elections that have turned ugly. John Cornyn is getting a primary challenge from Texas Attorney General Ken Paxton, which has led to nasty attacks on Cornyn's votes in the Senate, which have been viewed as too liberal, and Paxton's impeachment and extramarital affair. Talarico and Crockett have also been duking it out in the Democratic primary, with questions on racism, electability, and lying being thrown around. Polling shows that Cornyn and Talarico would be their parties' best bets in a general election, and also that neither of them will win their primary.</div>
+      </div>
+
+      <!-- New Hampshire -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">New Hampshire</div>
+          <div class="bg-race-rating rating-likely-d">Likely Democrat</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--dem);">Democrats</strong> (Jeanne Shaheen - retiring)</div>
+        <div class="bg-race-desc">Bio coming soon...</div>
+      </div>
+
+      <!-- Nebraska -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Nebraska</div>
+          <div class="bg-race-rating rating-lean-r">Lean Republican</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Pete Ricketts)</div>
+        <div class="bg-race-desc">Bio coming soon...</div>
       </div>
     </div>
 
@@ -3083,8 +3103,17 @@ document.querySelectorAll('.fund-filter').forEach(btn => {
   function checkPassword() {
     var input = document.getElementById('pw-input').value;
     var error = document.getElementById('pw-error');
-    if (input === 'Dollar1210!') {
+    if (input === 'ZohranMamdani') {
       _pwUnlocked = true;
+      // Update all construction labels to Special Access Granted
+      ['house-status','senate-status'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) { el.textContent = '\uD83D\uDD75\uFE0F Special Access Granted'; }
+      });
+      ['house-icon','senate-icon'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) { el.textContent = '\uD83D\uDD75\uFE0F'; }
+      });
       closePwModal();
       if (_pwTarget) showChamber(_pwTarget);
     } else {
@@ -3128,44 +3157,59 @@ renderFundraising();
     } else {
       if (mainView)  mainView.style.display  = 'grid';
       if (mainBlurb) mainBlurb.style.display = 'block';
+      if (_pwUnlocked) {
+        ['house-status','senate-status'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '\uD83D\uDD75\uFE0F Special Access Granted';
+        });
+        ['house-icon','senate-icon'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '\uD83D\uDD75\uFE0F';
+        });
+      }
     }
   }
 
   const senateRaces2026 = [
-    { state: 'Georgia',       incumbent: 'Jon Ossoff',           party: 'D', rating: 'lean-d'   },
-    { state: 'Michigan',      incumbent: 'Gary Peters (ret.)',    party: 'D', rating: 'tossup'   },
-    { state: 'New Hampshire', incumbent: 'Jeanne Shaheen (ret.)', party: 'D', rating: 'tossup'   },
-    { state: 'Maine',         incumbent: 'Susan Collins',         party: 'R', rating: 'tossup'   },
-    { state: 'North Carolina',incumbent: 'Thom Tillis (ret.)',    party: 'R', rating: 'tossup'   },
-    { state: 'Minnesota',     incumbent: 'Tina Smith',            party: 'D', rating: 'lean-d'   },
-    { state: 'Virginia',      incumbent: 'Mark Warner',           party: 'D', rating: 'lean-d'   },
-    { state: 'Alaska',        incumbent: 'Dan Sullivan',          party: 'R', rating: 'lean-r'   },
-    { state: 'Iowa',          incumbent: 'Joni Ernst',            party: 'R', rating: 'lean-r'   },
-    { state: 'Texas',         incumbent: 'John Cornyn',           party: 'R', rating: 'lean-r'   },
-    { state: 'Colorado',      incumbent: 'Michael Bennet',        party: 'D', rating: 'likely-d' },
-    { state: 'New Jersey',    incumbent: 'Cory Booker',           party: 'D', rating: 'likely-d' },
-    { state: 'Delaware',      incumbent: 'Chris Coons',           party: 'D', rating: 'safe-d'   },
-    { state: 'Hawaii',        incumbent: 'Brian Schatz',          party: 'D', rating: 'safe-d'   },
-    { state: 'Illinois',      incumbent: 'Dick Durbin (ret.)',     party: 'D', rating: 'safe-d'   },
-    { state: 'Massachusetts', incumbent: 'Ed Markey',             party: 'D', rating: 'safe-d'   },
-    { state: 'New Mexico',    incumbent: 'Martin Heinrich',        party: 'D', rating: 'safe-d'   },
-    { state: 'Oregon',        incumbent: 'Jeff Merkley',           party: 'D', rating: 'safe-d'   },
-    { state: 'Rhode Island',  incumbent: 'Sheldon Whitehouse',     party: 'D', rating: 'safe-d'   },
-    { state: 'Louisiana',     incumbent: 'Bill Cassidy',           party: 'R', rating: 'likely-r' },
-    { state: 'South Carolina',incumbent: 'Lindsey Graham',         party: 'R', rating: 'likely-r' },
-    { state: 'Alabama',       incumbent: 'Richard Shelby (ret.)',  party: 'R', rating: 'safe-r'   },
-    { state: 'Arkansas',      incumbent: 'John Boozman',           party: 'R', rating: 'safe-r'   },
-    { state: 'Idaho',         incumbent: 'Mike Crapo',             party: 'R', rating: 'safe-r'   },
-    { state: 'Kansas',        incumbent: 'Jerry Moran',            party: 'R', rating: 'safe-r'   },
-    { state: 'Kentucky',      incumbent: 'Mitch McConnell',        party: 'R', rating: 'safe-r'   },
-    { state: 'Mississippi',   incumbent: 'Roger Wicker',           party: 'R', rating: 'safe-r'   },
-    { state: 'Missouri',      incumbent: 'Eric Schmitt',           party: 'R', rating: 'safe-r'   },
-    { state: 'Montana',       incumbent: 'Steve Daines',           party: 'R', rating: 'safe-r'   },
-    { state: 'Nebraska',      incumbent: 'Pete Ricketts',          party: 'R', rating: 'safe-r'   },
-    { state: 'Oklahoma',      incumbent: 'James Lankford',         party: 'R', rating: 'safe-r'   },
-    { state: 'South Dakota',  incumbent: 'Mike Rounds',            party: 'R', rating: 'safe-r'   },
-    { state: 'Tennessee',     incumbent: 'Marsha Blackburn',       party: 'R', rating: 'safe-r'   },
-    { state: 'Wyoming',       incumbent: 'John Barrasso',          party: 'R', rating: 'safe-r'   },
+    // Tossups
+    { state: 'Georgia',       incumbent: 'Jon Ossoff',              party: 'D', rating: 'lean-d'   },
+    { state: 'Michigan',      incumbent: 'Gary Peters (ret.)',       party: 'D', rating: 'tossup'   },
+    { state: 'New Hampshire', incumbent: 'Jeanne Shaheen (ret.)',    party: 'D', rating: 'likely-d' },
+    { state: 'Maine',         incumbent: 'Susan Collins',            party: 'R', rating: 'tossup'   },
+    { state: 'North Carolina',incumbent: 'Thom Tillis (ret.)',       party: 'R', rating: 'tossup'   },
+    // Lean D
+    { state: 'Minnesota',     incumbent: 'Tina Smith (ret.)',        party: 'D', rating: 'likely-d' },
+    { state: 'Virginia',      incumbent: 'Mark Warner',              party: 'D', rating: 'likely-d' },
+    // Lean R
+    { state: 'Alaska',        incumbent: 'Dan Sullivan',             party: 'R', rating: 'lean-r'   },
+    { state: 'Iowa',          incumbent: 'Joni Ernst (ret.)',        party: 'R', rating: 'likely-r' },
+    { state: 'Texas',         incumbent: 'John Cornyn',              party: 'R', rating: 'lean-r'   },
+    { state: 'Ohio',          incumbent: 'Jon Husted (special)',     party: 'R', rating: 'lean-r'   },
+    { state: 'Nebraska',      incumbent: 'Pete Ricketts',            party: 'R', rating: 'lean-r'   },
+    // Likely D
+    { state: 'Colorado',      incumbent: 'John Hickenlooper',        party: 'D', rating: 'likely-d' },
+    { state: 'New Jersey',    incumbent: 'Cory Booker',              party: 'D', rating: 'likely-d' },
+    // Likely R
+    { state: 'Florida',       incumbent: 'Ashley Moody (special)',   party: 'R', rating: 'likely-r' },
+    { state: 'Louisiana',     incumbent: 'Bill Cassidy',             party: 'R', rating: 'safe-r'   },
+    // Safe D
+    { state: 'Delaware',      incumbent: 'Chris Coons',              party: 'D', rating: 'safe-d'   },
+    { state: 'Hawaii',        incumbent: 'Brian Schatz',             party: 'D', rating: 'safe-d'   },
+    { state: 'Illinois',      incumbent: 'Dick Durbin (ret.)',        party: 'D', rating: 'safe-d'   },
+    { state: 'Massachusetts', incumbent: 'Ed Markey',                party: 'D', rating: 'safe-d'   },
+    { state: 'New Mexico',    incumbent: 'Ben Ray Luján',            party: 'D', rating: 'safe-d'   },
+    { state: 'Oregon',        incumbent: 'Jeff Merkley',             party: 'D', rating: 'safe-d'   },
+    { state: 'Rhode Island',  incumbent: 'Sheldon Whitehouse',       party: 'D', rating: 'safe-d'   },
+    // Safe R
+    { state: 'Alabama',       incumbent: 'Tommy Tuberville (ret.)',  party: 'R', rating: 'safe-r'   },
+    { state: 'Arkansas',      incumbent: 'Tom Cotton',               party: 'R', rating: 'safe-r'   },
+    { state: 'Idaho',         incumbent: 'Jim Risch',                party: 'R', rating: 'safe-r'   },
+    { state: 'Kansas',        incumbent: 'Roger Marshall',           party: 'R', rating: 'safe-r'   },
+    { state: 'Kentucky',      incumbent: 'Mitch McConnell (ret.)',   party: 'R', rating: 'safe-r'   },
+    { state: 'Mississippi',   incumbent: 'Cindy Hyde-Smith',         party: 'R', rating: 'safe-r'   },
+    { state: 'Montana',       incumbent: 'Steve Daines',             party: 'R', rating: 'safe-r'   },
+    { state: 'Tennessee',     incumbent: 'Bill Hagerty',             party: 'R', rating: 'safe-r'   },
+    { state: 'Wyoming',       incumbent: 'Cynthia Lummis',           party: 'R', rating: 'safe-r'   },
   ];
 
   function renderSenateMap() {
@@ -3173,13 +3217,13 @@ renderFundraising();
     if (!container) return;
 
     var cfg = {
-      "tossup":   { label: "Toss-up",          fill: "#b45309", stroke: "#f0b429" },
-      "lean-d":   { label: "Lean Dem",          fill: "#1d4ed8", stroke: "#60a5fa" },
-      "lean-r":   { label: "Lean Rep",          fill: "#b91c1c", stroke: "#f87171" },
-      "likely-d": { label: "Likely Dem",        fill: "#1e40af", stroke: "#3b82f6" },
-      "likely-r": { label: "Likely Rep",        fill: "#991b1b", stroke: "#ef4444" },
-      "safe-d":   { label: "Safe Dem",          fill: "#1e3a8a", stroke: "#2563eb" },
-      "safe-r":   { label: "Safe Rep",          fill: "#7f1d1d", stroke: "#dc2626" },
+      "tossup":   { label: "Toss-up",          fill: "#c9a227", stroke: "#f0d060" },
+      "lean-d":   { label: "Lean Dem",          fill: "#85a5d9", stroke: "#adc4f0" },
+      "lean-r":   { label: "Lean Rep",          fill: "#e8808a", stroke: "#f5a8b0" },
+      "likely-d": { label: "Likely Dem",        fill: "#6080c8", stroke: "#85a5d9" },
+      "likely-r": { label: "Likely Rep",        fill: "#d95060", stroke: "#e8808a" },
+      "safe-d":   { label: "Safe Dem",          fill: "#1a3278", stroke: "#2e4fa3" },
+      "safe-r":   { label: "Safe Rep",          fill: "#8b1a22", stroke: "#c0303a" },
       "none":     { label: "Not up in 2026",    fill: "#1c2028", stroke: "#374151" },
     };
 
