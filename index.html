@@ -585,7 +585,7 @@
     .stripe-r { background:#ef4444; }
     .stripe-d { background:#3b82f6; }
     .stripe-court { background:#a78bfa; }
-    .stripe-dead { background:#4b5563; }
+    .stripe-dead { background:#84cc16; }
     .redist-card-body { padding:16px; }
     .redist-state { font-size:15px; font-weight:700; color:var(--text); margin-bottom:4px; }
     .redist-state a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); transition:border-color .15s; }
@@ -1232,12 +1232,28 @@
 <!-- ── WHATS NEW POPUP ── -->
 <div id="whats-new-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:32px 36px;max-width:480px;width:90%;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.5);">
-    <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;">What's New · Feb 20, 2026</div>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;">What's New · Feb 24, 2026</div>
     <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:20px;line-height:1.3;">Site Update</div>
     <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px;">
       <li style="display:flex;gap:10px;align-items:flex-start;">
         <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added many more races to the Progressive Challengers tab, including IL-8, MI-13, MO-1, NC-4, TX-30, NY-13, CA-7, and CO-1.</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added the remaining senate bios to the Fight for Congress tab.</span>
+      </li>
+      <li style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Updated dates for the Special Elections Tracker</span>
+      </li>
+      <li style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Updated the Maine Senate Progressive Challengers box to show that INSANE new UNH poll</span>
+      </li>
+      <li style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Changed the colors around on the Mid Decade Redistricting map to stand out more.</span>
+      </li>
+      <li style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
+        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added a "next filing deadline" window to the Fundraising tab</span>
       </li>
     </ul>
     <button onclick="closeWhatsNew()" style="background:var(--accent);color:#0a0c10;border:none;border-radius:4px;padding:10px 24px;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;font-weight:600;">Got it</button>
@@ -1245,7 +1261,7 @@
 </div>
 
 <script>
-  const LATEST_UPDATE = 'Feb 20, 2026';
+  const LATEST_UPDATE = 'Feb 24, 2026';
   const storageKey = 'lastSeenUpdate';
   function closeWhatsNew() {
     document.getElementById('whats-new-overlay').style.display = 'none';
@@ -1267,7 +1283,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>Updated Feb 20, 2026</span>
+      <span>Updated Feb 24, 2026</span>
     </div>
   </div>
   <div class="tab-bar">
@@ -1455,7 +1471,7 @@
           <div class="bg-race-rating rating-lean-r">Lean Republican</div>
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Jon Husted - appointed)</div>
-        <div class="bg-race-desc">Bio coming soon...</div>
+        <div class="bg-race-desc">When JD Vance was elected Vice President of the United States, he had to vacate his Senate seat. The Ohio state constitution states that the governor appoints a temporary replacement until the next federal election, where a replacement for the remainder of the term is elected. Jon Husted was appointed by Governor Mike DeWine, and is now running for election to the Senate seat he holds. His most likely opponent is Sherrod Brown, a former Democratic senator from Ohio. Sherrod Brown lost his re-election bid in 2024, but is running in an electoral environment he should find much more favorable than 2024.</div>
       </div>
 
       <!-- Texas -->
@@ -1465,7 +1481,7 @@
           <div class="bg-race-rating rating-lean-r">Lean Republican</div>
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (John Cornyn)</div>
-        <div class="bg-race-desc">Bio coming soon...</div>
+        <div class="bg-race-desc">The Democratic and Republican parties are both holding primary elections that have turned ugly. John Cornyn is getting a primary challenge from Texas Attorney General Ken Paxton, which has led to nasty attacks on Cornyn's votes in the Senate, which have been viewed as too liberal, and Paxton's impeachment and extramarital affair. Talarico and Crockett have also been duking it out in the Democratic primary, with questions on racism, electability, and lying being thrown around. Polling shows that Cornyn and Talarico would be their parties' best bets in a general election, and also that neither of them will win their primary.</div>
       </div>
     </div>
 
@@ -1589,7 +1605,7 @@
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#a78bfa;"></div><span style="color:#9ca3af;">Court-Ordered</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div><span style="color:#9ca3af;">In Progress (2026)</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#06b6d4;"></div><span style="color:#9ca3af;">Potential (2028)</span></div>
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#4b5563;"></div><span style="color:#9ca3af;">Failed</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#84cc16;"></div><span style="color:#9ca3af;">Failed</span></div>
     </div>
 
     <!-- Map -->
@@ -1619,6 +1635,7 @@
     <div class="stats-bar" style="margin-bottom:24px;">
       <div class="stat-cell"><span class="stat-label">Top 10 Total</span><span class="stat-value accent" id="fundTotal">—</span></div>
       <div class="stat-cell"><span class="stat-label">Avg per Candidate</span><span class="stat-value" id="fundAvg">—</span></div>
+      <div class="stat-cell"><span class="stat-label">Next FEC Filing</span><span class="stat-value" style="color:var(--accent);">Apr 15, 2026</span></div>
     </div>
 
     <!-- Sub-tabs for filtering by chamber -->
@@ -1750,16 +1767,16 @@ const races = [
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%9326_Texas%27s_18th_congressional_district_special_election",
     candidates:[{name:"Christian Menefee",party:"D",poll:68,winner:true},{name:"Amanda Edwards",party:"D",poll:32}],
     winner:"Christian Menefee (D)", pollNote:"Actual runoff results: Menefee 68.4%, Edwards 31.6%" },
-  { id:2, name:"New Jersey 11th — House Special", state:"NJ", chamber:"House", date:"2026-04-16", type:"special", status:"upcoming",
+  { id:2, name:"New Jersey 11th — House Special", state:"NJ", chamber:"House", date:"2026-04-16", type:"special", status:"upcoming", stage:"General",
     wiki:"https://en.wikipedia.org/wiki/2026_New_Jersey%27s_11th_congressional_district_special_election",
     candidates:[{name:"Analilia Mejia",party:"D",poll:null},{name:"Joe Hathaway",party:"R",poll:null}],
     pollNote:"D+9 district. General election April 16, 2026." },
-  { id:3, name:"Georgia 14th — House Special", state:"GA", chamber:"House", date:"2026-TBD", type:"special", status:"upcoming",
+  { id:3, name:"Georgia 14th — House Special", state:"GA", chamber:"House", date:"2026-03-10", type:"special", status:"upcoming", stage:"General",
     candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
-    pollNote:"R+19 district — heavily favors Republicans." },
-  { id:4, name:"California 1st — House Special", state:"CA", chamber:"House", date:"2026-TBD", type:"special", status:"upcoming",
+    pollNote:"R+19 district — heavily favors Republicans. All candidates appear on the same ballot on March 10th. If no candidate receives over 50%, the top two advance to a runoff on April 7th." },
+  { id:4, name:"California 1st — House Special", state:"CA", chamber:"House", date:"2026-06-02", type:"special", status:"upcoming", stage:"Primary",
     candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
-    pollNote:"R+12 district. Date TBD." },
+    pollNote:"R+12 district. Primary June 2nd, General August 4th." },
 ];
 
 /* ═══════════════════════════════════════════════
@@ -1807,6 +1824,13 @@ function buildRaceCard(r) {
   }[r.status] || { cls:"status-upcoming", lbl:"Upcoming" };
   const tMap = { special:"Special Election", primary:"Primary" };
   const tCls = { special:"type-special",     primary:"type-primary" };
+  const stageColors = {
+    'Primary': 'background:rgba(249,115,22,.12);color:#fb923c;border-color:rgba(249,115,22,.25);',
+    'General': 'background:rgba(99,102,241,.12);color:#a5b4fc;border-color:rgba(99,102,241,.25);',
+  };
+  const stageBadge = r.stage
+    ? `<span class="type-tag" style="${stageColors[r.stage] || stageColors['General']}">${r.stage}</span>`
+    : '';
 
   const cRows = r.candidates.map(c => {
     const pct = c.poll !== null ? Math.round(c.poll) : null;
@@ -1833,6 +1857,7 @@ function buildRaceCard(r) {
           <span class="race-date">${fmtDate(r.date)}</span>
         </div>
         <span class="type-tag ${tCls[r.type]}">${tMap[r.type]}</span>
+        ${stageBadge}
       </div>
       <span class="status-badge ${sBadge.cls}">${sBadge.lbl}</span>
     </div>
@@ -2146,12 +2171,12 @@ const primaries = [
     state: "ME", chamber: "Senate", date: "2026-06-09",
     lean: "tossup",
     status: "upcoming", winner: null,
-    pollSource: "Pan Atlantic Research · Nov 29–Dec 7, 2025",
+    pollSource: "University of New Hampshire · Feb 12–16, 2026",
     candidates: [
-      { name: "Janet Mills",     wing: "establishment", poll: 47,
-        endorsements: ["Chuck Schumer", "DSCC", "Emily's List", "Kirsten Gillibrand"] },
-      { name: "Graham Platner",  wing: "progressive",   poll: 37,
+      { name: "Graham Platner",  wing: "progressive",   poll: 64,
         endorsements: ["Bernie Sanders", "Progressive Change Campaign Committee", "Ro Khanna"] },
+      { name: "Janet Mills",     wing: "establishment", poll: 26,
+        endorsements: ["Chuck Schumer", "DSCC", "Emily's List", "Kirsten Gillibrand"] },
     ]
   },
 
@@ -2611,7 +2636,7 @@ const redistColors = {
   'court':      '#a78bfa',
   'exploring':  '#f59e0b',
   'potential':  '#06b6d4',  // cyan for 2028
-  'dead':       '#4b5563',
+  'dead':       '#84cc16',
   'none':       '#1e2330'
 };
 const stateColorMap = {
@@ -2838,7 +2863,7 @@ function drawRedistMap(container, us) {
       .attr('x', x).attr('y', y)
       .attr('text-anchor','middle').attr('dominant-baseline','middle')
       .attr('font-family','DM Mono,monospace').attr('font-size',7)
-      .attr('fill','#4b5563').attr('pointer-events','none')
+      .attr('fill','#84cc16').attr('pointer-events','none')
       .text(stateAbbr);
   });
   */
@@ -2871,7 +2896,7 @@ function showRedistDetail(s) {
 function buildRedistCard(s) {
   const isR = s.party==='R', isD = s.party==='D' || s.party==='court';
   const isDead = s.party==='dead', isExp = s.status==='exploring', isPot = s.status==='potential';
-  const stripeColor = s.party==='R'?'#ef4444': s.party==='D'?'#3b82f6': s.party==='court'?'#a78bfa': s.party==='exploring'?'#f59e0b': s.party==='potential'?'#06b6d4':'#4b5563';
+  const stripeColor = s.party==='R'?'#ef4444': s.party==='D'?'#3b82f6': s.party==='court'?'#a78bfa': s.party==='exploring'?'#f59e0b': s.party==='potential'?'#06b6d4':'#84cc16';
   const seatsColor = isDead||isExp||isPot ? '#9ca3af' : isR ? '#f87171' : '#60a5fa';
   const statusLabels = { enacted:'✓ Map Enacted', exploring:'⏳ In Progress', potential:'🔮 2028 Target', dead:'✗ Failed' };
   const pillBg = isR?'rgba(239,68,68,.15)':isD?'rgba(59,130,246,.15)':s.party==='court'?'rgba(167,139,250,.15)':isPot?'rgba(6,182,212,.15)':'rgba(107,114,128,.15)';
