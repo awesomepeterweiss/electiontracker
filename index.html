@@ -1514,7 +1514,7 @@
       </div>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
         <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">2026 Senate Races — Hover a state to see race details</div>
-        <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">All 34 Senate seats up for election in 2026. Republicans are defending 22 seats, Democrats 12. States not up for election are shown in grey.</p>
+        <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">All 35 Senate seats up for election in 2026. Republicans are defending 22 seats, Democrats 12. States not up for election are shown in grey.</p>
       </div>
       <!-- Legend -->
       <div id="senate-map-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;"></div>
@@ -3231,7 +3231,7 @@ renderFundraising();
     var legendEl = document.getElementById("senate-map-legend");
     if (legendEl) {
       var lh = "";
-      ["tossup","lean-d","lean-r","likely-d","likely-r","safe-d","safe-r","none"].forEach(function(k) {
+      ["safe-d","likely-d","lean-d","tossup","lean-r","likely-r","safe-r","none"].forEach(function(k) {
         var c = cfg[k];
         lh += "<div style='display:flex;align-items:center;gap:6px;'>"
             + "<div style='width:14px;height:14px;border-radius:3px;background:" + c.fill + ";border:1px solid " + c.stroke + ";'></div>"
