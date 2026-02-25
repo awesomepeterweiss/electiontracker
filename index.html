@@ -1571,8 +1571,6 @@
   </div>
 </div>
 
-</div><!-- end section-panels -->
-
 <script>
   const LATEST_UPDATE = 'Feb 25, 2026';
   const storageKey = 'lastSeenUpdate';
@@ -1778,18 +1776,6 @@
     </div>
 
     <!-- Password Modal moved to top level -->
-    <!-- pw-modal placeholder --> style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
-      <div style="background:#13161b;border:1px solid #252a34;border-radius:10px;padding:36px 40px;width:320px;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
-        <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;margin-bottom:6px;">Password Required</div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#d1d5db;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:24px;">This section is restricted</div>
-        <input id="pw-input" type="password" placeholder="Enter password" style="width:100%;background:#1c2028;border:1px solid #252a34;border-radius:5px;padding:10px 14px;color:#e8eaf0;font-family:'DM Mono',monospace;font-size:13px;outline:none;box-sizing:border-box;margin-bottom:8px;" onkeydown="if(event.key==='Enter')checkPassword();" />
-        <div id="pw-error" style="font-family:'DM Mono',monospace;font-size:10px;color:#ef4444;margin-bottom:12px;display:none;">Incorrect password. Try again.</div>
-        <div style="display:flex;gap:10px;">
-          <button onclick="checkPassword()" style="flex:1;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:9px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Unlock</button>
-          <button onclick="closePwModal()" style="flex:1;background:#1c2028;border:1px solid #252a34;color:#d1d5db;padding:9px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Cancel</button>
-        </div>
-      </div>
-    </div>
 
     <!-- Senate Sub-Panel (hidden by default) -->
     <div id="senate-panel" style="display:none;">
@@ -3709,9 +3695,17 @@ document.querySelectorAll('.fund-filter').forEach(btn => {
   }
 
   // Close modal on backdrop click
-  document.getElementById('pw-modal').addEventListener('click', function(e) {
-    if (e.target === this) closePwModal();
-  });
+  var _pwModal = document.getElementById('pw-modal');
+  if (_pwModal) {
+    _pwModal.addEventListener('click', function(e) {
+      if (e.target === this) closePwModal();
+    });
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      var m = document.getElementById('pw-modal');
+      if (m) m.addEventListener('click', function(e) { if (e.target === this) closePwModal(); });
+    });
+  }
 
 
 renderFundraising();
@@ -3747,7 +3741,7 @@ renderFundraising();
     }
   }
 
-  const senateRaces2026 = [
+  var senateRaces2026 = [
     // Tossups
     { state: 'Georgia',       incumbent: 'Jon Ossoff',              party: 'D', rating: 'lean-d'   },
     { state: 'Michigan',      incumbent: 'Gary Peters (ret.)',       party: 'D', rating: 'tossup'   },
