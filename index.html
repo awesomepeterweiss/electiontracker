@@ -128,9 +128,52 @@
 
     /* ── HOME PAGE ── */
     #home-page {
+      position: relative;
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 48px 64px;
+    }
+    .home-side-deco {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .home-side-deco.left { left: 18px; }
+    .home-side-deco.right { right: 18px; }
+    .home-side-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .25em;
+      color: rgba(240,180,41,0.25);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      text-transform: uppercase;
+    }
+    .home-side-line {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, rgba(240,180,41,0.2), transparent);
+    }
+    .home-side-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(240,180,41,0.2);
+    }
+    .home-side-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: rgba(209,213,219,0.2);
+      writing-mode: vertical-rl;
     }
     .home-hero {
       padding: 52px 0 44px;
@@ -1562,6 +1605,26 @@
 
 <!-- HOME PAGE -->
 <div id="home-page" style="display:none;">
+  <!-- Left decoration -->
+  <div class="home-side-deco left" id="home-deco-left">
+    <div class="home-side-line"></div>
+    <div class="home-side-dot"></div>
+    <div class="home-side-year">2026</div>
+    <div class="home-side-dot"></div>
+    <div class="home-side-line"></div>
+    <div class="home-side-label">Midterms</div>
+    <div class="home-side-line"></div>
+  </div>
+  <!-- Right decoration -->
+  <div class="home-side-deco right" id="home-deco-right">
+    <div class="home-side-line"></div>
+    <div class="home-side-dot"></div>
+    <div class="home-side-year">Nov 3</div>
+    <div class="home-side-dot"></div>
+    <div class="home-side-line"></div>
+    <div class="home-side-label">Election Day</div>
+    <div class="home-side-line"></div>
+  </div>
 
   <!-- Countdowns -->
   <div class="home-countdowns">
@@ -1584,14 +1647,6 @@
   <!-- Cards -->
   <div class="home-section-label">Explore the tracker</div>
   <div class="home-grid">
-    <button class="home-card" style="--card-accent: var(--accent);" onclick="goToSection('races')">
-      <div class="home-card-top">
-        <div class="home-card-icon">🗳️</div>
-        <div class="home-card-arrow">→</div>
-      </div>
-      <div class="home-card-title">Special Election Tracker</div>
-      <div class="home-card-desc">Looking at the special congressional elections happening before the midterms</div>
-    </button>
     <button class="home-card" style="--card-accent: var(--dem);" onclick="goToSection('congress-control')">
       <div class="home-card-top">
         <div class="home-card-icon">🏛️</div>
@@ -1601,13 +1656,14 @@
       <div class="home-card-desc">Interactive tools to explore the different races this November</div>
       <span class="home-card-tag">Updated</span>
     </button>
-    <button class="home-card" style="--card-accent: var(--green);" onclick="goToSection('shifts')">
+    <button class="home-card" style="--card-accent: var(--rep);" onclick="gatedHomePage('trump-approval')">
       <div class="home-card-top">
-        <div class="home-card-icon">📊</div>
+        <div class="home-card-icon" id="trump-card-icon">🚧</div>
         <div class="home-card-arrow">→</div>
       </div>
-      <div class="home-card-title">Shift Tracker</div>
-      <div class="home-card-desc">Looking into who is or isn't voting in special elections</div>
+      <div class="home-card-title">Trump Approval Rating</div>
+      <div class="home-card-desc">Coming soon: a polling aggregator tracking the approval of Donald Trump</div>
+      <span class="home-card-tag" id="trump-card-tag" style="background:rgba(239,68,68,0.1);color:var(--rep);border-color:rgba(239,68,68,0.2);">🚧 Under Construction</span>
     </button>
     <button class="home-card" style="--card-accent: var(--ind);" onclick="goToSection('primary')">
       <div class="home-card-top">
@@ -1633,6 +1689,22 @@
       </div>
       <div class="home-card-title">Fundraising</div>
       <div class="home-card-desc">Which candidates are raising the most money?</div>
+    </button>
+    <button class="home-card" style="--card-accent: var(--accent);" onclick="goToSection('races')">
+      <div class="home-card-top">
+        <div class="home-card-icon">🗳️</div>
+        <div class="home-card-arrow">→</div>
+      </div>
+      <div class="home-card-title">Special Election Tracker</div>
+      <div class="home-card-desc">Looking at the special congressional elections happening before the midterms</div>
+    </button>
+    <button class="home-card" style="--card-accent: var(--green);" onclick="goToSection('shifts')">
+      <div class="home-card-top">
+        <div class="home-card-icon">📊</div>
+        <div class="home-card-arrow">→</div>
+      </div>
+      <div class="home-card-title">Shift Tracker</div>
+      <div class="home-card-desc">Looking into who is or isn't voting in special elections</div>
     </button>
     <button class="home-card" style="--card-accent: #f472b6;" onclick="goToSection('blog')">
       <div class="home-card-top">
@@ -2041,6 +2113,14 @@
   <!-- ═══════════════════════════════════════════════
        BLOG / ANALYSIS & COMMENTARY TAB
   ═══════════════════════════════════════════════ -->
+  <!-- TAB: TRUMP APPROVAL -->
+  <div class="tab-panel" id="tab-trump-approval">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Trump Approval Rating</div>
+      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Content coming soon. This section will track presidential approval ratings and their relationship to midterm performance.</p>
+    </div>
+  </div>
+
   <div class="tab-panel" id="tab-blog">
 
     
@@ -2505,6 +2585,7 @@ let chartBuilt = false;
   function goToSection(tab) {
     document.getElementById('home-page').style.display = 'none';
     document.getElementById('section-panels').style.display = 'block';
+    ['home-deco-left','home-deco-right'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
     // Hide all panels
     document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
     // Show the right one
@@ -2523,6 +2604,7 @@ let chartBuilt = false;
     document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
     document.getElementById('section-panels').style.display = 'none';
     document.getElementById('home-page').style.display = 'block';
+    ['home-deco-left','home-deco-right'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='flex';});
     window.scrollTo(0, 0);
   }
 
@@ -3543,7 +3625,23 @@ document.querySelectorAll('.fund-filter').forEach(btn => {
 });
 
   // ── PASSWORD GATE ──
+
+  var _homeGatedUnlocked = {};
+
+  function gatedHomePage(target) {
+    if (_homeGatedUnlocked[target]) {
+      goToSection(target);
+      return;
+    }
+    _pwTarget = target;
+    _pwTargetType = 'home';
+    var modal = document.getElementById('pw-modal');
+    if (modal) modal.style.display = 'flex';
+    setTimeout(function(){ document.getElementById('pw-input').focus(); }, 50);
+  }
+
   var _pwTarget = null;
+  var _pwTargetType = null;
   var _pwUnlocked = false;
 
   function gatedChamber(target) {
@@ -3561,18 +3659,29 @@ document.querySelectorAll('.fund-filter').forEach(btn => {
     var input = document.getElementById('pw-input').value;
     var error = document.getElementById('pw-error');
     if (input === 'ZohranMamdani') {
-      _pwUnlocked = true;
-      // Update all construction labels to Special Access Granted
-      ['house-status','senate-status'].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) { el.textContent = '\uD83D\uDD75\uFE0F Special Access Granted'; }
-      });
-      ['house-icon','senate-icon'].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) { el.textContent = '\uD83D\uDD75\uFE0F'; }
-      });
-      closePwModal();
-      if (_pwTarget) showChamber(_pwTarget);
+      if (_pwTargetType === 'home') {
+        _homeGatedUnlocked[_pwTarget] = true;
+        // Update trump card tag
+        var icon = document.getElementById('trump-card-icon');
+        var tag = document.getElementById('trump-card-tag');
+        if (icon) icon.textContent = '\uD83D\uDD75\uFE0F';
+        if (tag) { tag.textContent = '\uD83D\uDD75\uFE0F Special Access'; }
+        var tgt = _pwTarget;
+        closePwModal();
+        goToSection(tgt);
+      } else {
+        _pwUnlocked = true;
+        ['house-status','senate-status'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) { el.textContent = '\uD83D\uDD75\uFE0F Special Access Granted'; }
+        });
+        ['house-icon','senate-icon'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) { el.textContent = '\uD83D\uDD75\uFE0F'; }
+        });
+        closePwModal();
+        if (_pwTarget) showChamber(_pwTarget);
+      }
     } else {
       error.style.display = 'block';
       document.getElementById('pw-input').value = '';
