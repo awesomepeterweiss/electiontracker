@@ -482,7 +482,9 @@
     /* ── MAIN ── */
     main { max-width: 1400px; margin: 0 auto; padding: 0 48px 64px; }
     .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+    .tab-panel.active { display: block; padding-top: 32px; }
+    .tab-panel > div[style*="max-width:860px"],
+    .tab-panel > div[style*="max-width: 860px"] { margin-left: auto; margin-right: auto; }
 
     /* ── SECTION HEADERS ── */
     .section-header {
@@ -1756,7 +1758,7 @@
   <div class="tab-panel" id="tab-congress-control">
 
     
-    <div id="congress-blurb" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:32px;max-width:860px;">
+    <div id="congress-blurb" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:32px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Tracker</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Control of the House of Representatives and the Senate is up for grabs this cycle. Democrats face an uphill battle in the Senate by nature of which seats are up for election. Flipping the Senate means making no mistakes on a very narrow path to a majority. However, it is very likely that Democrats will flip the House of Representatives this November.</p>
     </div>
@@ -1793,7 +1795,7 @@
         </button>
       </div>
 
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
         <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Senate Control</div>
         <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Democrats need to flip four seats to regain control of the Senate. They have an incredibly unfriendly map to do this with. They need to play defense in states Trump won. They need to go on the offense and win in traditionally Republican states. However, they've recruited an all-star lineup of candidates to fight with.</p>
       </div>
@@ -1944,7 +1946,7 @@
           ← Back to Chamber Selection
         </button>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
         <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">2026 Senate Races — Hover a state to see race details</div>
         <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">All 35 Senate seats up for election in 2026. Republicans are defending 22 seats, Democrats 12. States not up for election are shown in grey.</p>
       </div>
@@ -1967,7 +1969,7 @@
 <div class="tab-panel" id="tab-shifts">
 
     <!-- Explanatory blurb -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Special elections have favored Democrats in recent years. The party has become more attractive to college-educated, suburban voters, who tend to be more civically engaged and more likely to turn out in special elections. That said, we're seeing an even larger shift toward Democrats this cycle, bigger than anything we saw in 2022–23. Right now, Democrats are overperforming by almost 7 points compared to their results in that period.</p>
     </div>
@@ -2000,13 +2002,13 @@
 
 
     <!-- Explanatory blurb -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Disapproval of the Democratic Party among Democratic voters is at a historic high. Many feel their representatives have been too timid and too slow to fight back against the Trump administration. That frustration is now showing up at the ballot box, with progressive and insurgent candidates winning primaries and forcing retirements. The congressional primaries this cycle are worth watching closely.</p>
     </div>
 
     <!-- Polling disclaimer -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About Polling</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Polls shown are simply the latest poll released in each race. Given the lack of quantity and quality in primary polling, creating aggregators for primary elections wouldn't make much sense. Stay tuned for general election polling aggregates...</p>
     </div>
@@ -2048,7 +2050,7 @@
 
 
     <!-- Blurb -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:20px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:20px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Every ten years, after the census, states redraw the districts for the House of Representatives to ensure each district represents the same number of people. This is called redistricting. Gerrymandering is when one political party controls the redistricting process and creates unfair maps that favor their party. Traditionally, states only redistrict after the census. However, after the 2024 election, Donald Trump called on Republican states to redraw their maps mid-decade to gerrymander even more Democrats out of office, an unprecedented escalation. Democratic states have responded in kind, leading to a map arms race that has produced even more unfair districts ahead of the 2026 midterms.</p>
     </div>
@@ -2069,7 +2071,7 @@
     </div>
 
     <!-- Detail panel -->
-    <div id="redistDetail" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:20px;max-width:860px;">
+    <div id="redistDetail" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:20px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div id="redistDetailInner"></div>
     </div>
 
@@ -2082,7 +2084,7 @@
 
     
     <!-- Explanatory blurb -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Data</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Money runs elections. Candidates rake in millions of dollars per cycle so they can buy 30-second ad slots on Jeopardy (not a random example btw, Jeopardy is a prime ad target because the main demographic is older, educated, suburban people. They VOTE). By tracking the top fundraisers we see where the national enthusiasm is, and who is in touch with the people. Senate candidates tend to raise more for a variety of reasons, but don't sleep on some of these House candidates' numbers! Note: Senate totals reflect the full 2021-26 cycle, while House totals reflect just 2025-26.</p>
     </div>
@@ -2109,7 +2111,7 @@
   ═══════════════════════════════════════════════ -->
   <!-- TAB: TRUMP APPROVAL -->
   <div class="tab-panel" id="tab-trump-approval">
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Trump Approval Rating</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Content coming soon. This section will track presidential approval ratings and their relationship to midterm performance.</p>
     </div>
@@ -2118,7 +2120,7 @@
   <div class="tab-panel" id="tab-blog">
 
     
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">About This Section</div>
       <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Featuring takes and analysis from students of the Schar School of Policy and Government at George Mason University.</p>
     </div>
