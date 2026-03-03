@@ -1550,53 +1550,7 @@
 </head>
 <body>
 
-<!-- ── WHATS NEW POPUP ── -->
-<div id="whats-new-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:32px 36px;max-width:480px;width:90%;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.5);">
-    <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;">What's New · Feb 25, 2026</div>
-    <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:20px;line-height:1.3;">Site Update</div>
-    <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px;">
-      <li style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">The interactive Senate map is LIVE! It's under Fight for Congress</span>
-      </li>
-      <li style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">New polls for IL-09 and Illinois Senate under Progressive Challengers</span>
-      </li>
-      <li style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added bios for New Hampshire and Nebraska under the Senate tab</span>
-      </li>
-      <li style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Added a majority line to the Senate bios showing which races the parties need to win</span>
-      </li>
-      <li style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="color:var(--accent);font-size:14px;margin-top:1px;">→</span>
-        <span style="font-size:13px;line-height:1.6;color:#c9cdd6;">Changed website design to be more friendly to mobile users</span>
-      </li>
-    </ul>
-    <button onclick="closeWhatsNew()" style="background:var(--accent);color:#0a0c10;border:none;border-radius:4px;padding:10px 24px;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;font-weight:600;">Got it</button>
-  </div>
-</div>
 
-<script>
-  const LATEST_UPDATE = 'Feb 25, 2026';
-  const storageKey = 'lastSeenUpdate';
-  function closeWhatsNew() {
-    document.getElementById('whats-new-overlay').style.display = 'none';
-    localStorage.setItem(storageKey, LATEST_UPDATE);
-  }
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('home-page').style.display = 'block';
-    updateHomeStats();
-    if (localStorage.getItem(storageKey) !== LATEST_UPDATE) {
-      const overlay = document.getElementById('whats-new-overlay');
-      overlay.style.display = 'flex';
-    }
-  });
-</script>
 
 <header>
   <div class="header-top">
@@ -4225,7 +4179,7 @@ renderFundraising();
 
     <script>
       (function() {
-        var key = 'whats-new-seen-2026-03-03';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-03';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
