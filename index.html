@@ -1606,7 +1606,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>Updated Feb 25, 2026</span>
+      <span>March 3, 2026</span>
     </div>
   </div>
 </header>
@@ -1662,16 +1662,15 @@
       </div>
       <div class="home-card-title">Fight for Congress</div>
       <div class="home-card-desc">Interactive tools to explore the different races this November</div>
-      <span class="home-card-tag">Updated</span>
     </button>
-    <button class="home-card" style="--card-accent: var(--rep);" onclick="gatedHomePage('trump-approval')">
+    <button class="home-card" style="--card-accent: var(--rep);" onclick="goToSection('trump-approval')">
       <div class="home-card-top">
-        <div class="home-card-icon" id="trump-card-icon">🚧</div>
+        <div class="home-card-icon" id="trump-card-icon">🤵</div>
         <div class="home-card-arrow">→</div>
       </div>
       <div class="home-card-title">Trump Approval Rating</div>
-      <div class="home-card-desc">Coming soon: a polling aggregator tracking the approval of Donald Trump</div>
-      <span class="home-card-tag" id="trump-card-tag" style="background:rgba(239,68,68,0.1);color:var(--rep);border-color:rgba(239,68,68,0.2);">🚧 Under Construction</span>
+      <div class="home-card-desc">A polling aggregator tracking the approval of Donald Trump</div>
+      <span class="home-card-tag" id="trump-card-tag" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2);">🆕 Brand New</span>
     </button>
     <button class="home-card" style="--card-accent: var(--ind);" onclick="goToSection('primary')">
       <div class="home-card-top">
@@ -1680,7 +1679,6 @@
       </div>
       <div class="home-card-title">Progressive Challengers</div>
       <div class="home-card-desc">Tracking the ideological battle for the Democratic party</div>
-      <span class="home-card-tag">Updated</span>
     </button>
     <button class="home-card" style="--card-accent: #22d3ee;" onclick="goToSection('redist')">
       <div class="home-card-top">
@@ -2111,9 +2109,66 @@
   ═══════════════════════════════════════════════ -->
   <!-- TAB: TRUMP APPROVAL -->
   <div class="tab-panel" id="tab-trump-approval">
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
-      <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Trump Approval Rating</div>
-      <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Content coming soon. This section will track presidential approval ratings and their relationship to midterm performance.</p>
+    <div style="max-width:900px;margin:0 auto;">
+
+      <!-- Header -->
+      <div style="margin-bottom:28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:8px;">Presidential Approval Tracker</div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--text);line-height:1.2;margin-bottom:8px;">Trump Approval Rating</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Polling average of approval and disapproval since February 2026. Sources noted inline.</div>
+        <div style="margin-top:14px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px 18px;font-size:12px;color:var(--muted);line-height:1.7;">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);">How this works</span><br>
+          When tracking polls over time, some researchers use something called a &ldquo;rolling average&rdquo; to get a clearer picture of what the data is actually showing. Instead of looking at each poll in isolation, we average it together with the polls immediately before and after it. This helps smooth out any one-off results that might be outliers, and gives us a more reliable sense of where public opinion actually stands over time.
+        </div>
+      </div>
+
+      <!-- Big stats row -->
+      <div style="display:flex;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+        <div style="flex:1;background:var(--surface);padding:20px 24px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Approve</div>
+          <div id="trump-approve-stat" style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);line-height:1;">—</div>
+        </div>
+        <div style="flex:1;background:var(--surface);padding:20px 24px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Disapprove</div>
+          <div id="trump-disapprove-stat" style="font-family:'Playfair Display',serif;font-size:36px;color:var(--rep);line-height:1;">—</div>
+        </div>
+        <div style="flex:1;background:var(--surface);padding:20px 24px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Net Approval</div>
+          <div id="trump-net-stat" style="font-family:'Playfair Display',serif;font-size:36px;color:var(--text);line-height:1;">—</div>
+        </div>
+        <div style="flex:1;background:var(--surface);padding:20px 24px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Latest Poll</div>
+          <div id="trump-date-stat" style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text);line-height:1;padding-top:9px;">—</div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px 24px 16px;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:20px;">Approval vs. Disapproval — 2nd Term</div>
+        <div style="position:relative;height:320px;">
+          <canvas id="trumpApprovalChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Data table -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-top:16px;overflow:hidden;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Polling Data</div>
+        <table style="width:100%;border-collapse:collapse;" id="trump-approval-table">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:10px 20px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400;">Date</th>
+              <th style="text-align:right;padding:10px 16px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400;">Approve</th>
+              <th style="text-align:right;padding:10px 16px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400;">Disapprove</th>
+              <th style="text-align:right;padding:10px 16px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400;">Net</th>
+              <th style="text-align:left;padding:10px 20px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400;">Source</th>
+            </tr>
+          </thead>
+          <tbody id="trump-approval-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Source note -->
+      <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:#4b5563;text-align:right;">Data hardcoded — update <code>trumpApprovalData</code> in source to add new polls.</div>
     </div>
   </div>
 
@@ -2594,6 +2649,7 @@ let chartBuilt = false;
     // Trigger any needed renders
     if (tab === 'shifts') { if (typeof renderShiftChart === 'function') renderShiftChart(); }
     if (tab === 'fundraising') { if (typeof renderFundraising === 'function') renderFundraising(); }
+    if (tab === 'trump-approval') { if (typeof renderTrumpApprovalChart === 'function') renderTrumpApprovalChart(); }
     window.scrollTo(0, 0);
   }
   function goHome() {
@@ -2601,6 +2657,11 @@ let chartBuilt = false;
     document.getElementById('section-panels').style.display = 'none';
     document.getElementById('home-page').style.display = 'block';
     ['home-deco-left','home-deco-right'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='flex';});
+    // Reset senate map panel inline style so it doesn't bleed through on next navigation
+    var senateMapPanel = document.getElementById('senate-map-panel');
+    if (senateMapPanel) senateMapPanel.style.display = 'none';
+    var senatePanel = document.getElementById('senate-panel');
+    if (senatePanel) senatePanel.style.display = 'none';
     window.scrollTo(0, 0);
   }
 
@@ -2632,8 +2693,15 @@ let chartBuilt = false;
     btn.classList.add('active');
     const tab = btn.dataset.tab;
     document.getElementById(`tab-${tab}`).classList.add('active');
+    // Reset senate map panel inline style so it doesn't bleed through
+    var senateMapPanel = document.getElementById('senate-map-panel');
+    if (senateMapPanel) senateMapPanel.style.display = 'none';
+    var senatePanel = document.getElementById('senate-panel');
+    if (senatePanel) senatePanel.style.display = 'none';
     // raceControls now inside tab-races panel
-    if (tab==='shifts' && !chartBuilt) { renderShiftChart(); chartBuilt=true; }  });
+    if (tab==='shifts' && !chartBuilt) { renderShiftChart(); chartBuilt=true; }
+    if (tab==='trump-approval') { renderTrumpApprovalChart(); }
+  });
 });
 
 document.querySelectorAll('.filter-btn').forEach(btn=>{
@@ -3516,6 +3584,192 @@ function renderRedistCards() {
 renderRedistCards();
 
 /* ═══════════════════════════════════════════════
+   TRUMP APPROVAL DATA
+   To add a new entry: { date: 'MMM D, YYYY', approve: ##, disapprove: ##, source: '...' }
+   Entries should be in chronological order (oldest first).
+═══════════════════════════════════════════════ */
+const trumpApprovalData = [
+  { date: 'Feb 5, 2026',  approve: 36, disapprove: 62, source: 'AP-NORC' },
+  { date: 'Feb 13, 2026', approve: 38, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 17, 2026', approve: 39, disapprove: 60, source: 'ABC News/Washington Post/Ipsos' },
+  { date: 'Feb 20, 2026', approve: 36, disapprove: 63, source: 'CNN/SSRS' },
+  { date: 'Feb 20, 2026', approve: 36, disapprove: 62, source: 'American Research Group' },
+  { date: 'Feb 22, 2026', approve: 43, disapprove: 55, source: 'Emerson College' },
+  { date: 'Feb 23, 2026', approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
+  { date: 'Mar 1, 2026',  approve: 39, disapprove: 60, source: 'Reuters/Ipsos' },
+];
+
+let trumpChartBuilt = false;
+
+function renderTrumpApprovalChart() {
+  if (trumpChartBuilt) return;
+  trumpChartBuilt = true;
+
+  const latest = trumpApprovalData[trumpApprovalData.length - 1];
+
+  // Show the most recent 3-poll rolling average in the stat boxes
+  const recentPolls = trumpApprovalData.slice(-3);
+  const avgApproveAll    = Math.round(recentPolls.reduce((s, r) => s + r.approve, 0) / recentPolls.length * 10) / 10;
+  const avgDisapproveAll = Math.round(recentPolls.reduce((s, r) => s + r.disapprove, 0) / recentPolls.length * 10) / 10;
+  const net = Math.round((avgApproveAll - avgDisapproveAll) * 10) / 10;
+
+  // Update stat boxes
+  document.getElementById('trump-approve-stat').textContent    = avgApproveAll + '%';
+  document.getElementById('trump-disapprove-stat').textContent = avgDisapproveAll + '%';
+  const netEl = document.getElementById('trump-net-stat');
+  netEl.textContent = (net > 0 ? '+' : '') + net;
+  netEl.style.color = 'var(--rep)';
+  document.getElementById('trump-date-stat').textContent = latest.date;
+
+  // Build table (newest first)
+  const tbody = document.getElementById('trump-approval-tbody');
+  tbody.innerHTML = [...trumpApprovalData].reverse().map((row, i) => {
+    const n = row.approve - row.disapprove;
+    const netColor = n > 0 ? 'var(--rep)' : n < 0 ? 'var(--dem)' : 'var(--muted)';
+    const bg = i % 2 === 0 ? 'var(--surface)' : 'var(--surface2)';
+    return `<tr style="border-bottom:1px solid var(--border);background:${bg};">
+      <td style="padding:9px 20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);">${row.date}</td>
+      <td style="padding:9px 16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--green);text-align:right;">${row.approve}%</td>
+      <td style="padding:9px 16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--rep);text-align:right;">${row.disapprove}%</td>
+      <td style="padding:9px 16px;font-family:'DM Mono',monospace;font-size:11px;color:${netColor};text-align:right;font-weight:600;">${n > 0 ? '+' : ''}${n}</td>
+      <td style="padding:9px 20px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">${row.source}</td>
+    </tr>`;
+  }).join('');
+
+  // Draw chart
+  const labels      = trumpApprovalData.map(d => d.date);
+  const approves    = trumpApprovalData.map(d => d.approve);
+  const disapproves = trumpApprovalData.map(d => d.disapprove);
+
+  // Rolling average helper (window = 3 polls, centered where possible)
+  function rollingAvg(arr, w) {
+    return arr.map((_, i) => {
+      const half  = Math.floor(w / 2);
+      const start = Math.max(0, i - half);
+      const end   = Math.min(arr.length - 1, i + half);
+      const slice = arr.slice(start, end + 1);
+      return Math.round((slice.reduce((a, b) => a + b, 0) / slice.length) * 10) / 10;
+    });
+  }
+
+  const avgApprove    = rollingAvg(approves, 3);
+  const avgDisapprove = rollingAvg(disapproves, 3);
+
+  new Chart(document.getElementById('trumpApprovalChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        // ── Raw dots (faint scatter) ──
+        {
+          label: 'Approve (poll)',
+          data: approves,
+          borderColor: 'transparent',
+          backgroundColor: 'rgba(34,197,94,0.35)',
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointStyle: 'circle',
+          showLine: false,
+          fill: false,
+        },
+        {
+          label: 'Disapprove (poll)',
+          data: disapproves,
+          borderColor: 'transparent',
+          backgroundColor: 'rgba(239,68,68,0.35)',
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointStyle: 'circle',
+          showLine: false,
+          fill: false,
+        },
+        // ── Rolling average lines ──
+        {
+          label: 'Approve (avg)',
+          data: avgApprove,
+          borderColor: 'rgba(34,197,94,1)',
+          backgroundColor: 'rgba(34,197,94,0.07)',
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(34,197,94,1)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          fill: false,
+        },
+        {
+          label: 'Disapprove (avg)',
+          data: avgDisapprove,
+          borderColor: 'rgba(239,68,68,1)',
+          backgroundColor: 'rgba(239,68,68,0.07)',
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(239,68,68,1)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          fill: false,
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#6b7280',
+            font: { family: 'DM Mono', size: 11 },
+            boxWidth: 12,
+            padding: 20,
+            filter: item => !item.text.includes('(poll)') // only show avg lines in legend
+          }
+        },
+        tooltip: {
+          backgroundColor: '#1c2028',
+          borderColor: '#252a34',
+          borderWidth: 1,
+          titleColor: '#e8eaf0',
+          bodyColor: '#9ca3af',
+          titleFont: { family: 'DM Sans', size: 13 },
+          bodyFont: { family: 'DM Mono', size: 11 },
+          padding: 12,
+          callbacks: {
+            label(item) {
+              if (item.datasetIndex === 0) return `Approve: ${item.raw}%`;
+              if (item.datasetIndex === 1) return `Disapprove: ${item.raw}%`;
+              if (item.datasetIndex === 2) return `Approve avg: ${item.raw}%`;
+              if (item.datasetIndex === 3) return `Disapprove avg: ${item.raw}%`;
+            },
+            afterBody(items) {
+              const i = items[0].dataIndex;
+              const n = trumpApprovalData[i].approve - trumpApprovalData[i].disapprove;
+              return [`Net: ${n > 0 ? '+' : ''}${n}`, `Source: ${trumpApprovalData[i].source}`];
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#6b7280', font: { family: 'DM Mono', size: 9 }, maxRotation: 40, maxTicksLimit: 14 },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        y: {
+          min: 30,
+          max: 70,
+          ticks: {
+            color: '#6b7280',
+            font: { family: 'DM Mono', size: 10 },
+            callback: v => v + '%'
+          },
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          border: { color: 'rgba(255,255,255,0.06)' }
+        }
+      }
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════
    FUNDRAISING DATA
 ═══════════════════════════════════════════════ */
 const fundraisers = [
@@ -3951,6 +4205,38 @@ renderFundraising();
 
   </script>
 </div><!-- end section-panels -->
+
+    <!-- What's New Modal -->
+    <div id="whats-new-modal" style="display:none;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+      <div style="background:#13161b;border:1px solid #252a34;border-radius:10px;padding:36px 40px;width:380px;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;">What's New</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 3, 2026</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Finished the Trump Approval Tracker. We're aggregating polls from top pollsters to get an average. This aggregator will update every couple of weeks.</div>
+          </div>
+        </div>
+        <button onclick="closeWhatsNew()" style="width:100%;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:10px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Let's go →</button>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        var key = 'whats-new-seen-2026-03-03';
+        if (!localStorage.getItem(key)) {
+          var modal = document.getElementById('whats-new-modal');
+          if (modal) modal.style.display = 'flex';
+        }
+      })();
+      function closeWhatsNew() {
+        var modal = document.getElementById('whats-new-modal');
+        if (modal) modal.style.display = 'none';
+        try { localStorage.setItem('whats-new-seen-2026-03-03', '1'); } catch(e) {}
+      }
+    </script>
 
     <!-- Password Modal -->
     <div id="pw-modal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
