@@ -1560,7 +1560,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>March 3, 2026</span>
+      <span>March 4, 2026</span>
     </div>
   </div>
 </header>
@@ -1601,7 +1601,7 @@
       <div class="countdown-number dem" id="days-to-primary">—</div>
       <div>
         <div class="countdown-label">Days Until</div>
-        <div class="countdown-event">Texas &amp; North Carolina Primaries<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">March 3, 2026</span></div>
+        <div class="countdown-event">Mississippi Primaries<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">March 10, 2026</span></div>
       </div>
     </div>
   </div>
@@ -1633,6 +1633,7 @@
       </div>
       <div class="home-card-title">Progressive Challengers</div>
       <div class="home-card-desc">Tracking the ideological battle for the Democratic party</div>
+      <span class="home-card-tag" style="background:rgba(240,180,41,0.1);color:#f0b429;border-color:rgba(240,180,41,0.2);">🔄 Updated</span>
     </button>
     <button class="home-card" style="--card-accent: #22d3ee;" onclick="goToSection('redist')">
       <div class="home-card-top">
@@ -1969,8 +1970,7 @@
     <div class="wing-stats-bar">
       <div class="wing-stat"><span class="stat-label">Primaries Tracked</span><span class="stat-value" id="wingTotal">—</span></div>
       <div class="wing-stat"><span class="stat-label">Progressive Wins</span><span class="stat-value" style="color:#a78bfa" id="progWins">—</span></div>
-      <div class="wing-stat"><span class="stat-label">Moderate Wins</span><span class="stat-value" style="color:#38bdf8" id="modWins">—</span></div>
-      <div class="wing-stat"><span class="stat-label">Estab. Wins</span><span class="stat-value" style="color:#2dd4bf" id="estabWins">—</span></div>
+      <div class="wing-stat"><span class="stat-label">Mod/Estab Wins</span><span class="stat-value" style="color:#2dd4bf" id="estabWins">—</span></div>
       <div class="wing-stat"><span class="stat-label">Pending</span><span class="stat-value accent" id="pendingCount">—</span></div>
     </div>
 
@@ -1983,18 +1983,13 @@
         <div class="wsb-count prog" id="wsbProgCount">0</div>
       </div>
       <div class="wsb-row">
-        <div class="wsb-label" style="color:#38bdf8">Moderate</div>
-        <div class="wsb-track"><div class="wsb-fill fill-mod" id="wsbModBar" style="width:0%"></div></div>
-        <div class="wsb-count mod" id="wsbModCount">0</div>
-      </div>
-      <div class="wsb-row">
-        <div class="wsb-label" style="color:#2dd4bf">Establishment</div>
+        <div class="wsb-label" style="color:#2dd4bf">Moderate / Establishment</div>
         <div class="wsb-track"><div class="wsb-fill fill-estab" id="wsbEstabBar" style="width:0%"></div></div>
         <div class="wsb-count estab" id="wsbEstabCount">0</div>
       </div>
     </div>
 
-    <div id="primaryCards"></div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;"><button onclick="document.getElementById('decided-primaries-anchor').scrollIntoView({behavior:'smooth'})" style="background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:7px 16px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">↓ Jump to Results</button></div><div id="primaryCards"></div>
   </div>
 
   <!-- TAB 4: MID-DECADE REDISTRICTING -->
@@ -2563,7 +2558,7 @@ let chartBuilt = false;
     var el1 = document.getElementById('days-to-midterms');
     if (el1) el1.textContent = daysToMidterms;
 
-    var firstPrimary = new Date(2026, 2, 3); // Mar 3, 2026
+    var firstPrimary = new Date(2026, 2, 10); // Mar 10, 2026
     var daysToPrimary = Math.round((firstPrimary - today) / (1000 * 60 * 60 * 24));
     var el2 = document.getElementById('days-to-primary');
     if (el2) el2.textContent = Math.max(0, daysToPrimary);
@@ -2699,14 +2694,14 @@ const primaries = [
     status: "result", winner: "progressive",
 
     candidates: [
-      { name: "Analilia Mejia",   wing: "progressive",   poll: null, winner: true,
+      { name: "Analilia Mejia",   wing: "progressive",   poll: 29.3, votes: "19,789", winner: true,
         endorsements: ["Bernie Sanders", "Justice Democrats", "MoveOn"] },
-      { name: "Tom Malinowski",   wing: "moderate",      poll: null,
+      { name: "Tom Malinowski",   wing: "moderate",      poll: 27.6, votes: "18,603",
         endorsements: ["Andy Kim"] },
-      { name: "Brendan Gill",     wing: "establishment", poll: null,
-        endorsements: ["Phil Murphy"] },
-      { name: "Tahesha Way",      wing: "establishment", poll: null,
+      { name: "Tahesha Way",      wing: "establishment", poll: 17.4, votes: "11,737",
         endorsements: [] },
+      { name: "Brendan Gill",     wing: "establishment", poll: 14.2, votes: "9,556",
+        endorsements: ["Phil Murphy"] },
     ]
   },
 
@@ -2796,12 +2791,14 @@ const primaries = [
     state: "IL", chamber: "Senate", date: "2026-03-17",
     lean: "safe-d",
     status: "upcoming", winner: null,
-    pollSource: "DLGA / PPP · Feb 2026",
+    pollSource: "Public Policy Polling · Mar 2-3, 2026",
     candidates: [
-      { name: "Raja Krishnamoorthi", wing: "moderate",      poll: 29,
-        endorsements: ["Teamsters", "AFGE"] },
-      { name: "Juliana Stratton",    wing: "progressive",   poll: 27,
+      { name: "Juliana Stratton",    wing: "progressive",   poll: 33,
         endorsements: ["JB Pritzker", "Tammy Duckworth", "Emily's List", "Elizabeth Warren"] },
+      { name: "Raja Krishnamoorthi", wing: "moderate",      poll: 30,
+        endorsements: ["Teamsters", "AFGE"] },
+      { name: "Robin Kelly",         wing: "moderate",      poll: 11,
+        endorsements: [] },
     ]
   },
 
@@ -2824,11 +2821,11 @@ const primaries = [
     name: "Texas 30th — Dem Primary",
     state: "TX", chamber: "House", date: "2026-03-03",
     lean: "safe-d",
-    status: "upcoming", winner: null,
+    status: "result", winner: "progressive",
     candidates: [
-      { name: "Frederick Haynes III",        wing: "progressive", poll: null,
+      { name: "Frederick Haynes III",    wing: "progressive", poll: 72.6, votes: "76,555", winner: true,
         endorsements: ["Justice Democrats", "Jasmine Crockett"] },
-      { name: "Barbara Mallory Caraway",     wing: "moderate",    poll: null,
+      { name: "Barbara Mallory Caraway", wing: "moderate",    poll: 23.1, votes: "24,324",
         endorsements: [] },
     ]
   },
@@ -2838,12 +2835,13 @@ const primaries = [
     name: "North Carolina 4th — Dem Primary",
     state: "NC", chamber: "House", date: "2026-03-03",
     lean: "safe-d",
-    status: "upcoming", winner: null,
+    status: "result", winner: "establishment",
+    note: "Nida Allam has requested a recount. Percentages do not add up to 100% due to other minor candidates.",
     candidates: [
-      { name: "Nida Allam",               wing: "progressive",   poll: null,
-        endorsements: ["Bernie Sanders", "Justice Democrats", "Working Families Party"] },
-      { name: "Valerie Foushee (inc.)",   wing: "establishment", poll: null,
+      { name: "Valerie Foushee (inc.)", wing: "establishment", poll: 49.18, votes: "61,537", winner: true,
         endorsements: ["Roy Cooper", "Josh Stein", "Maxwell Frost"] },
+      { name: "Nida Allam",             wing: "progressive",   poll: 48.22, votes: "60,335",
+        endorsements: ["Bernie Sanders", "Justice Democrats", "Working Families Party"] },
     ]
   },
 
@@ -2996,10 +2994,11 @@ function buildPrimaryCard(p) {
     const isWinner = p.winner === c.wing && p.status === 'result';
     const winStar  = isWinner ? ' <span class="winner-star">★</span>' : '';
 
+    const votesHtml = c.votes ? ` <span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;">${c.votes} votes</span>` : '';
     const pollSection = c.poll !== null
       ? `<div class="pc-poll-row">
            <div class="pc-bar-wrap"><div class="pc-bar-fill ${wm.barCls}" style="width:${Math.round(c.poll)}%"></div></div>
-           <div class="pc-pct">${c.poll}%</div>
+           <div class="pc-pct">${c.poll}%${votesHtml}</div>
          </div>`
       : `<div class="pc-tbd">No polling yet</div>`;
 
@@ -3041,6 +3040,7 @@ function buildPrimaryCard(p) {
     </div>
     <div class="pc-candidates">${candRows}</div>
     ${pollSourceHtml}
+    ${p.note ? `<div style="padding:8px 18px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);border-top:1px solid var(--border);">${p.note}</div>` : ''}
     ${winnerBanner}
   </div>`;
 }
@@ -3065,7 +3065,7 @@ function renderPrimaryCards() {
     </div>
     <div class="primary-grid">${upcoming.map(buildPrimaryCard).join('')}</div>`;
   if (results.length) html += `
-    <div class="section-header" style="margin-top:36px">
+    <div class="section-header" style="margin-top:36px" id="decided-primaries-anchor">
       <span class="section-title">Decided Primaries</span>
       <div class="section-line"></div>
       <span class="section-count">${results.length}</span>
@@ -3079,22 +3079,18 @@ function updateWingStats() {
   const total    = primaries.length;
   const decided  = primaries.filter(p=>p.status==='result'&&p.winner);
   const progW    = decided.filter(p=>p.winner==='progressive').length;
-  const modW     = decided.filter(p=>p.winner==='moderate').length;
-  const estabW   = decided.filter(p=>p.winner==='establishment').length;
+  const estabW   = decided.filter(p=>p.winner==='establishment'||p.winner==='moderate').length;
   const pending  = primaries.filter(p=>p.status!=='result').length;
-  const maxWins  = Math.max(progW, modW, estabW, 1);
+  const maxWins  = Math.max(progW, estabW, 1);
 
   document.getElementById('wingTotal').textContent   = total;
   document.getElementById('progWins').textContent    = progW;
-  document.getElementById('modWins').textContent     = modW;
   document.getElementById('estabWins').textContent   = estabW;
   document.getElementById('pendingCount').textContent = pending;
 
   document.getElementById('wsbProgCount').textContent  = progW;
-  document.getElementById('wsbModCount').textContent   = modW;
   document.getElementById('wsbEstabCount').textContent = estabW;
   document.getElementById('wsbProgBar').style.width    = `${Math.round(progW/maxWins*100)}%`;
-  document.getElementById('wsbModBar').style.width     = `${Math.round(modW/maxWins*100)}%`;
   document.getElementById('wsbEstabBar').style.width   = `${Math.round(estabW/maxWins*100)}%`;
 }
 
@@ -4166,11 +4162,15 @@ renderFundraising();
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;">What's New</div>
         </div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 3, 2026</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 4, 2026</div>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Finished the Trump Approval Tracker. We're aggregating polls from top pollsters to get an average. This aggregator will update every couple of weeks.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated Progressive Challengers tab after primary results in North Carolina and Texas.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">New poll for the Illinois Senate race.</div>
           </div>
         </div>
         <button onclick="closeWhatsNew()" style="width:100%;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:10px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Let's go →</button>
@@ -4179,7 +4179,7 @@ renderFundraising();
 
     <script>
       (function() {
-        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-03';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-04';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
@@ -4188,7 +4188,7 @@ renderFundraising();
       function closeWhatsNew() {
         var modal = document.getElementById('whats-new-modal');
         if (modal) modal.style.display = 'none';
-        try { localStorage.setItem('whats-new-seen-2026-03-03', '1'); } catch(e) {}
+        try { localStorage.setItem('whats-new-seen-2026-03-04', '1'); } catch(e) {}
       }
     </script>
 
