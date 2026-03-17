@@ -1601,7 +1601,7 @@
       <div class="countdown-number dem" id="days-to-primary">—</div>
       <div>
         <div class="countdown-label">Days Until</div>
-        <div class="countdown-event">Mississippi Primaries<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">March 10, 2026</span></div>
+        <div class="countdown-event">Illinois Primary<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">March 17, 2026</span></div>
       </div>
     </div>
   </div>
@@ -2558,7 +2558,7 @@ let chartBuilt = false;
     var el1 = document.getElementById('days-to-midterms');
     if (el1) el1.textContent = daysToMidterms;
 
-    var firstPrimary = new Date(2026, 2, 10); // Mar 10, 2026
+    var firstPrimary = new Date(2026, 2, 17); // Mar 17, 2026
     var daysToPrimary = Math.round((firstPrimary - today) / (1000 * 60 * 60 * 24));
     var el2 = document.getElementById('days-to-primary');
     if (el2) el2.textContent = Math.max(0, daysToPrimary);
