@@ -1624,7 +1624,7 @@
       </div>
       <div class="home-card-title">Trump Approval Rating</div>
       <div class="home-card-desc">A polling aggregator tracking the approval of Donald Trump</div>
-      <span class="home-card-tag" id="trump-card-tag" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2);">🆕 Brand New</span>
+      <span class="home-card-tag" id="trump-card-tag" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2);">🔄 Updated</span>
     </button>
     <button class="home-card" style="--card-accent: var(--ind);" onclick="goToSection('primary')">
       <div class="home-card-top">
@@ -1633,7 +1633,7 @@
       </div>
       <div class="home-card-title">Progressive Challengers</div>
       <div class="home-card-desc">Tracking the ideological battle for the Democratic party</div>
-      <span class="home-card-tag" style="background:rgba(240,180,41,0.1);color:#f0b429;border-color:rgba(240,180,41,0.2);">🔄 Mar 17, 2026</span>
+      <span class="home-card-tag" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2);">🔄 Updated</span>
     </button>
     <button class="home-card" style="--card-accent: #22d3ee;" onclick="goToSection('redist')">
       <div class="home-card-top">
@@ -2760,11 +2760,11 @@ const primaries = [
     state: "IL", chamber: "House", date: "2026-03-17",
     lean: "safe-d",
     status: "upcoming", winner: null,
-    pollSource: "Public Policy Polling · Feb 2026",
+    pollSource: "Public Policy Polling / Evanston RoundTable · Mar 9-10, 2026",
     candidates: [
       { name: "Daniel Biss",     wing: "progressive",      poll: 24,
         endorsements: ["Elizabeth Warren", "Maxwell Frost", "Greg Casar"] },
-      { name: "Kat Abughazaleh", wing: "progressive",   poll: 17,
+      { name: "Kat Abughazaleh", wing: "progressive",   poll: 20,
         endorsements: ["Justice Democrats", "Jamaal Bowman", "Ro Khanna"] },
       { name: "Laura Fine",      wing: "establishment", poll: 16,
         endorsements: [] },
@@ -2791,11 +2791,11 @@ const primaries = [
     state: "IL", chamber: "Senate", date: "2026-03-17",
     lean: "safe-d",
     status: "upcoming", winner: null,
-    pollSource: "Public Policy Polling · Mar 2-3, 2026",
+    pollSource: "FM3 Research / American Future Fund · Mar 10-12, 2026", conservativePoll: true,
     candidates: [
-      { name: "Juliana Stratton",    wing: "progressive",   poll: 33,
+      { name: "Juliana Stratton",    wing: "progressive",   poll: 38,
         endorsements: ["JB Pritzker", "Tammy Duckworth", "Emily's List", "Elizabeth Warren"] },
-      { name: "Raja Krishnamoorthi", wing: "moderate",      poll: 30,
+      { name: "Raja Krishnamoorthi", wing: "moderate",      poll: 33,
         endorsements: ["Teamsters", "AFGE"] },
       { name: "Robin Kelly",         wing: "moderate",      poll: 11,
         endorsements: [] },
@@ -3021,7 +3021,7 @@ function buildPrimaryCard(p) {
 
   const hasPolling = p.candidates.some(c => c.poll !== null);
   const pollSourceHtml = hasPolling && p.pollSource
-    ? `<div class="poll-note" style="border-top:1px solid var(--border);padding:7px 18px 10px;">Latest poll: ${p.pollSource}</div>`
+    ? `<div class="poll-note" style="border-top:1px solid var(--border);padding:7px 18px 10px;">Latest poll: ${p.pollSource}${p.conservativePoll ? " <span style='background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3);border-radius:3px;padding:1px 6px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-left:6px;'>⚠ Conservative sponsor</span>" : ""}</div>`
     : '';
 
   return `<div class="primary-card">
@@ -3539,14 +3539,18 @@ renderRedistCards();
    Entries should be in chronological order (oldest first).
 ═══════════════════════════════════════════════ */
 const trumpApprovalData = [
-  { date: 'Feb 5, 2026',  approve: 36, disapprove: 62, source: 'AP-NORC' },
-  { date: 'Feb 13, 2026', approve: 38, disapprove: 60, source: 'Reuters/Ipsos' },
-  { date: 'Feb 17, 2026', approve: 39, disapprove: 60, source: 'ABC News/Washington Post/Ipsos' },
-  { date: 'Feb 20, 2026', approve: 36, disapprove: 63, source: 'CNN/SSRS' },
-  { date: 'Feb 20, 2026', approve: 36, disapprove: 62, source: 'American Research Group' },
-  { date: 'Feb 22, 2026', approve: 43, disapprove: 55, source: 'Emerson College' },
-  { date: 'Feb 23, 2026', approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
-  { date: 'Mar 1, 2026',  approve: 39, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 5-8, 2026',      approve: 36, disapprove: 62, source: 'AP-NORC' },
+  { date: 'Feb 12-17, 2026',    approve: 39, disapprove: 60, source: 'ABC News/Washington Post/Ipsos' },
+  { date: 'Feb 13-16, 2026',    approve: 38, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 16-20, 2026',    approve: 36, disapprove: 62, source: 'American Research Group' },
+  { date: 'Feb 17-20, 2026',    approve: 36, disapprove: 63, source: 'CNN/SSRS' },
+  { date: 'Feb 18-23, 2026',    approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
+  { date: 'Feb 21-22, 2026',    approve: 43, disapprove: 55, source: 'Emerson College' },
+  { date: 'Feb 27 - Mar 3, 2026', approve: 44, disapprove: 54, source: 'NBC News/Hart Research' },
+  { date: 'Feb 28 - Mar 1, 2026', approve: 39, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 28 - Mar 2, 2026', approve: 43, disapprove: 57, source: 'Fox News/Beacon Research' },
+  { date: 'Mar 2-4, 2026',      approve: 38, disapprove: 57, source: 'Marist/NPR/PBS' },
+  { date: 'Mar 6-8, 2026',      approve: 37, disapprove: 57, source: 'Quinnipiac' },
 ];
 
 let trumpChartBuilt = false;
@@ -4162,15 +4166,15 @@ renderFundraising();
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;">What's New</div>
         </div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 4, 2026</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 17, 2026</div>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated Progressive Challengers tab after primary results in North Carolina and Texas.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated the Progressive Challengers window with new polls in the Illinois Senate race and the Illinois 9th congressional district race.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">New poll for the Illinois Senate race.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated the Trump Approval Rating.</div>
           </div>
         </div>
         <button onclick="closeWhatsNew()" style="width:100%;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:10px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Let's go →</button>
@@ -4179,7 +4183,7 @@ renderFundraising();
 
     <script>
       (function() {
-        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-04';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-17';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
@@ -4188,7 +4192,7 @@ renderFundraising();
       function closeWhatsNew() {
         var modal = document.getElementById('whats-new-modal');
         if (modal) modal.style.display = 'none';
-        try { localStorage.setItem('whats-new-seen-2026-03-04', '1'); } catch(e) {}
+        try { localStorage.setItem('whats-new-seen-2026-03-17', '1'); } catch(e) {}
       }
     </script>
 
