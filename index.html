@@ -1746,7 +1746,7 @@
 
       <!-- Senate Map -->
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
-        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">2026 Senate Races — Hover a state to see race details</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">2026 Senate Races. Hover a state to see details</div>
         <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">All 35 Senate seats up for election in 2026. Republicans are defending 22 seats, Democrats 12. States not up for election are shown in grey.</p>
       </div>
       <!-- Legend -->
@@ -1801,7 +1801,7 @@
 
       <!-- Snake Chart -->
       <div style="margin-top:32px;margin-bottom:8px;">
-        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;">Path to Majority — Snake Chart</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;">Snake Chart</div>
         <div id="senate-snake-container" style="width:100%;overflow-x:auto;"></div>
       </div>
 
@@ -2016,7 +2016,7 @@
 
     <!-- Running scoreboard bar -->
     <div class="wing-scoreboard">
-      <div class="wsb-title">Wing Wins — Decided Primaries</div>
+      <div class="wsb-title">Wing Wins in Decided Primaries</div>
       <div class="wsb-row">
         <div class="wsb-label" style="color:#a78bfa">Progressive</div>
         <div class="wsb-track"><div class="wsb-fill fill-prog" id="wsbProgBar" style="width:0%"></div></div>
@@ -2044,8 +2044,8 @@
 
     <!-- Legend -->
     <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;font-family:'DM Mono',monospace;font-size:11px;">
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#ef4444;"></div><span style="color:#9ca3af;">R Gerrymander — Enacted</span></div>
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#3b82f6;"></div><span style="color:#9ca3af;">D Gerrymander — Enacted</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#ef4444;"></div><span style="color:#9ca3af;">R Gerrymander Enacted</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#3b82f6;"></div><span style="color:#9ca3af;">D Gerrymander Enacted</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#a78bfa;"></div><span style="color:#9ca3af;">Court-Ordered</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div><span style="color:#9ca3af;">In Progress (2026)</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#06b6d4;"></div><span style="color:#9ca3af;">Potential (2028)</span></div>
@@ -2133,7 +2133,7 @@
 
       <!-- Chart -->
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px 24px 16px;">
-        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:20px;">Approval vs. Disapproval — 2nd Term</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:20px;">Approval vs. Disapproval</div>
         <div style="position:relative;height:320px;">
           <canvas id="trumpApprovalChart"></canvas>
         </div>
@@ -3541,10 +3541,10 @@ function renderRedistCards() {
 
   let html = '';
 
-  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#f87171">R Gerrymander — Enacted</span><div class="redist-section-line"></div></div>
+  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#f87171">R Gerrymander Enacted</span><div class="redist-section-line"></div></div>
            <div class="redist-grid">${enacted_r.map(buildRedistCard).join('')}</div>`;
 
-  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#60a5fa">D Gerrymander — Enacted</span><div class="redist-section-line"></div></div>
+  html += `<div class="redist-section-header"><span class="redist-section-title" style="color:#60a5fa">D Gerrymander Enacted</span><div class="redist-section-line"></div></div>
            <div class="redist-grid">${enacted_d.map(buildRedistCard).join('')}</div>`;
 
   if (court.length) {
@@ -3552,11 +3552,11 @@ function renderRedistCards() {
              <div class="redist-grid">${court.map(buildRedistCard).join('')}</div>`;
   }
 
-  html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#f59e0b">In Progress — 2026</span><div class="redist-section-line"></div></div>
+  html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#f59e0b">In Progress 2026</span><div class="redist-section-line"></div></div>
            <div class="redist-grid">${exploring.map(buildRedistCard).join('')}</div>`;
 
   if (potential.length) {
-    html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#06b6d4">Potential — 2028 Targets</span><div class="redist-section-line"></div></div>
+    html += `<div class="redist-section-header" style="margin-top:36px"><span class="redist-section-title" style="color:#06b6d4">Potential 2028 Targets</span><div class="redist-section-line"></div></div>
              <div class="redist-grid">${potential.map(buildRedistCard).join('')}</div>`;
   }
 
