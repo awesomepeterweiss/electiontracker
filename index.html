@@ -1560,7 +1560,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>March 22, 2026</span>
+      <span>April 8, 2026</span>
     </div>
   </div>
 </header>
@@ -1829,20 +1829,11 @@
         <div class="bg-race-meta">Currently held by <strong style="color:var(--dem);">Democrats</strong> (Jon Ossoff)</div>
         <div class="bg-race-desc">Jon Ossoff has quickly become a rising star in the Democratic Party. He's young, articulate, an incredible fundraiser (he's raised the most out of any Senate candidate), objectively hot by politician standards, and has won in a traditionally Republican state without sacrificing any key beliefs of the Democratic Party. If he can win reelection this year, many will consider him a favorite to be the presidential nominee in 2028.</div>
       </div>
-      <!-- Maine -->
-      <div class="battleground-race">
-        <div class="bg-race-header">
-          <div class="bg-race-state">Maine</div>
-          <div class="bg-race-rating rating-tossup">Toss-up</div>
-        </div>
-        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Susan Collins)</div>
-        <div class="bg-race-desc">Susan Collins may be the most vulnerable incumbent in the country. She is a Republican running for reelection in a state Kamala Harris won by 7 percentage points. Susan Collins has won upsets before, she won in 2020 while Joe Biden simultaneously won Maine by nine points. But as polarization continues to rise, she may have pulled off her final upset in 2020. She will face either current Governor Janet Mills or the insurgent first-time candidate Graham Platner this November.</div>
-      </div>
       <!-- North Carolina -->
       <div class="battleground-race">
         <div class="bg-race-header">
           <div class="bg-race-state">North Carolina</div>
-          <div class="bg-race-rating rating-tossup">Toss-up</div>
+          <div class="bg-race-rating rating-lean-d">Lean Democrat</div>
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Thom Tillis - retiring)</div>
         <div class="bg-race-desc">Roy Cooper wins elections. He's never lost. He won the race for Attorney General in 2000, 2004, 2008, and 2012. He won his races for Governor in 2016 as a Democrat on the same ballot Trump won on. He won again in 2020. He's now running for Senate to flip a Republican seat. Thom Tillis, the incumbent senator, is retiring. This makes North Carolina a prime pickup seat for Democrats.</div>
@@ -1853,16 +1844,24 @@
           <div style="display:flex;gap:16px;margin-bottom:12px;">
             <div style="background:var(--surface2);border-radius:6px;padding:10px 16px;text-align:center;flex:1;">
               <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;">Cooper (D)</div>
-              <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--dem);line-height:1;">47%</div>
+              <div id="nc-cooper-stat" style="font-family:'Playfair Display',serif;font-size:28px;color:var(--dem);line-height:1;">—</div>
             </div>
             <div style="background:var(--surface2);border-radius:6px;padding:10px 16px;text-align:center;flex:1;">
               <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;">Whatley (R)</div>
-              <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--rep);line-height:1;">44%</div>
+              <div id="nc-whatley-stat" style="font-family:'Playfair Display',serif;font-size:28px;color:var(--rep);line-height:1;">—</div>
             </div>
             <div style="background:var(--surface2);border-radius:6px;padding:10px 16px;text-align:center;flex:1;">
               <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;">Margin</div>
-              <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--dem);line-height:1;">D+3</div>
+              <div id="nc-margin-stat" style="font-family:'Playfair Display',serif;font-size:28px;color:var(--dem);line-height:1;">—</div>
             </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:10px 16px;text-align:center;flex:1;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;">Latest Poll</div>
+              <div id="nc-date-stat" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.3;margin-top:6px;">—</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div style="position:relative;height:220px;margin-bottom:16px;">
+            <canvas id="ncSenateChart"></canvas>
           </div>
           <table style="width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:11px;">
             <thead>
@@ -1874,18 +1873,19 @@
                 <th style="text-align:right;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Margin</th>
               </tr>
             </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--border);background:var(--surface);">
-                <td style="padding:7px 10px;color:var(--text);">Mar 13-14, 2026</td>
-                <td style="padding:7px 10px;color:var(--muted);">Public Policy Polling</td>
-                <td style="padding:7px 10px;text-align:right;color:var(--dem);">47%</td>
-                <td style="padding:7px 10px;text-align:right;color:var(--rep);">44%</td>
-                <td style="padding:7px 10px;text-align:right;color:var(--dem);">D+3</td>
-              </tr>
-            </tbody>
+            <tbody id="nc-senate-tbody"></tbody>
           </table>
           <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:9px;color:#4b5563;text-align:right;">Averages shown reflect all polls listed. Updated manually.</div>
         </div>
+      </div>
+      <!-- Maine -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Maine</div>
+          <div class="bg-race-rating rating-tossup">Toss-up</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Susan Collins)</div>
+        <div class="bg-race-desc">Susan Collins may be the most vulnerable incumbent in the country. She is a Republican running for reelection in a state Kamala Harris won by 7 percentage points. Susan Collins has won upsets before, she won in 2020 while Joe Biden simultaneously won Maine by nine points. But as polarization continues to rise, she may have pulled off her final upset in 2020. She will face either current Governor Janet Mills or the insurgent first-time candidate Graham Platner this November.</div>
       </div>
       <!-- Michigan -->
       <div class="battleground-race">
@@ -1900,10 +1900,38 @@
       <div class="battleground-race">
         <div class="bg-race-header">
           <div class="bg-race-state">Alaska</div>
-          <div class="bg-race-rating rating-lean-r">Lean Republican</div>
+          <div class="bg-race-rating rating-tossup">Toss-up</div>
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Dan Sullivan)</div>
         <div class="bg-race-desc">When Mary Peltola won her seat as Alaska's only representative in the House of Representatives, she became the first Democrat to hold that seat since 1973. She lost re-election in 2024, but not without an incredible fight. Now she's running for Senate against Senator Dan Sullivan. Democrats need to win Senate races in states they don't usually win in. And if any Democrat can win this race in Alaska, it's Mary Peltola, a candidate so well liked even Sarah Palin couldn't <a href="https://www.yahoo.com/news/sarah-palin-complimented-mary-peltola-214452599.html" target="_blank" rel="noopener" style="color:var(--dem);text-decoration:none;border-bottom:1px solid rgba(59,130,246,0.4);transition:border-color .15s;" onmouseover="this.style.borderColor='var(--dem)'" onmouseout="this.style.borderColor='rgba(59,130,246,0.4)'">attack her</a>.</div>
+
+        <!-- AK Poll Tracker -->
+        <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;">Polling</div>
+          <table style="width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:11px;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Date</th>
+                <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Pollster</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--dem);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Peltola (D)</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--rep);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Sullivan (R)</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--ind);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Hill (I)</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--rep);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Ryan (R)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);background:var(--surface);">
+                <td style="padding:7px 10px;color:var(--text);">Mar 19-22, 2026</td>
+                <td style="padding:7px 10px;color:var(--muted);">Alaska Survey Research</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--dem);">46%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--rep);">41%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--ind);">3%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--rep);">3%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:9px;color:#4b5563;text-align:right;">Updated manually.</div>
+        </div>
       </div>
       <!-- REPUBLICAN HOLD LINE -->
       <div style="display:flex;align-items:center;gap:16px;margin:28px 0;">
@@ -2641,6 +2669,7 @@ let chartBuilt = false;
     if (tab === 'shifts') { if (typeof renderShiftChart === 'function') renderShiftChart(); }
     if (tab === 'fundraising') { if (typeof renderFundraising === 'function') renderFundraising(); }
     if (tab === 'trump-approval') { if (typeof renderTrumpApprovalChart === 'function') renderTrumpApprovalChart(); }
+    if (tab === 'congress-control') { if (typeof renderNCSenateChart === 'function') renderNCSenateChart(); }
     window.scrollTo(0, 0);
   }
   function goHome() {
@@ -2692,6 +2721,7 @@ let chartBuilt = false;
     // raceControls now inside tab-races panel
     if (tab==='shifts' && !chartBuilt) { renderShiftChart(); chartBuilt=true; }
     if (tab==='trump-approval') { renderTrumpApprovalChart(); }
+    if (tab==='congress-control') { if (typeof renderNCSenateChart === 'function') renderNCSenateChart(); }
   });
 });
 
@@ -2753,13 +2783,13 @@ const primaries = [
     state: "MI", chamber: "Senate", date: "2026-08-04",
     lean: "tossup", // Michigan is a battleground
     status: "upcoming", winner: null,
-    pollSource: "Emerson/Nexstar · Jan 24–25, 2026",
+    pollSource: "Global Strategy Group · Mar 19–22, 2026",
     candidates: [
-      { name: "Abdul El-Sayed",   wing: "progressive",   poll: 16,
+      { name: "Abdul El-Sayed",   wing: "progressive",   poll: 25,
         endorsements: ["Bernie Sanders", "Justice Democrats", "Rashida Tlaib"] },
-      { name: "Mallory McMorrow", wing: "moderate",       poll: 22,
+      { name: "Mallory McMorrow", wing: "moderate",       poll: 30,
         endorsements: [] },
-      { name: "Haley Stevens",    wing: "establishment",  poll: 17,
+      { name: "Haley Stevens",    wing: "establishment",  poll: 23,
         endorsements: ["New Democrat Coalition", "DSCC"] },
     ]
   },
@@ -2770,11 +2800,11 @@ const primaries = [
     state: "MN", chamber: "Senate", date: "2026-08-11",
     lean: "likely-d",
     status: "upcoming", winner: null,
-    pollSource: "Public Policy Polling · Jan 16–17, 2026",
+    pollSource: "GQR · Jan 14–20, 2026",
     candidates: [
-      { name: "Peggy Flanagan",  wing: "progressive",   poll: 40,
+      { name: "Peggy Flanagan",  wing: "progressive",   poll: 49,
         endorsements: ["Bernie Sanders", "Tina Smith", "Keith Ellison", "Al Franken", "Elizabeth Warren"] },
-      { name: "Angie Craig",     wing: "moderate",      poll: 28,
+      { name: "Angie Craig",     wing: "moderate",      poll: 36,
         endorsements: ["Pete Buttigieg", "Hakeem Jeffries", "Dean Phillips", "New Democrat Coalition"] },
     ]
   },
@@ -2785,12 +2815,29 @@ const primaries = [
     state: "ME", chamber: "Senate", date: "2026-06-09",
     lean: "tossup",
     status: "upcoming", winner: null,
-    pollSource: "University of New Hampshire · Feb 12–16, 2026",
+    pollSource: "Emerson College · Mar 21–23, 2026",
     candidates: [
-      { name: "Graham Platner",  wing: "progressive",   poll: 64,
+      { name: "Graham Platner",  wing: "progressive",   poll: 55,
         endorsements: ["Bernie Sanders", "Progressive Change Campaign Committee", "Ro Khanna"] },
-      { name: "Janet Mills",     wing: "establishment", poll: 26,
+      { name: "Janet Mills",     wing: "establishment", poll: 28,
         endorsements: ["Chuck Schumer", "DSCC", "Emily's List", "Kirsten Gillibrand"] },
+    ]
+  },
+
+  {
+    id: "p4wi",
+    name: "Wisconsin Governor — Dem Primary",
+    state: "WI", chamber: "Governor", date: "2026-08-11",
+    lean: "tossup",
+    status: "upcoming", winner: null,
+    pollSource: "Marquette University · Mar 11–18, 2026",
+    candidates: [
+      { name: "Francesca Hong",   wing: "progressive",   poll: 14,
+        endorsements: ["Madison Area DSA", "Milwaukee DSA", "Wisconsin Electoral Socialists"] },
+      { name: "Mandela Barnes",   wing: "moderate",      poll: 11,
+        endorsements: ["Adam Schiff", "UFCW Local 1473"] },
+      { name: "Sara Rodriguez",   wing: "establishment", poll: 3,
+        endorsements: ["Democratic Lieutenant Governors Association", "314 Action Fund"] },
     ]
   },
 
@@ -2814,7 +2861,7 @@ const primaries = [
 
   {
     id: "p6",
-    name: "California 21st — Dem Primary",
+    name: "California 22nd — Dem Primary",
     state: "CA", chamber: "House", date: "2026-06-02",
     lean: "tossup", // vs. Valadao
     status: "upcoming", winner: null,
@@ -3577,44 +3624,26 @@ renderRedistCards();
    Entries should be in chronological order (oldest first).
 ═══════════════════════════════════════════════ */
 const trumpApprovalData = [
-  { date: 'Feb 5-8, 2026',        approve: 36, disapprove: 62, source: 'AP-NORC' },
-  { date: 'Feb 12-17, 2026',      approve: 39, disapprove: 60, source: 'ABC News/Washington Post/Ipsos' },
-  { date: 'Feb 13-16, 2026',      approve: 38, disapprove: 60, source: 'Reuters/Ipsos' },
-  { date: 'Feb 16-20, 2026',      approve: 36, disapprove: 62, source: 'American Research Group' },
-  { date: 'Feb 17-20, 2026',      approve: 36, disapprove: 63, source: 'CNN/SSRS' },
-  { date: 'Feb 18-23, 2026',      approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
-  { date: 'Feb 21-22, 2026',      approve: 43, disapprove: 55, source: 'Emerson College' },
-  { date: 'Feb 27 - Mar 3, 2026', approve: 44, disapprove: 54, source: 'NBC News/Hart Research' },
-  { date: 'Feb 28 - Mar 1, 2026', approve: 39, disapprove: 60, source: 'Reuters/Ipsos' },
-  { date: 'Feb 28 - Mar 2, 2026', approve: 43, disapprove: 57, source: 'Fox News/Beacon Research' },
-  { date: 'Mar 2-4, 2026',        approve: 38, disapprove: 57, source: 'Marist/NPR/PBS' },
-  { date: 'Mar 6-8, 2026',        approve: 37, disapprove: 57, source: 'Quinnipiac' },
-  { date: 'Mar 2-5, 2026',        approve: 46, disapprove: 51, source: 'Noble Predictive Insights/Center Square' },
-  { date: 'Mar 2-5, 2026',        approve: 39, disapprove: 54, source: 'Schoen Cooperman/Israel on Campus Coalition' },
-  { date: 'Mar 2-5, 2026',        approve: 36, disapprove: 56, source: 'Angus Reid Global' },
-  { date: 'Feb 28 - Mar 4, 2026', approve: 46, disapprove: 52, source: 'RMG Research/Napolitan News' },
-  { date: 'Mar 2-4, 2026',        approve: 35, disapprove: 58, source: 'Angus Reid Global' },
-  { date: 'Feb 26 - Mar 7, 2026', approve: 43, disapprove: 53, source: 'Clarity Campaign Labs' },
-  { date: 'Mar 2-8, 2026',        approve: 39, disapprove: 55, source: 'Morning Consult' },
-  { date: 'Mar 6-8, 2026',        approve: 44, disapprove: 53, source: 'Morning Consult' },
-  { date: 'Mar 4-12, 2026',       approve: 45, disapprove: 53, source: 'RMG Research/Napolitan News' },
-  { date: 'Mar 6-9, 2026',        approve: 40, disapprove: 55, source: 'YouGov/Economist' },
-  { date: 'Mar 6-10, 2026',       approve: 37, disapprove: 51, source: 'Focaldata' },
-  { date: 'Mar 12-16, 2026',      approve: 38, disapprove: 59, source: 'YouGov/Yahoo News' },
-  { date: 'Mar 12-16, 2026',      approve: 40, disapprove: 59, source: 'Navigator Research' },
-  { date: 'Mar 12-16, 2026',      approve: 41, disapprove: 57, source: 'Echelon Insights' },
-  { date: 'Mar 11-19, 2026',      approve: 46, disapprove: 53, source: 'RMG Research/Napolitan News' },
-  { date: 'Mar 13-16, 2026',      approve: 35, disapprove: 55, source: 'Leger' },
-  { date: 'Mar 13-16, 2026',      approve: 37, disapprove: 56, source: 'YouGov/Economist' },
-  { date: 'Mar 13-16, 2026',      approve: 43, disapprove: 54, source: 'Morning Consult' },
-  { date: 'Mar 16-17, 2026',      approve: 42, disapprove: 51, source: 'Emerson College' },
-  { date: 'Mar 16-18, 2026',      approve: 41, disapprove: 55, source: 'Tavern Research/Searchlight' },
-  { date: 'Mar 17-18, 2026',      approve: 44, disapprove: 55, source: 'Quantus Insights' },
-  { date: 'Mar 17-18, 2026',      approve: 44, disapprove: 54, source: 'John Zogby Strategies' },
-  { date: 'Mar 17-19, 2026',      approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
-  { date: 'Mar 17-20, 2026',      approve: 40, disapprove: 60, source: 'YouGov/CBS News' },
-  { date: 'Mar 16-20, 2026',      approve: 34, disapprove: 63, source: 'American Research Group' },
-  { date: 'Mar 18-20, 2026',      approve: 39, disapprove: 54, source: 'J.L. Partners/DailyMail' },
+  { date: 'Feb 5-8, 2026',         approve: 36, disapprove: 62, source: 'AP-NORC' },
+  { date: 'Feb 12-17, 2026',       approve: 39, disapprove: 60, source: 'ABC News/Washington Post/Ipsos' },
+  { date: 'Feb 13-16, 2026',       approve: 38, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 16-20, 2026',       approve: 36, disapprove: 62, source: 'American Research Group' },
+  { date: 'Feb 17-20, 2026',       approve: 36, disapprove: 63, source: 'CNN/SSRS' },
+  { date: 'Feb 18-23, 2026',       approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
+  { date: 'Feb 21-22, 2026',       approve: 43, disapprove: 55, source: 'Emerson College' },
+  { date: 'Feb 27 - Mar 3, 2026',  approve: 44, disapprove: 54, source: 'NBC News/Hart Research' },
+  { date: 'Feb 28 - Mar 1, 2026',  approve: 39, disapprove: 60, source: 'Reuters/Ipsos' },
+  { date: 'Feb 28 - Mar 2, 2026',  approve: 43, disapprove: 57, source: 'Fox News/Beacon Research' },
+  { date: 'Mar 2-4, 2026',         approve: 38, disapprove: 57, source: 'Marist/NPR/PBS' },
+  { date: 'Mar 6-8, 2026',         approve: 37, disapprove: 57, source: 'Quinnipiac' },
+  { date: 'Mar 16-17, 2026',       approve: 42, disapprove: 51, source: 'Emerson College' },
+  { date: 'Mar 16-20, 2026',       approve: 34, disapprove: 63, source: 'American Research Group' },
+  { date: 'Mar 17-19, 2026',       approve: 40, disapprove: 58, source: 'Reuters/Ipsos' },
+  { date: 'Mar 19-23, 2026',       approve: 37, disapprove: 57, source: 'Quinnipiac' },
+  { date: 'Mar 19-23, 2026',       approve: 38, disapprove: 60, source: 'AP-NORC' },
+  { date: 'Mar 20-23, 2026',       approve: 41, disapprove: 59, source: 'Fox News/Beacon Research' },
+  { date: 'Mar 20-23, 2026',       approve: 36, disapprove: 62, source: 'Reuters/Ipsos' },
+  { date: 'Mar 26-30, 2026',       approve: 35, disapprove: 64, source: 'CNN/SSRS' },
 ];
 
 let trumpChartBuilt = false;
@@ -3780,6 +3809,113 @@ function renderTrumpApprovalChart() {
           grid: { color: 'rgba(255,255,255,0.06)' },
           border: { color: 'rgba(255,255,255,0.06)' }
         }
+      }
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   NC SENATE POLLING DATA
+═══════════════════════════════════════════════ */
+const ncSenateData = [
+  { date: 'Jul 28-30, 2025',  cooper: 47, whatley: 41, source: 'Emerson College' },
+  { date: 'Mar 9-18, 2026',   cooper: 48, whatley: 34, source: 'YouGov / Catawba College' },
+  { date: 'Mar 13-14, 2026',  cooper: 47, whatley: 44, source: 'Public Policy Polling' },
+];
+
+let ncChartBuilt = false;
+
+function renderNCSenateChart() {
+  if (ncChartBuilt) return;
+  ncChartBuilt = true;
+
+  const sorted = [...ncSenateData].sort((a, b) => {
+    const parse = s => { const m = s.match(/([A-Za-z]+)\s+[\d-]+,?\s*(\d{4})/); if (m) return new Date(`${m[1]} 1, ${m[2]}`); const m2 = s.match(/([A-Za-z]+)\s+[\d-]+/); return m2 ? new Date(`${m2[1]} 1, 2026`) : new Date(0); };
+    return parse(a.date) - parse(b.date);
+  });
+
+  const latest = sorted[sorted.length - 1];
+  const recent = sorted.slice(-3);
+  const avgCooper  = Math.round(recent.reduce((s,r) => s + r.cooper,  0) / recent.length * 10) / 10;
+  const avgWhatley = Math.round(recent.reduce((s,r) => s + r.whatley, 0) / recent.length * 10) / 10;
+  const net = Math.round((avgCooper - avgWhatley) * 10) / 10;
+
+  document.getElementById('nc-cooper-stat').textContent  = avgCooper + '%';
+  document.getElementById('nc-whatley-stat').textContent = avgWhatley + '%';
+  const marginEl = document.getElementById('nc-margin-stat');
+  marginEl.textContent = (net > 0 ? 'D+' : 'R+') + Math.abs(net);
+  marginEl.style.color = net > 0 ? 'var(--dem)' : 'var(--rep)';
+  document.getElementById('nc-date-stat').textContent = latest.date;
+
+  // Table (newest first)
+  const tbody = document.getElementById('nc-senate-tbody');
+  tbody.innerHTML = [...sorted].reverse().map((row, i) => {
+    const n = row.cooper - row.whatley;
+    const bg = i % 2 === 0 ? 'var(--surface)' : 'var(--surface2)';
+    const marginColor = n > 0 ? 'var(--dem)' : 'var(--rep)';
+    const marginText  = n > 0 ? 'D+' + n : 'R+' + Math.abs(n);
+    return `<tr style="border-bottom:1px solid var(--border);background:${bg};">
+      <td style="padding:7px 10px;color:var(--text);">${row.date}</td>
+      <td style="padding:7px 10px;color:var(--muted);">${row.source}</td>
+      <td style="padding:7px 10px;text-align:right;color:var(--dem);">${row.cooper}%</td>
+      <td style="padding:7px 10px;text-align:right;color:var(--rep);">${row.whatley}%</td>
+      <td style="padding:7px 10px;text-align:right;color:${marginColor};font-weight:600;">${marginText}</td>
+    </tr>`;
+  }).join('');
+
+  // Chart
+  function rollingAvg(arr, w) {
+    return arr.map((_, i) => {
+      const half = Math.floor(w / 2);
+      const slice = arr.slice(Math.max(0, i - half), Math.min(arr.length, i + half + 1));
+      return Math.round(slice.reduce((a, b) => a + b, 0) / slice.length * 10) / 10;
+    });
+  }
+
+  const labels   = sorted.map(d => d.date);
+  const coopers  = sorted.map(d => d.cooper);
+  const whatleys = sorted.map(d => d.whatley);
+  const avgC = rollingAvg(coopers,  3);
+  const avgW = rollingAvg(whatleys, 3);
+
+  new Chart(document.getElementById('ncSenateChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Cooper (poll)',   data: coopers,  borderColor: 'transparent', backgroundColor: 'rgba(59,130,246,0.35)', pointRadius: 4, pointHoverRadius: 6, showLine: false, fill: false },
+        { label: 'Whatley (poll)',  data: whatleys, borderColor: 'transparent', backgroundColor: 'rgba(239,68,68,0.35)',  pointRadius: 4, pointHoverRadius: 6, showLine: false, fill: false },
+        { label: 'Cooper (avg)',    data: avgC,  borderColor: 'rgba(59,130,246,1)',  backgroundColor: 'rgba(59,130,246,0.07)', pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(59,130,246,1)', borderWidth: 2.5, tension: 0.4, fill: false },
+        { label: 'Whatley (avg)',   data: avgW,  borderColor: 'rgba(239,68,68,1)',   backgroundColor: 'rgba(239,68,68,0.07)',  pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(239,68,68,1)',  borderWidth: 2.5, tension: 0.4, fill: false },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#6b7280', font: { family: 'DM Mono', size: 11 }, boxWidth: 12, padding: 20, filter: item => !item.text.includes('(poll)') } },
+        tooltip: {
+          backgroundColor: '#1c2028', borderColor: '#252a34', borderWidth: 1,
+          titleColor: '#e8eaf0', bodyColor: '#9ca3af',
+          titleFont: { family: 'DM Sans', size: 13 }, bodyFont: { family: 'DM Mono', size: 11 }, padding: 12,
+          callbacks: {
+            label(item) {
+              if (item.datasetIndex === 0) return `Cooper: ${item.raw}%`;
+              if (item.datasetIndex === 1) return `Whatley: ${item.raw}%`;
+              if (item.datasetIndex === 2) return `Cooper avg: ${item.raw}%`;
+              if (item.datasetIndex === 3) return `Whatley avg: ${item.raw}%`;
+            },
+            afterBody(items) {
+              const i = items[0].dataIndex;
+              const n = sorted[i].cooper - sorted[i].whatley;
+              return [`Margin: ${n > 0 ? 'D+' : 'R+'}${Math.abs(n)}`, `Source: ${sorted[i].source}`];
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#6b7280', font: { family: 'DM Mono', size: 9 }, maxRotation: 40, maxTicksLimit: 14 }, grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { min: 25, max: 65, ticks: { color: '#6b7280', font: { family: 'DM Mono', size: 10 }, callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.06)' }, border: { color: 'rgba(255,255,255,0.06)' } }
       }
     }
   });
@@ -4023,44 +4159,44 @@ renderFundraising();
 
   var senateRaces2026 = [
     // Tossups
-    { state: 'Georgia',       incumbent: 'Jon Ossoff',              party: 'D', rating: 'lean-d',   snakeOrder: 10 },
-    { state: 'Michigan',      incumbent: 'Gary Peters (ret.)',       party: 'D', rating: 'tossup',   snakeOrder: 20 },
-    { state: 'New Hampshire', incumbent: 'Jeanne Shaheen (ret.)',    party: 'D', rating: 'likely-d', snakeOrder: 5  },
-    { state: 'Maine',         incumbent: 'Susan Collins',            party: 'R', rating: 'tossup',   snakeOrder: 21 },
-    { state: 'North Carolina',incumbent: 'Thom Tillis (ret.)',       party: 'R', rating: 'tossup',   snakeOrder: 22 },
+    { state: 'Georgia',       incumbent: 'Jon Ossoff',              party: 'D', rating: 'lean-d',   snakeOrder: 21 },
+    { state: 'Michigan',      incumbent: 'Gary Peters (ret.)',       party: 'D', rating: 'tossup',   snakeOrder: 32 },
+    { state: 'New Hampshire', incumbent: 'Jeanne Shaheen (ret.)',    party: 'D', rating: 'likely-d', snakeOrder: 13 },
+    { state: 'Maine',         incumbent: 'Susan Collins',            party: 'R', rating: 'tossup',   snakeOrder: 31 },
+    { state: 'North Carolina',incumbent: 'Thom Tillis (ret.)',       party: 'R', rating: 'lean-d',   snakeOrder: 22 },
     // Lean D
-    { state: 'Minnesota',     incumbent: 'Tina Smith (ret.)',        party: 'D', rating: 'likely-d', snakeOrder: 6  },
-    { state: 'Virginia',      incumbent: 'Mark Warner',              party: 'D', rating: 'likely-d', snakeOrder: 7  },
+    { state: 'Minnesota',     incumbent: 'Tina Smith (ret.)',        party: 'D', rating: 'likely-d', snakeOrder: 12 },
+    { state: 'Virginia',      incumbent: 'Mark Warner',              party: 'D', rating: 'likely-d', snakeOrder: 15 },
     // Lean R — Nebraska is the deciding seat, TX and OH harder to flip
-    { state: 'Alaska',        incumbent: 'Dan Sullivan',             party: 'R', rating: 'lean-r',   snakeOrder: 30 },
-    { state: 'Nebraska',      incumbent: 'Pete Ricketts',            party: 'R', rating: 'lean-r',   snakeOrder: 31 },
-    { state: 'Texas',         incumbent: 'John Cornyn',              party: 'R', rating: 'lean-r',   snakeOrder: 32 },
-    { state: 'Ohio',          incumbent: 'Jon Husted (special)',     party: 'R', rating: 'lean-r',   snakeOrder: 33 },
-    { state: 'Iowa',          incumbent: 'Joni Ernst (ret.)',        party: 'R', rating: 'likely-r', snakeOrder: 40 },
+    { state: 'Alaska',        incumbent: 'Dan Sullivan',             party: 'R', rating: 'tossup',   snakeOrder: 33 },
+    { state: 'Nebraska',      incumbent: 'Pete Ricketts',            party: 'R', rating: 'lean-r',   snakeOrder: 42 },
+    { state: 'Texas',         incumbent: 'John Cornyn',              party: 'R', rating: 'lean-r',   snakeOrder: 44 },
+    { state: 'Ohio',          incumbent: 'Jon Husted (special)',     party: 'R', rating: 'lean-r',   snakeOrder: 43 },
+    { state: 'Iowa',          incumbent: 'Joni Ernst (ret.)',        party: 'R', rating: 'likely-r', snakeOrder: 52 },
     // Likely D
-    { state: 'Colorado',      incumbent: 'John Hickenlooper',        party: 'D', rating: 'likely-d', snakeOrder: 4  },
-    { state: 'New Jersey',    incumbent: 'Cory Booker',              party: 'D', rating: 'likely-d', snakeOrder: 8  },
+    { state: 'Colorado',      incumbent: 'John Hickenlooper',        party: 'D', rating: 'likely-d', snakeOrder: 11 },
+    { state: 'New Jersey',    incumbent: 'Cory Booker',              party: 'D', rating: 'likely-d', snakeOrder: 14 },
     // Likely R
-    { state: 'Florida',       incumbent: 'Ashley Moody (special)',   party: 'R', rating: 'likely-r', snakeOrder: 41 },
-    { state: 'Louisiana',     incumbent: 'Bill Cassidy',             party: 'R', rating: 'safe-r',   snakeOrder: 55 },
+    { state: 'Florida',       incumbent: 'Ashley Moody (special)',   party: 'R', rating: 'likely-r', snakeOrder: 51 },
+    { state: 'Louisiana',     incumbent: 'Bill Cassidy',             party: 'R', rating: 'safe-r',   snakeOrder: 66 },
     // Safe D
     { state: 'Delaware',      incumbent: 'Chris Coons',              party: 'D', rating: 'safe-d',   snakeOrder: 1  },
     { state: 'Hawaii',        incumbent: 'Brian Schatz',             party: 'D', rating: 'safe-d',   snakeOrder: 2  },
     { state: 'Illinois',      incumbent: 'Dick Durbin (ret.)',        party: 'D', rating: 'safe-d',   snakeOrder: 3  },
-    { state: 'Massachusetts', incumbent: 'Ed Markey',                party: 'D', rating: 'safe-d',   snakeOrder: 3  },
-    { state: 'New Mexico',    incumbent: 'Ben Ray Luján',            party: 'D', rating: 'safe-d',   snakeOrder: 3  },
-    { state: 'Oregon',        incumbent: 'Jeff Merkley',             party: 'D', rating: 'safe-d',   snakeOrder: 3  },
-    { state: 'Rhode Island',  incumbent: 'Sheldon Whitehouse',       party: 'D', rating: 'safe-d',   snakeOrder: 3  },
+    { state: 'Massachusetts', incumbent: 'Ed Markey',                party: 'D', rating: 'safe-d',   snakeOrder: 4  },
+    { state: 'New Mexico',    incumbent: 'Ben Ray Luján',            party: 'D', rating: 'safe-d',   snakeOrder: 5  },
+    { state: 'Oregon',        incumbent: 'Jeff Merkley',             party: 'D', rating: 'safe-d',   snakeOrder: 6  },
+    { state: 'Rhode Island',  incumbent: 'Sheldon Whitehouse',       party: 'D', rating: 'safe-d',   snakeOrder: 7  },
     // Safe R
-    { state: 'Alabama',       incumbent: 'Tommy Tuberville (ret.)',  party: 'R', rating: 'safe-r',   snakeOrder: 50 },
-    { state: 'Arkansas',      incumbent: 'Tom Cotton',               party: 'R', rating: 'safe-r',   snakeOrder: 51 },
-    { state: 'Idaho',         incumbent: 'Jim Risch',                party: 'R', rating: 'safe-r',   snakeOrder: 52 },
-    { state: 'Kansas',        incumbent: 'Roger Marshall',           party: 'R', rating: 'safe-r',   snakeOrder: 53 },
-    { state: 'Kentucky',      incumbent: 'Mitch McConnell (ret.)',   party: 'R', rating: 'safe-r',   snakeOrder: 54 },
-    { state: 'Mississippi',   incumbent: 'Cindy Hyde-Smith',         party: 'R', rating: 'safe-r',   snakeOrder: 56 },
-    { state: 'Montana',       incumbent: 'Steve Daines',             party: 'R', rating: 'safe-r',   snakeOrder: 57 },
-    { state: 'Tennessee',     incumbent: 'Bill Hagerty',             party: 'R', rating: 'safe-r',   snakeOrder: 58 },
-    { state: 'Wyoming',       incumbent: 'Cynthia Lummis',           party: 'R', rating: 'safe-r',   snakeOrder: 59 },
+    { state: 'Alabama',       incumbent: 'Tommy Tuberville (ret.)',  party: 'R', rating: 'safe-r',   snakeOrder: 61 },
+    { state: 'Arkansas',      incumbent: 'Tom Cotton',               party: 'R', rating: 'safe-r',   snakeOrder: 62 },
+    { state: 'Idaho',         incumbent: 'Jim Risch',                party: 'R', rating: 'safe-r',   snakeOrder: 63 },
+    { state: 'Kansas',        incumbent: 'Roger Marshall',           party: 'R', rating: 'safe-r',   snakeOrder: 64 },
+    { state: 'Kentucky',      incumbent: 'Mitch McConnell (ret.)',   party: 'R', rating: 'safe-r',   snakeOrder: 65 },
+    { state: 'Mississippi',   incumbent: 'Cindy Hyde-Smith',         party: 'R', rating: 'safe-r',   snakeOrder: 67 },
+    { state: 'Montana',       incumbent: 'Steve Daines',             party: 'R', rating: 'safe-r',   snakeOrder: 68 },
+    { state: 'Tennessee',     incumbent: 'Bill Hagerty',             party: 'R', rating: 'safe-r',   snakeOrder: 69 },
+    { state: 'Wyoming',       incumbent: 'Cynthia Lummis',           party: 'R', rating: 'safe-r',   snakeOrder: 70 },
   ];
 
   function renderSenateSnake() {
@@ -4412,23 +4548,27 @@ renderFundraising();
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;">What's New</div>
         </div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">March 22, 2026</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">April 8, 2026</div>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Trump Approval Rating updated.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated Trump Approval.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">New visual in Fight for Congress.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added Wisconsin Governor race to Progressive Challengers.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Started tracking polling for the North Carolina Senate race.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated many Progressive Challengers polling.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Progressive Challengers tab updated for Illinois races.</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added polling to Alaska Senate and North Carolina Senate.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Made a poll aggregator for North Carolina Senate.</div>
           </div>
         </div>
         <button onclick="closeWhatsNew()" style="width:100%;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:10px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Let's go →</button>
@@ -4437,7 +4577,7 @@ renderFundraising();
 
     <script>
       (function() {
-        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-03-22';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-04-08';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
@@ -4446,7 +4586,7 @@ renderFundraising();
       function closeWhatsNew() {
         var modal = document.getElementById('whats-new-modal');
         if (modal) modal.style.display = 'none';
-        try { localStorage.setItem('whats-new-seen-2026-03-22', '1'); } catch(e) {}
+        try { localStorage.setItem('whats-new-seen-2026-04-08', '1'); } catch(e) {}
       }
     </script>
 
