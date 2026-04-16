@@ -1560,7 +1560,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>April 8, 2026</span>
+      <span>April 16, 2026</span>
     </div>
   </div>
 </header>
@@ -2783,14 +2783,14 @@ const primaries = [
     state: "MI", chamber: "Senate", date: "2026-08-04",
     lean: "tossup", // Michigan is a battleground
     status: "upcoming", winner: null,
-    pollSource: "Global Strategy Group · Mar 19–22, 2026",
+    pollSource: "Emerson College · Apr 11–13, 2026 (519 LV)",
     candidates: [
-      { name: "Abdul El-Sayed",   wing: "progressive",   poll: 25,
+      { name: "Abdul El-Sayed",   wing: "progressive",   poll: 24,
         endorsements: ["Bernie Sanders", "Justice Democrats", "Rashida Tlaib"] },
-      { name: "Mallory McMorrow", wing: "moderate",       poll: 30,
-        endorsements: [] },
-      { name: "Haley Stevens",    wing: "establishment",  poll: 23,
-        endorsements: ["New Democrat Coalition", "DSCC"] },
+      { name: "Mallory McMorrow", wing: "moderate",       poll: 24,
+        endorsements: ["Elizabeth Warren", "J Street", "Chris Murphy"] },
+      { name: "Haley Stevens",    wing: "establishment",  poll: 13,
+        endorsements: ["New Democrat Coalition", "DSCC", "Democratic Majority for Israel"] },
     ]
   },
 
@@ -3031,6 +3031,24 @@ const primaries = [
         endorsements: ["Bernie Sanders", "Zohran Mamdani", "Elizabeth Warren", "Working Families Party"] },
       { name: "Dan Goldman (inc.)",   wing: "establishment", poll: 33,
         endorsements: ["Democratic Majority for Israel", "Nancy Pelosi", "Hakeem Jeffries"] },
+    ]
+  },
+
+  {
+    id: "p-pa3",
+    name: "Pennsylvania 3rd — Dem Primary",
+    state: "PA", chamber: "House", date: "2026-05-19",
+    lean: "safe-d",
+    status: "upcoming", winner: null,
+    pollSource: "PPP for 314 Action Fund · Apr 1–2, 2026 (600 LV) — pro-Stanford poll",
+    conservativePoll: true,
+    candidates: [
+      { name: "Chris Rabb",      wing: "progressive",   poll: 23,
+        endorsements: ["Greg Casar", "Working Families Party", "Justice Democrats", "Philadelphia DSA"] },
+      { name: "Ala Stanford",    wing: "establishment", poll: 28,
+        endorsements: ["Dwight Evans (retiring)"] },
+      { name: "Sharif Street",   wing: "establishment", poll: 16,
+        endorsements: ["Philadelphia City Democratic Committee", "Ed Rendell", "Cherelle Parker"] },
     ]
   },
 
@@ -3644,6 +3662,8 @@ const trumpApprovalData = [
   { date: 'Mar 20-23, 2026',       approve: 41, disapprove: 59, source: 'Fox News/Beacon Research' },
   { date: 'Mar 20-23, 2026',       approve: 36, disapprove: 62, source: 'Reuters/Ipsos' },
   { date: 'Mar 26-30, 2026',       approve: 35, disapprove: 64, source: 'CNN/SSRS' },
+  { date: 'Mar 26-30, 2026',       approve: 39, disapprove: 61, source: 'YouGov' },
+  {date: 'April 9-13, 2026',       approve: 38, disapprove: 55, source: 'Quinnipac University' },
 ];
 
 let trumpChartBuilt = false;
@@ -4548,27 +4568,23 @@ renderFundraising();
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div style="font-family:'Playfair Display',serif;font-size:20px;color:#e8eaf0;">What's New</div>
         </div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">April 8, 2026</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">April 16, 2026</div>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added Pennsylvania 3rd to Progressive Challengers.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated Michigan Senate polling (Emerson, Apr 11–13).</div>
+          </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
             <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated Trump Approval.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added Wisconsin Governor race to Progressive Challengers.</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
             <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Updated many Progressive Challengers polling.</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added polling to Alaska Senate and North Carolina Senate.</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Made a poll aggregator for North Carolina Senate.</div>
           </div>
         </div>
         <button onclick="closeWhatsNew()" style="width:100%;background:rgba(240,180,41,0.1);border:1px solid #f0b429;color:#f0b429;padding:10px;border-radius:5px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;">Let's go →</button>
@@ -4577,7 +4593,7 @@ renderFundraising();
 
     <script>
       (function() {
-        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-04-08';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-04-16';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
@@ -4586,7 +4602,7 @@ renderFundraising();
       function closeWhatsNew() {
         var modal = document.getElementById('whats-new-modal');
         if (modal) modal.style.display = 'none';
-        try { localStorage.setItem('whats-new-seen-2026-04-08', '1'); } catch(e) {}
+        try { localStorage.setItem('whats-new-seen-2026-04-16', '1'); } catch(e) {}
       }
     </script>
 
