@@ -1560,7 +1560,7 @@
     </div>
     <div class="header-right">
       <div class="live-dot"></div>
-      <span>April 16, 2026</span>
+      <span>April 21, 2026</span>
     </div>
   </div>
 </header>
@@ -1601,7 +1601,7 @@
       <div class="countdown-number dem" id="days-to-primary">—</div>
       <div>
         <div class="countdown-label">Days Until</div>
-        <div class="countdown-event">Indiana Primary<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">May 5, 2026</span></div>
+        <div class="countdown-event">Nebraska Primary<br><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">May 12, 2026</span></div>
       </div>
     </div>
   </div>
@@ -1726,10 +1726,10 @@
         <div class="chamber-status status-active">View Tracker</div>
       </div>
       <div class="chamber-btn" onclick="gatedChamber('house')">
-        <div class="chamber-icon" id="house-icon">&#127959;</div>
+        <div class="chamber-icon" id="house-icon">&#127963;</div>
         <div class="chamber-title">House</div>
-        <div class="chamber-subtitle">Coming soon...</div>
-        <div class="chamber-status status-construction" id="house-status">&#127959; Under Construction</div>
+        <div class="chamber-subtitle">Democrats need a net gain of 4 seats</div>
+        <div class="chamber-status status-construction" id="house-status">&#127959; Password Required</div>
       </div>
 
     </div>
@@ -1885,7 +1885,40 @@
           <div class="bg-race-rating rating-tossup">Toss-up</div>
         </div>
         <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Susan Collins)</div>
-        <div class="bg-race-desc">Susan Collins may be the most vulnerable incumbent in the country. She is a Republican running for reelection in a state Kamala Harris won by 7 percentage points. Susan Collins has won upsets before, she won in 2020 while Joe Biden simultaneously won Maine by nine points. But as polarization continues to rise, she may have pulled off her final upset in 2020. She will face either current Governor Janet Mills or the insurgent first-time candidate Graham Platner this November.</div>
+        <div class="bg-race-desc">Susan Collins may be the most vulnerable incumbent in the country. She is a Republican running for reelection in a state Kamala Harris won by 7 percentage points. Susan Collins has won upsets before, she won in 2020 while Joe Biden simultaneously won Maine by nine points. But as polarization continues to rise, she may have pulled off her final upset in 2020. Governor Janet Mills, who had been the frontrunner in the Democratic primary, dropped out of the race, clearing the path for progressive challenger Graham Platner as the likely Democratic nominee.</div>
+
+        <!-- ME Poll Tracker -->
+        <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;">Polling — Platner vs. Collins</div>
+          <table style="width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:11px;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Date</th>
+                <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Pollster</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--dem);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Platner (D)</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--rep);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Collins (R)</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--muted);font-weight:400;text-transform:uppercase;font-size:9px;letter-spacing:.06em;">Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);background:var(--surface);">
+                <td style="padding:7px 10px;color:var(--text);">Mar 21-23, 2026</td>
+                <td style="padding:7px 10px;color:var(--muted);">Emerson College</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--dem);">48%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--rep);">41%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--dem);">Platner +7</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:7px 10px;color:var(--text);">Feb 12-16, 2026</td>
+                <td style="padding:7px 10px;color:var(--muted);">Univ. of New Hampshire</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--dem);">49%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--rep);">38%</td>
+                <td style="padding:7px 10px;text-align:right;color:var(--dem);">Platner +11</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:9px;color:#4b5563;text-align:right;">Updated manually.</div>
+        </div>
       </div>
       <!-- Michigan -->
       <div class="battleground-race">
@@ -1985,6 +2018,173 @@
     </div>
 
   </div>
+
+    <!-- House Sub-Panel (hidden by default) -->
+    <div id="house-panel" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <button onclick="showChamber('main')" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;transition:all 0.2s;">
+          &larr; Back to Chamber Selection
+        </button>
+      </div>
+
+      <!-- Blurb -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">House Control</div>
+        <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0;">Republicans hold the House by the thinnest of margins &mdash; just 220 seats. Democrats need a net gain of only 4 seats to flip control. Historically, the party out of power gains an average of 25+ seats in midterm elections. With Trump's approval underwater and Democrats overperforming in every special election this cycle, the House is the most likely chamber to flip in 2026.</p>
+      </div>
+
+      <!-- Current Balance -->
+      <div class="senate-balance">
+        <div class="balance-box" style="border-left:4px solid var(--rep);">
+          <div class="balance-party" style="color:var(--rep);">Republicans</div>
+          <div class="balance-seats" style="color:var(--rep);">220</div>
+          <div class="balance-label">Current Seats</div>
+        </div>
+        <div class="balance-box" style="border-left:4px solid var(--dem);">
+          <div class="balance-party" style="color:var(--dem);">Democrats</div>
+          <div class="balance-seats" style="color:var(--dem);">215</div>
+          <div class="balance-label">Current Seats</div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="senate-progress">
+        <div class="progress-label">Path to Majority</div>
+        <div style="position:relative;">
+          <div class="progress-marker">218 to Win</div>
+          <div class="progress-bar">
+            <div class="progress-segment" style="width:50.6%;background:var(--rep-soft);color:var(--rep);">R 220</div>
+            <div class="progress-segment" style="width:49.4%;background:var(--dem-soft);color:var(--dem);">D 215</div>
+            <div class="progress-line" style="left:50.1%;"></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--muted);text-align:center;">
+          Democrats need <strong style="color:var(--dem);">+4 net seats</strong> to win majority &bull; Republicans hold majority at <strong style="color:var(--rep);">218+</strong>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Key Battleground Districts — Hover for details</div>
+        <p style="font-size:13px;line-height:1.7;color:#c9cdd6;margin:0 0 16px;">Competitive districts are highlighted. All others are shown in grey.</p>
+        <div id="house-map-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+        <div style="position:relative;border-radius:4px;overflow:hidden;">
+          <div id="house-map-svg" style="width:100%;"></div>
+          <div id="house-tooltip" style="display:none;position:fixed;z-index:9999;background:#1c2028;border:1px solid var(--border);border-radius:6px;padding:14px 16px;pointer-events:none;min-width:210px;box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+            <div id="ht-district" style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text);margin-bottom:4px;"></div>
+            <div id="ht-incumbent" style="font-family:'DM Mono',monospace;font-size:11px;margin-bottom:8px;"></div>
+            <div id="ht-rating" style="font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:3px;display:inline-block;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Header -->
+      <div class="section-header" style="margin-top:32px;">
+        <span class="section-title">Key Battleground Races</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- CA-13 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">California 13th</div>
+          <div class="bg-race-rating rating-tossup">Toss-up</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (John Duarte)</div>
+        <div class="bg-race-desc">California's 13th is ground zero for the House majority. John Duarte flipped this Central Valley seat in 2022 by just 564 votes &mdash; the closest House race in the country that cycle. He won again in 2024, but the seat remains a top Democratic target. The district is majority-Hispanic, Biden-era Democratic, and Democrats have recruited strong candidates. In a strong Democratic environment, this seat flips.</div>
+      </div>
+
+      <!-- NY-17 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">New York 17th</div>
+          <div class="bg-race-rating rating-tossup">Toss-up</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Mike Lawler)</div>
+        <div class="bg-race-desc">Mike Lawler is a savvy politician in a district Biden won by 10 points. He's the type of candidate who usually survives wave elections through sheer skill and moderate positioning. But he's also running for governor in New York, which means he could vacate his seat mid-cycle &mdash; creating an even bigger opportunity. Former Rep. Mondaire Jones is the likely Democratic challenger and a formidable opponent.</div>
+      </div>
+
+      <!-- CO-8 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Colorado 8th</div>
+          <div class="bg-race-rating rating-lean-d">Lean Democrat</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Gabe Evans)</div>
+        <div class="bg-race-desc">Gabe Evans flipped this suburban Denver seat in 2024, narrowly defeating incumbent Yadira Caraveo by less than a point. It was a notable Republican pickup in a district that leans blue. Democrats are locked in on retaking it. The suburbs of Denver have been trending Democratic for years, and in a midterm environment that punishes the party in power, Evans will be fighting uphill.</div>
+      </div>
+
+      <!-- AZ-6 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Arizona 6th</div>
+          <div class="bg-race-rating rating-tossup">Toss-up</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Juan Ciscomani)</div>
+        <div class="bg-race-desc">Juan Ciscomani has now won this Tucson-area seat twice, but never comfortably. He won in 2022 by 5 points and again in 2024 by about 3 points. The district is competitive by design &mdash; it includes a large Hispanic population in a state that has been trending purple. Democrats will target this seat aggressively. Kirsten Engel, who lost to Ciscomani by 3 points in 2024, is expected to run again.</div>
+      </div>
+
+      <!-- PA-7 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Pennsylvania 7th</div>
+          <div class="bg-race-rating rating-lean-d">Lean Democrat</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Ryan Mackenzie)</div>
+        <div class="bg-race-desc">Ryan Mackenzie flipped this Lehigh Valley seat in 2024, defeating longtime incumbent Susan Wild by around 2 points. The district is quintessential swing territory &mdash; suburban, college-educated, and trending competitive. Wild has announced a rematch, and this race is expected to be among the most expensive House contests in 2026. A rematch in a blue wave environment strongly favors Wild.</div>
+      </div>
+
+      <!-- REP MAJORITY LINE -->
+      <div style="display:flex;align-items:center;gap:16px;margin:28px 0;">
+        <div style="flex:1;height:2px;background:linear-gradient(to right, transparent, var(--rep));"></div>
+        <div style="background:var(--rep-soft);border:2px solid var(--rep);border-radius:6px;padding:10px 20px;text-align:center;white-space:nowrap;">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rep);margin-bottom:3px;">&dArr; Republicans Hold Majority</div>
+          <div style="font-size:11px;color:#fca5a5;font-family:'DM Sans',sans-serif;">Republicans hold majority if they hold every seat below this line</div>
+        </div>
+        <div style="flex:1;height:2px;background:linear-gradient(to left, transparent, var(--rep));"></div>
+      </div>
+
+      <!-- NY-19 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">New York 19th</div>
+          <div class="bg-race-rating rating-lean-r">Lean Republican</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Marc Molinaro)</div>
+        <div class="bg-race-desc">Marc Molinaro is a skilled moderate Republican representing a sprawling district across the Hudson Valley and Catskills that Biden carried. He's survived two cycles of being a top Democratic target. Democrats came close in 2022 &mdash; Josh Riley lost by just 1 point &mdash; and Riley ran again in 2024, losing by about 4 points. If Democrats are going to flip the House, they'll need to find a path that includes NY-19.</div>
+      </div>
+
+      <!-- MI-7 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Michigan 7th</div>
+          <div class="bg-race-rating rating-lean-r">Lean Republican</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Tom Barrett)</div>
+        <div class="bg-race-desc">Tom Barrett flipped this Lansing-area seat in 2022, defeating Democrat Elissa Slotkin &mdash; who then moved on to win a Senate seat. This district has a history of close, competitive races. Democrats are working to recruit a strong challenger. In a favorable midterm environment, this is the type of seat that returns to the Democratic column.</div>
+      </div>
+
+      <!-- DEM MAJORITY LINE -->
+      <div style="display:flex;align-items:center;gap:16px;margin:28px 0;">
+        <div style="flex:1;height:2px;background:linear-gradient(to right, transparent, var(--dem));"></div>
+        <div style="background:var(--dem-soft);border:2px solid var(--dem);border-radius:6px;padding:10px 20px;text-align:center;white-space:nowrap;">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dem);margin-bottom:3px;">&uArr; Democrats Win Majority</div>
+          <div style="font-size:11px;color:#93c5fd;font-family:'DM Sans',sans-serif;">Dems win majority if they win every seat above this line</div>
+        </div>
+        <div style="flex:1;height:2px;background:linear-gradient(to left, transparent, var(--dem));"></div>
+      </div>
+
+      <!-- NE-2 -->
+      <div class="battleground-race">
+        <div class="bg-race-header">
+          <div class="bg-race-state">Nebraska 2nd</div>
+          <div class="bg-race-rating rating-lean-r">Lean Republican</div>
+        </div>
+        <div class="bg-race-meta">Currently held by <strong style="color:var(--rep);">Republicans</strong> (Don Bacon)</div>
+        <div class="bg-race-desc">Don Bacon's Omaha-area district is one of the quirkiest in American politics &mdash; it's one of only two congressional districts that can split its Electoral College vote from the rest of the state. Biden won NE-2 in 2020; Trump recaptured it in 2024. Bacon himself has won by razor-thin margins each cycle. Democrats came within 2 points in 2024 and will be back. If Democrats are making the House competitive, this seat is always on the board.</div>
+      </div>
+
+    </div>
 
   <!-- TAB 2: ELECTORAL SHIFTS -->
   <div class="tab-panel" id="tab-shifts">
@@ -2108,7 +2308,7 @@
     <div class="stats-bar" style="margin-bottom:24px;">
       <div class="stat-cell"><span class="stat-label">Top 10 Total</span><span class="stat-value accent" id="fundTotal">—</span></div>
       <div class="stat-cell"><span class="stat-label">Avg per Candidate</span><span class="stat-value" id="fundAvg">—</span></div>
-      <div class="stat-cell"><span class="stat-label">Next FEC Filing</span><span class="stat-value" style="color:var(--accent);">Apr 15, 2026</span></div>
+      <div class="stat-cell"><span class="stat-label">Next FEC Filing</span><span class="stat-value" style="color:var(--accent);">Jul 15, 2026</span></div>
     </div>
 
     <!-- Sub-tabs for filtering by chamber -->
@@ -2306,13 +2506,14 @@ const races = [
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%9326_Texas%27s_18th_congressional_district_special_election",
     candidates:[{name:"Christian Menefee",party:"D",poll:68,winner:true},{name:"Amanda Edwards",party:"D",poll:32}],
     winner:"Christian Menefee (D)", pollNote:"Actual runoff results: Menefee 68.4%, Edwards 31.6%" },
-  { id:2, name:"New Jersey 11th — House Special", state:"NJ", chamber:"House", date:"2026-04-16", type:"special", status:"upcoming", stage:"General",
+  { id:2, name:"New Jersey 11th — House Special", state:"NJ", chamber:"House", date:"2026-04-16", type:"special", status:"result",
     wiki:"https://en.wikipedia.org/wiki/2026_New_Jersey%27s_11th_congressional_district_special_election",
-    candidates:[{name:"Analilia Mejia",party:"D",poll:null},{name:"Joe Hathaway",party:"R",poll:null}],
-    pollNote:"D+9 district. General election April 16, 2026." },
-  { id:3, name:"Georgia 14th — House Special", state:"GA", chamber:"House", date:"2026-03-10", type:"special", status:"upcoming", stage:"General",
-    candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
-    pollNote:"R+19 district — heavily favors Republicans. All candidates appear on the same ballot on March 10th. If no candidate receives over 50%, the top two advance to a runoff on April 7th." },
+    candidates:[{name:"Analilia Mejia",party:"D",poll:60.2,winner:true},{name:"Joe Hathaway",party:"R",poll:39.4}],
+    winner:"Analilia Mejia (D)", pollNote:"Actual results: Mejia 60.2%, Hathaway 39.4%. D+9 district — Mejia overperformed by ~12 points. Seat previously held by Mikie Sherrill, who became NJ governor." },
+  { id:3, name:"Georgia 14th — House Special Runoff", state:"GA", chamber:"House", date:"2026-04-07", type:"special", status:"result",
+    wiki:"https://en.wikipedia.org/wiki/2026_Georgia%27s_14th_congressional_district_special_election",
+    candidates:[{name:"Clay Fuller",party:"R",poll:55.9,winner:true},{name:"Shawn Harris",party:"D",poll:44.1}],
+    winner:"Clay Fuller (R)", pollNote:"Actual runoff results: Fuller 55.9%, Harris 44.1%. R+37 district — Harris overperformed 2024 presidential results by 25 points, the largest Dem overperformance in a House special since Trump took office." },
   { id:4, name:"California 1st — House Special", state:"CA", chamber:"House", date:"2026-06-02", type:"special", status:"upcoming", stage:"Primary",
     candidates:[{name:"TBD — Republican",party:"R",poll:null},{name:"TBD — Democrat",party:"D",poll:null}],
     pollNote:"R+12 district. Primary June 2nd, General August 4th." },
@@ -2324,6 +2525,8 @@ const races = [
    prev / result: positive = D margin, negative = R margin
 ═══════════════════════════════════════════════ */
 const shifts = [
+  { cat:"Special Elections — House of Representatives", name:"New Jersey 11", prev:+9,  result:+20.8, shift:+11.8, wiki:"https://en.wikipedia.org/wiki/2026_New_Jersey%27s_11th_congressional_district_special_election" },
+  { cat:"Special Elections — House of Representatives", name:"Georgia 14",   prev:-37, result:-11.8, shift:+25.2, wiki:"https://en.wikipedia.org/wiki/2026_Georgia%27s_14th_congressional_district_special_election" },
   { cat:"Special Elections — House of Representatives", name:"Florida 1",    prev:-32, result:-14, shift:+18, wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_1st_congressional_district_special_election" },
   { cat:"Special Elections — House of Representatives", name:"Florida 6",    prev:-33, result:-14, shift:+19, wiki:"https://en.wikipedia.org/wiki/2025_Florida%27s_6th_congressional_district_special_election" },
   { cat:"Special Elections — House of Representatives", name:"Virginia 11",  prev:+34, result:+51, shift:+17, wiki:"https://en.wikipedia.org/wiki/2025_Virginia%27s_11th_congressional_district_special_election" },
@@ -2626,7 +2829,7 @@ let chartBuilt = false;
     var el1 = document.getElementById('days-to-midterms');
     if (el1) el1.textContent = daysToMidterms;
 
-    var nextPrimary = new Date(2026, 4, 5); // Indiana May 5, 2026
+    var nextPrimary = new Date(2026, 4, 12); // Nebraska May 12, 2026
     var daysToPrimary = Math.round((nextPrimary - today) / (1000 * 60 * 60 * 24));
     var el2 = document.getElementById('days-to-primary');
     if (el2) el2.textContent = Math.max(0, daysToPrimary);
@@ -2814,13 +3017,11 @@ const primaries = [
     name: "Maine Senate — Dem Primary",
     state: "ME", chamber: "Senate", date: "2026-06-09",
     lean: "tossup",
-    status: "upcoming", winner: null,
-    pollSource: "Emerson College · Mar 21–23, 2026",
+    status: "result", winner: "progressive",
+    pollSource: "Janet Mills dropped out — Platner is presumptive nominee",
     candidates: [
-      { name: "Graham Platner",  wing: "progressive",   poll: 55,
+      { name: "Graham Platner",  wing: "progressive",   poll: null, winner: true,
         endorsements: ["Bernie Sanders", "Elizabeth Warren", "Progressive Change Campaign Committee", "Ro Khanna"] },
-      { name: "Janet Mills",     wing: "establishment", poll: 28,
-        endorsements: ["Chuck Schumer", "DSCC", "Emily's List", "Kirsten Gillibrand"] },
     ]
   },
 
@@ -3250,32 +3451,27 @@ const redistStates = [
     trigger:"Voluntary — Trump-backed gerrymander (failed)",
     desc:"Indiana failed to redistrict to add more Republican seats, as the state senate rejected the proposal. One Republican, Michael Bohacek, who has a child with Down syndrome, voted against redistricting after Trump called Tim Walz 'seriously retarded.'" },
 
-  { abbr:"VA", state:"Virginia", party:"exploring", seatsChanged:"Pending (+4 D)", status:"exploring",
+  { abbr:"VA", state:"Virginia", party:"dead", seatsChanged:"0 (failed)", status:"dead",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
     trigger:"Voluntary — Dem response to Republican redistricting wave",
-    desc:"Virginia voters will vote in April 2026 on whether to allow the legislature to add four Democratic seats for the remainder of the decade." },
+    desc:"The Virginia Supreme Court struck down the state’s new congressional map, which would have added four Democratic seats. The map had been passed by the Democratic-controlled legislature as a response to the Republican redistricting wave. Virginia’s current map remains in effect for the 2026 cycle." },
 
-  { abbr:"FL", state:"Florida", party:"exploring", seatsChanged:"Pending (+3 to +5 R)", status:"exploring",
+  { abbr:"FL", state:"Florida", party:"R", seatsChanged:"+4 R", status:"enacted",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
-    trigger:"Voluntary — Trump-backed gerrymander (under consideration)",
-    desc:"The Florida legislature will convene in April to consider redrawing maps to add more Republican seats." },
+    trigger:"Voluntary — Trump-backed gerrymander",
+    desc:"The Florida legislature passed a new map adding four Republican seats, a significant boost to the GOP’s House majority. The redistricting was backed by Trump and pushed through the Republican-controlled legislature." },
 
-  { abbr:"MD", state:"Maryland", party:"exploring", seatsChanged:"Pending (+1 D)", status:"exploring",
-    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
-    trigger:"Voluntary — Dem response to Republican redistricting wave",
-    desc:"The Maryland legislature is considering redistricting to eliminate the only safe Republican seat. However, State Senate President Bill Ferguson is blocking the effort, citing concerns it could backfire in state courts. Hakeem Jeffries has personally warned Ferguson that his resistance could cost Democrats the House majority." },
-
-  { abbr:"NY", state:"New York", party:"exploring", seatsChanged:"Pending (+1 to +4 D)", status:"exploring",
+  { abbr:"MD", state:"Maryland", party:"dead", seatsChanged:"0 (failed)", status:"dead",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
     trigger:"Voluntary — Dem response to Republican redistricting wave",
-    desc:"In New York, Governor Kathy Hochul has pledged to get involved with redistricting. In addition, a judge has ruled that a Republican district in New York dilutes the voting power of minorities, which is illegal under the Voting Rights Act of 1965. Democrats will pick up at least one seat, and potentially gerrymander for much more." },
+    desc:"Maryland will not redistrict before the 2026 elections. State Senate President Bill Ferguson blocked the effort, citing concerns it could backfire in state courts. Hakeem Jeffries had personally warned Ferguson that his resistance could cost Democrats the House majority. Maryland’s current map remains in effect for 2026." },
+
+  { abbr:"NY", state:"New York", party:"dead", seatsChanged:"0 (failed)", status:"dead",
+    wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
+    trigger:"Voluntary — Dem response to Republican redistricting wave",
+    desc:"New York will not redistrict before the 2026 elections. Despite earlier pledges from Governor Kathy Hochul and a court ruling that a Republican district violated the Voting Rights Act, the state will not redraw its maps in time for 2026. New York’s current map remains in effect for this cycle." },
 
   // ── 2028 POTENTIAL ──────────────────────
-  { abbr:"WI", state:"Wisconsin", party:"potential", seatsChanged:"TBD (+2 D)", status:"potential",
-    wiki:"https://en.wikipedia.org/wiki/Wisconsin_congressional_districts",
-    trigger:"Special legislative session — Fair maps initiative",
-    desc:"Wisconsin is a 50/50 swing state. However, Republicans gerrymandered the congressional map to always have 6 Republican seats and 2 Democrat seats. The governor of Wisconsin recently called for a special legislative session to obtain \"fair maps\". We can assume if a fair 50/50 map would pass, it would lead to a Democrat pickup of two seats." },
-
   { abbr:"PA", state:"Pennsylvania", party:"potential", seatsChanged:"TBD", status:"potential",
     wiki:"https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting",
     trigger:"2028 — Jeffries targeting for next cycle",
@@ -3302,7 +3498,7 @@ const redistFIPS = {
   UT:'49',                               // court-ordered
   IN:'18',                               // dead
   VA:'51', FL:'12', MD:'24', NY:'36',   // exploring (2026)
-  WI:'55', PA:'42', CO:'08', WA:'53'    // potential (2028)
+  PA:'42', CO:'08', WA:'53'             // potential (2028)
 };
 const fipsToAbbr = Object.fromEntries(Object.entries(redistFIPS).map(([a,f])=>[f,a]));
 
@@ -3320,8 +3516,8 @@ const stateColorMap = {
   CA:'D-enacted',
   UT:'court',
   IN:'dead',
-  VA:'exploring', FL:'exploring', MD:'exploring', NY:'exploring',
-  WI:'potential', PA:'potential', CO:'potential', WA:'potential'
+  VA:'dead', FL:'R-enacted', MD:'dead', NY:'dead',
+  PA:'potential', CO:'potential', WA:'potential'
 };
 function getStateColor(abbr){return redistColors[stateColorMap[abbr]||'none'];}
 
@@ -3418,10 +3614,7 @@ function drawRedistMap(container, us) {
   // Helper function to determine fill
   function getStateFill(abbr) {
     if (!abbr) return redistColors['none'];
-    // States with stripes (exploring states only)
-    if (abbr === 'FL') return 'url(#redStripes)';
-    if (abbr === 'NY' || abbr === 'MD' || abbr === 'VA') return 'url(#blueStripes)';
-    // All other states use solid colors (including UT which is enacted court-ordered)
+    // All states use solid colors
     return getStateColor(abbr);
   }
 
@@ -3663,7 +3856,19 @@ const trumpApprovalData = [
   { date: 'Mar 20-23, 2026',       approve: 36, disapprove: 62, source: 'Reuters/Ipsos' },
   { date: 'Mar 26-30, 2026',       approve: 35, disapprove: 64, source: 'CNN/SSRS' },
   { date: 'Mar 26-30, 2026',       approve: 39, disapprove: 61, source: 'YouGov' },
-  {date: 'April 9-13, 2026',       approve: 38, disapprove: 55, source: 'Quinnipac University' },
+  { date: 'Apr 9-13, 2026',         approve: 38, disapprove: 55, source: 'Quinnipiac University' },
+  { date: 'Apr 8-16, 2026',          approve: 39, disapprove: 60, source: 'Marquette Law School' },
+  { date: 'Apr 15-19, 2026',         approve: 40, disapprove: 58, source: 'CNBC/Hart Research/Public Opinion Strategies' },
+  { date: 'Apr 15-20, 2026',         approve: 36, disapprove: 62, source: 'Reuters/Ipsos' },
+  { date: 'Apr 16-20, 2026',         approve: 33, disapprove: 67, source: 'AP-NORC' },
+  { date: 'Apr 16-20, 2026',         approve: 32, disapprove: 63, source: 'American Research Group' },
+  { date: 'Apr 17-20, 2026',         approve: 42, disapprove: 58, source: 'Fox News/Beacon Research/Shaw & Company' },
+  { date: 'Apr 20-26, 2026',         approve: 34, disapprove: 64, source: 'Pew Research Center' },
+  { date: 'Apr 21-27, 2026',         approve: 40, disapprove: 60, source: 'CoinDesk/Public Opinion Strategies' },
+  { date: 'Apr 24-26, 2026',         approve: 40, disapprove: 56, source: 'Emerson College' },
+  { date: 'Apr 24-27, 2026',         approve: 34, disapprove: 64, source: 'Reuters/Ipsos' },
+  { date: 'Apr 24-28, 2026',         approve: 37, disapprove: 62, source: 'ABC News/Washington Post/Ipsos' },
+  { date: 'Apr 27-30, 2026',         approve: 37, disapprove: 59, source: 'NPR/PBS News/Marist University' },
 ];
 
 let trumpChartBuilt = false;
@@ -3946,29 +4151,31 @@ function renderNCSenateChart() {
 ═══════════════════════════════════════════════ */
 const fundraisers = [
   // ═══ HOUSE - 2025-26 cycle receipts (verified FEC data) ═══
-  { name: "Alexandria Ocasio-Cortez", state: "NY", chamber: "House", party: "D", raised: 23658044, incumbent: true, verified: true },
-  { name: "Mike Johnson", state: "LA", chamber: "House", party: "R", raised: 14500289, incumbent: true, verified: true },
-  { name: "Hakeem Jeffries", state: "NY", chamber: "House", party: "D", raised: 10327240, incumbent: true, verified: true },
-  { name: "Ro Khanna", state: "CA", chamber: "House", party: "D", raised: 9579627, incumbent: true, verified: true },
-  { name: "Steve Scalise", state: "LA", chamber: "House", party: "R", raised: 7843280, incumbent: true, verified: true },
-  { name: "Anthony Constantino", state: "PA", chamber: "House", party: "R", raised: 7605073, incumbent: false, verified: true },
-  { name: "Eugene Vindman", state: "VA", chamber: "House", party: "D", raised: 7044268, incumbent: true, verified: true },
-  { name: "Tom Emmer", state: "MN", chamber: "House", party: "R", raised: 6763926, incumbent: true, verified: true },
-  { name: "Eileen Laubacher", state: "PA", chamber: "House", party: "D", raised: 6448749, incumbent: false, verified: true },
-  { name: "Young Kim", state: "CA", chamber: "House", party: "R", raised: 6339770, incumbent: true, verified: true },
+  { name: "Alexandria Ocasio-Cortez", state: "NY", chamber: "House", party: "D", raised: 27733215, incumbent: true, verified: true },
+  { name: "Mike Johnson", state: "LA", chamber: "House", party: "R", raised: 17548950, incumbent: true, verified: true },
+  { name: "Hakeem Jeffries", state: "NY", chamber: "House", party: "D", raised: 12393432, incumbent: true, verified: true },
+  { name: "Peter Chatzky", state: "NY", chamber: "House", party: "D", raised: 11640656, incumbent: false, verified: true },
+  { name: "Ro Khanna", state: "CA", chamber: "House", party: "D", raised: 11408066, incumbent: true, verified: true },
+  { name: "David Trone", state: "MD", chamber: "House", party: "D", raised: 11041368, incumbent: false, verified: true },
+  { name: "Eugene Vindman", state: "VA", chamber: "House", party: "D", raised: 9673622, incumbent: true, verified: true },
+  { name: "Steve Scalise", state: "LA", chamber: "House", party: "R", raised: 9320529, incumbent: true, verified: true },
+  { name: "Eileen Laubacher", state: "CO", chamber: "House", party: "D", raised: 8577847, incumbent: false, verified: true },
+  { name: "Tom Emmer", state: "MN", chamber: "House", party: "R", raised: 8309786, incumbent: true, verified: true },
   
   // ═══ SENATE - 2021-26 cycle receipts (verified FEC data) ═══
-  { name: "Jon Ossoff", state: "GA", chamber: "Senate", party: "D", raised: 63937894, incumbent: true, verified: true },
-  { name: "Cory Booker", state: "NJ", chamber: "Senate", party: "D", raised: 30106071, incumbent: true, verified: true },
-  { name: "Raja Krishnamoorthi", state: "IL", chamber: "Senate", party: "D", raised: 28480747, incumbent: false, verified: true },
-  { name: "Lindsey Graham", state: "SC", chamber: "Senate", party: "R", raised: 19638469, incumbent: true, verified: true },
-  { name: "Mark Warner", state: "VA", chamber: "Senate", party: "D", raised: 19412858, incumbent: true, verified: true },
-  { name: "Roy Cooper", state: "NC", chamber: "Senate", party: "D", raised: 17979856, incumbent: false, verified: true },
-  { name: "Sherrod Brown", state: "OH", chamber: "Senate", party: "D", raised: 14356450, incumbent: true, verified: true },
-  { name: "Bill Hagerty", state: "TN", chamber: "Senate", party: "R", raised: 13807466, incumbent: true, verified: true },
-  { name: "James Talarico", state: "TX", chamber: "Senate", party: "D", raised: 13152582, incumbent: false, verified: true },
-  { name: "Bill Cassidy", state: "LA", chamber: "Senate", party: "R", raised: 11729417, incumbent: true, verified: true },
+  { name: "Jon Ossoff", state: "GA", chamber: "Senate", party: "D", raised: 77977161, incumbent: true, verified: true },
+  { name: "James Talarico", state: "TX", chamber: "Senate", party: "D", raised: 40284109, incumbent: false, verified: true },
+  { name: "Cory Booker", state: "NJ", chamber: "Senate", party: "D", raised: 31443196, incumbent: true, verified: true },
+  { name: "Raja Krishnamoorthi", state: "IL", chamber: "Senate", party: "D", raised: 31390859, incumbent: false, verified: true },
+  { name: "Roy Cooper", state: "NC", chamber: "Senate", party: "D", raised: 26822373, incumbent: false, verified: true },
+  { name: "Sherrod Brown", state: "OH", chamber: "Senate", party: "D", raised: 25979968, incumbent: true, verified: true },
+  { name: "Mark Warner", state: "VA", chamber: "Senate", party: "D", raised: 21990910, incumbent: true, verified: true },
+  { name: "Lindsey Graham", state: "SC", chamber: "Senate", party: "R", raised: 20688173, incumbent: true, verified: true },
+  { name: "Bill Hagerty", state: "TN", chamber: "Senate", party: "R", raised: 14685232, incumbent: true, verified: true },
+  { name: "Bill Cassidy", state: "LA", chamber: "Senate", party: "R", raised: 13325792, incumbent: true, verified: true },
 ];
+// Separate Senate-only list sorted for bar-width reference
+const senateFundraisers = fundraisers.filter(f => f.chamber === 'Senate').sort((a,b) => b.raised - a.raised);
 
 function formatMoney(amt) {
   if (amt >= 1000000) return `$${(amt / 1000000).toFixed(1)}M`;
@@ -3976,7 +4183,7 @@ function formatMoney(amt) {
   return `$${amt}`;
 }
 
-function buildFundraisingCard(f, rank) {
+function buildFundraisingCard(f, rank, maxRaised) {
   const partyColor = f.party === 'D' ? 'var(--dem)' : 'var(--rep)';
   const partyBg = f.party === 'D' ? 'var(--dem-soft)' : 'var(--rep-soft)';
   const incBadge = f.incumbent ? '<span style="font-family:\'DM Mono\',monospace;font-size:9px;padding:2px 6px;border-radius:3px;background:var(--surface2);color:var(--muted);margin-left:8px;">INC</span>' : '';
@@ -3994,7 +4201,7 @@ function buildFundraisingCard(f, rank) {
       </div>
       <div class="fundraising-amount" style="color:${partyColor};">${formatMoney(f.raised)}</div>
       <div class="fundraising-bar-wrap">
-        <div class="fundraising-bar" style="background:${partyColor};width:${(f.raised / fundraisers[0].raised * 100).toFixed(1)}%"></div>
+        <div class="fundraising-bar" style="background:${partyColor};width:${(f.raised / maxRaised * 100).toFixed(1)}%"></div>
       </div>
     </div>
   `;
@@ -4024,13 +4231,15 @@ function renderFundraising(filter = 'all') {
     'House': 'Top 10 House Fundraisers (2025-26 Cycle)'
   };
   
+  const maxRaised = top10[0].raised;
+
   const html = `
     <div class="section-header">
       <span class="section-title">${titleMap[filter]}</span>
       <div class="section-line"></div>
     </div>
     <div class="fundraising-grid">
-      ${top10.map((f, i) => buildFundraisingCard(f, i + 1)).join('')}
+      ${top10.map((f, i) => buildFundraisingCard(f, i + 1, maxRaised)).join('')}
     </div>
   `;
   
@@ -4150,32 +4359,27 @@ renderFundraising();
     const mainView = document.querySelector('#tab-congress-control > .chamber-selector');
     const mainBlurb = document.getElementById('congress-blurb');
     const senatePanel = document.getElementById('senate-panel');
+    const housePanel  = document.getElementById('house-panel');
 
-
-    if (senatePanel)    senatePanel.style.display    = 'none';
-
-    if (mainView)       mainView.style.display       = 'none';
-    if (mainBlurb)      mainBlurb.style.display      = 'none';
+    if (senatePanel) senatePanel.style.display = 'none';
+    if (housePanel)  housePanel.style.display  = 'none';
+    if (mainView)    mainView.style.display    = 'none';
+    if (mainBlurb)   mainBlurb.style.display   = 'none';
 
     if (chamber === 'senate') {
       if (senatePanel) senatePanel.style.display = 'block';
       renderSenateMap();
       renderSenateSnake();
+    } else if (chamber === 'house') {
+      if (housePanel) housePanel.style.display = 'block';
+      renderHouseMap();
     } else {
       if (mainView)  mainView.style.display  = 'grid';
       if (mainBlurb) mainBlurb.style.display = 'block';
-      if (_pwUnlocked) {
-        ['house-status','senate-status'].forEach(function(id) {
-          var el = document.getElementById(id);
-          if (el) el.textContent = '\uD83D\uDD75\uFE0F Special Access Granted';
-        });
-        ['house-icon','senate-icon'].forEach(function(id) {
-          var el = document.getElementById(id);
-          if (el) el.textContent = '\uD83D\uDD75\uFE0F';
-        });
-      }
     }
   }
+
+
 
   var senateRaces2026 = [
     // Tossups
@@ -4559,6 +4763,196 @@ renderFundraising();
     });
   }
 
+
+  // ── HOUSE MAP ─────────────────────────────────────────────────────────
+  var houseDistricts = [
+    // district id = state FIPS (2 digits) + district number (2 digits, zero-padded)
+    // e.g. CA-13 = "0613", NY-17 = "3617", AZ-06 = "0406"
+    { id: "0613", label: "CA-13", incumbent: "John Duarte (R)",      rating: "tossup"   },
+    { id: "3617", label: "NY-17", incumbent: "Mike Lawler (R)",       rating: "tossup"   },
+    { id: "0406", label: "AZ-06", incumbent: "Juan Ciscomani (R)",    rating: "tossup"   },
+    { id: "5107", label: "VA-07", incumbent: "Suhas Subramanyam (D)", rating: "tossup"   },
+    { id: "4208", label: "PA-08", incumbent: "Matt Cartwright (D)",   rating: "tossup"   },
+    { id: "0808", label: "CO-08", incumbent: "Gabe Evans (R)",        rating: "lean-d"   },
+    { id: "4207", label: "PA-07", incumbent: "Ryan Mackenzie (R)",    rating: "lean-d"   },
+    { id: "0647", label: "CA-47", incumbent: "Dave Min (D)",          rating: "lean-d"   },
+    { id: "3604", label: "NY-04", incumbent: "Anthony D'Esposito (R)",rating: "lean-d"   },
+    { id: "3619", label: "NY-19", incumbent: "Marc Molinaro (R)",     rating: "lean-r"   },
+    { id: "2607", label: "MI-07", incumbent: "Tom Barrett (R)",       rating: "lean-r"   },
+    { id: "3102", label: "NE-02", incumbent: "Don Bacon (R)",         rating: "lean-r"   },
+    { id: "5503", label: "WI-03", incumbent: "Derrick Van Orden (R)", rating: "lean-r"   },
+    { id: "0401", label: "AZ-01", incumbent: "David Schweikert (R)",  rating: "likely-d" },
+    { id: "0645", label: "CA-45", incumbent: "Michelle Steel (R)",    rating: "likely-d" },
+    { id: "4815", label: "TX-15", incumbent: "Monica De La Cruz (R)", rating: "likely-r" },
+    { id: "1213", label: "FL-13", incumbent: "Anna Paulina Luna (R)", rating: "likely-r" },
+  ];
+
+  function renderHouseMap() {
+    var container = document.getElementById("house-map-svg");
+    if (!container || container.dataset.built) return;
+    container.dataset.built = "1";
+
+    var cfg = {
+      "tossup":   { label: "Toss-up",    fill: "#c9a227", stroke: "#f0d060", text: "#111" },
+      "lean-d":   { label: "Lean Dem",   fill: "#85a5d9", stroke: "#adc4f0", text: "#111" },
+      "lean-r":   { label: "Lean Rep",   fill: "#e8808a", stroke: "#f5a8b0", text: "#111" },
+      "likely-d": { label: "Likely Dem", fill: "#6080c8", stroke: "#85a5d9", text: "#fff" },
+      "likely-r": { label: "Likely Rep", fill: "#d95060", stroke: "#e8808a", text: "#fff" },
+    };
+
+    // Legend
+    var legendEl = document.getElementById("house-map-legend");
+    if (legendEl) {
+      var lh = "";
+      ["likely-d","lean-d","tossup","lean-r","likely-r"].forEach(function(k) {
+        var c = cfg[k];
+        lh += "<div style='display:flex;align-items:center;gap:6px;'>"
+            + "<div style='width:14px;height:14px;border-radius:3px;background:" + c.fill + ";border:1px solid " + c.stroke + ";'></div>"
+            + "<span style='font-family:DM Mono,monospace;font-size:10px;color:var(--muted);'>" + c.label + "</span>"
+            + "</div>";
+      });
+      legendEl.innerHTML = lh;
+    }
+
+    // Projected Albers USA pixel coords (975x610 viewport), with small offsets for clusters
+    var markers = [
+      { label:"CA-13", x:64,  y:283, rating:"tossup",   incumbent:"John Duarte",          party:"R" },
+      { label:"CA-47", x:80,  y:374, rating:"lean-d",   incumbent:"Dave Min",             party:"D" },
+      { label:"CA-45", x:106, y:374, rating:"likely-d", incumbent:"Michelle Steel",       party:"R" },
+      { label:"AZ-01", x:194, y:381, rating:"likely-d", incumbent:"David Schweikert",     party:"R" },
+      { label:"AZ-06", x:220, y:438, rating:"tossup",   incumbent:"Juan Ciscomani",       party:"R" },
+      { label:"CO-08", x:347, y:259, rating:"lean-d",   incumbent:"Gabe Evans",           party:"R" },
+      { label:"NE-02", x:498, y:247, rating:"lean-r",   incumbent:"Don Bacon",            party:"R" },
+      { label:"TX-15", x:453, y:582, rating:"likely-r", incumbent:"Monica De La Cruz",    party:"R" },
+      { label:"WI-03", x:575, y:171, rating:"lean-r",   incumbent:"Derrick Van Orden",    party:"R" },
+      { label:"MI-07", x:687, y:202, rating:"lean-r",   incumbent:"Tom Barrett",          party:"R" },
+      { label:"FL-13", x:765, y:533, rating:"likely-r", incumbent:"Anna Paulina Luna",    party:"R" },
+      { label:"PA-07", x:860, y:229, rating:"lean-d",   incumbent:"Ryan Mackenzie",       party:"R" },
+      { label:"PA-08", x:826, y:207, rating:"tossup",   incumbent:"Matt Cartwright",      party:"D" },
+      { label:"VA-07", x:821, y:277, rating:"tossup",   incumbent:"Suhas Subramanyam",    party:"D" },
+      { label:"NY-04", x:893, y:222, rating:"lean-d",   incumbent:"Anthony D'Esposito",   party:"R" },
+      { label:"NY-17", x:876, y:206, rating:"tossup",   incumbent:"Mike Lawler",          party:"R" },
+      { label:"NY-19", x:854, y:187, rating:"lean-r",   incumbent:"Marc Molinaro",        party:"R" },
+    ];
+
+    function loadScript(src, cb) {
+      if (document.querySelector('script[src="' + src + '"]')) { cb(); return; }
+      var s = document.createElement("script");
+      s.src = src; s.onload = cb;
+      document.head.appendChild(s);
+    }
+
+    container.innerHTML = "<div style='color:var(--muted);font-family:DM Mono,monospace;font-size:11px;padding:20px;'>Loading map...</div>";
+
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js", function() {
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js", function() {
+        fetch("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json")
+          .then(function(r) { return r.json(); })
+          .then(function(us) {
+            container.innerHTML = "";
+            var W = 975, H = 610;
+            var svg = d3.select(container).append("svg")
+              .attr("viewBox", "0 0 " + W + " " + H)
+              .style("width","100%").style("height","auto")
+              .style("display","block");
+
+            var pathGen = d3.geoPath();
+            var states = topojson.feature(us, us.objects.states);
+
+            // Draw all states in neutral dark
+            svg.selectAll("path.state")
+              .data(states.features)
+              .enter().append("path")
+              .attr("class","state")
+              .attr("d", pathGen)
+              .attr("fill", "#1c2028")
+              .attr("stroke", "#374151")
+              .attr("stroke-width", "0.6");
+
+            // State borders
+            svg.append("path")
+              .datum(topojson.mesh(us, us.objects.states, function(a,b){ return a !== b; }))
+              .attr("d", pathGen)
+              .attr("fill","none")
+              .attr("stroke","#0d0f12")
+              .attr("stroke-width","1");
+
+            var tooltip     = document.getElementById("house-tooltip");
+            var htDistrict  = document.getElementById("ht-district");
+            var htIncumbent = document.getElementById("ht-incumbent");
+            var htRating    = document.getElementById("ht-rating");
+
+            // Draw marker groups
+            var markerG = svg.append("g").attr("class","markers");
+
+            markers.forEach(function(m) {
+              var c = cfg[m.rating];
+              var g = markerG.append("g")
+                .attr("transform","translate(" + m.x + "," + m.y + ")")
+                .style("cursor","pointer");
+
+              // Pulse ring
+              g.append("circle")
+                .attr("r", 11)
+                .attr("fill", c.fill)
+                .attr("fill-opacity", 0.25)
+                .attr("stroke", c.stroke)
+                .attr("stroke-width", 1);
+
+              // Solid dot
+              g.append("circle")
+                .attr("r", 7)
+                .attr("fill", c.fill)
+                .attr("stroke", c.stroke)
+                .attr("stroke-width", 1.5);
+
+              // Label text inside dot
+              g.append("text")
+                .attr("text-anchor","middle")
+                .attr("dy","3px")
+                .attr("font-size","5px")
+                .attr("font-family","DM Mono,monospace")
+                .attr("font-weight","700")
+                .attr("fill", c.text)
+                .attr("pointer-events","none")
+                .text(m.label.split("-")[0]); // just state abbr
+
+              g.on("mouseover", function(event) {
+                d3.select(this).select("circle:nth-child(2)").attr("r", 9);
+                htDistrict.textContent = m.label;
+                htIncumbent.textContent = m.incumbent + " (" + m.party + ")";
+                htIncumbent.style.color = m.party === "D" ? "var(--dem)" : "var(--rep)";
+                htRating.textContent = c.label;
+                htRating.style.background = c.fill;
+                htRating.style.color = c.text === "#fff" ? "#fff" : "#111";
+                htRating.style.border = "1px solid " + c.stroke;
+                if (tooltip) {
+                  tooltip.style.display = "block";
+                  tooltip.style.left = (event.clientX + 14) + "px";
+                  tooltip.style.top  = (event.clientY - 10) + "px";
+                }
+              })
+              .on("mousemove", function(event) {
+                if (tooltip) {
+                  tooltip.style.left = (event.clientX + 14) + "px";
+                  tooltip.style.top  = (event.clientY - 10) + "px";
+                }
+              })
+              .on("mouseout", function() {
+                d3.select(this).select("circle:nth-child(2)").attr("r", 7);
+                if (tooltip) tooltip.style.display = "none";
+              });
+            });
+
+          }).catch(function(err) {
+            console.error("[HouseMap] Load error:", err);
+            container.dataset.built = "";
+            container.innerHTML = "<div style='color:var(--muted);font-family:DM Mono,monospace;font-size:11px;padding:20px;'>Map failed to load.</div>";
+          });
+      });
+    });
+  }
+
   </script>
 </div><!-- end section-panels -->
 
@@ -4570,6 +4964,10 @@ renderFundraising();
         </div>
         <div style="font-family:'DM Mono',monospace;font-size:10px;color:#f0b429;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">April 16, 2026</div>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Launched House of Representatives tracker.</div>
+          </div>
           <div style="display:flex;gap:12px;align-items:flex-start;">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
             <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#d1d5db;line-height:1.6;">Added Pennsylvania 3rd to Progressive Challengers.</div>
@@ -4593,7 +4991,7 @@ renderFundraising();
 
     <script>
       (function() {
-        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-04-16';
+        document.getElementById('home-page').style.display = 'block'; updateHomeStats(); document.getElementById('home-page').style.display = 'block'; updateHomeStats(); var key = 'whats-new-seen-2026-04-21';
         if (!localStorage.getItem(key)) {
           var modal = document.getElementById('whats-new-modal');
           if (modal) modal.style.display = 'flex';
@@ -4602,7 +5000,7 @@ renderFundraising();
       function closeWhatsNew() {
         var modal = document.getElementById('whats-new-modal');
         if (modal) modal.style.display = 'none';
-        try { localStorage.setItem('whats-new-seen-2026-04-16', '1'); } catch(e) {}
+        try { localStorage.setItem('whats-new-seen-2026-04-21', '1'); } catch(e) {}
       }
     </script>
 
